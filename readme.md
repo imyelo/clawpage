@@ -133,6 +133,10 @@ docs/      - Project documentation
 skills/    - OpenClaw Skill definitions
 ```
 
+## Additional Resources
+
+- See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for complete frontmatter fields and content format.
+
 ## License
 
 Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2026 - present

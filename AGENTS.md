@@ -108,3 +108,8 @@ content...
 ```
 
 Supported types and their UI colors: `thinking_level_change` (gray), `error` (red), `session` (green), `custom` (indigo). Color/style maps live in `packages/web/src/constants/index.ts`.
+
+## Additional Resources
+
+- See [docs/openclaw-session-log-format-search.md](/docs/openclaw-session-log-format-search.md) for detailed event schemas.
+- See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for complete frontmatter fields and content format.
