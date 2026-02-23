@@ -40,8 +40,8 @@ function parseFrontmatter(content: string): Record<string, string> {
  * Fetch all share chats from chats/
  */
 export function getAllChats(): ChatData[] {
-  // Go up from packages/web to monorepo root
-  const dataDir = path.join(process.cwd(), '..', '..', 'chats')
+  const workdir = process.env.CHATS_SHARE_WORKDIR ?? path.join(process.cwd(), '..', '..')
+  const dataDir = path.join(workdir, 'chats')
   if (!fs.existsSync(dataDir)) {
     return []
   }
