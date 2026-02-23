@@ -57,10 +57,13 @@ export const DEFAULT_CONSTRAINT: FormatConstraint = {
     { key: 'title', type: 'string', required: true, description: 'Session title' },
     { key: 'date', type: 'date', required: true, description: 'Session date' },
     { key: 'sessionId', type: 'string', required: true, description: 'Session ID' },
+    { key: 'channel', type: 'string', required: false, description: 'Channel/platform name' },
     { key: 'model', type: 'string', required: false, description: 'AI model used' },
     { key: 'totalMessages', type: 'number', required: false, description: 'Total message count' },
     { key: 'totalTokens', type: 'number', required: false, description: 'Total tokens used' },
     { key: 'tags', type: 'array', required: false, description: 'Tags/categories' },
+    { key: 'visibility', type: 'string', required: false, description: 'Visibility: public or private' },
+    { key: 'description', type: 'string', required: false, description: 'Brief description' },
   ],
   sections: [
     { id: 'summary', title: 'Summary', order: 1, contentKey: 'summary' },

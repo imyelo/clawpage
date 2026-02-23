@@ -4,13 +4,18 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { format } from 'date-fns'
 import matter from 'gray-matter'
 
 export interface ChatMetadata {
-  platform: string
-  topic: string
+  title: string
   date: string
-  messageCount: number
+  sessionId: string
+  channel: string
+  model: string
+  totalMessages: number
+  totalTokens: number
+  tags: string[]
   visibility: 'public' | 'private'
   description: string
 }
@@ -37,11 +42,15 @@ export function getAllChats(): ChatData[] {
 
     return {
       slug,
-      platform: data.platform || '',
-      topic: data.topic || '',
-      date: data.date ? String(data.date) : '',
-      messageCount: parseInt(data.message_count, 10) || 0,
-      visibility: (data.visibility as 'public' | 'private') || 'public',
+      title: data.title || '',
+      date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : '',
+      sessionId: data.sessionId || '',
+      channel: data.channel || '',
+      model: data.model || '',
+      totalMessages: parseInt(String(data.totalMessages), 10) || 0,
+      totalTokens: parseInt(String(data.totalTokens), 10) || 0,
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      visibility: (data.visibility as 'public' | 'private') || 'private',
       description: data.description || '',
     }
   })

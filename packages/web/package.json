@@ -21,6 +21,7 @@
   "dependencies": {
     "astro": "^5.0.0",
     "c12": "^3.0.0",
+    "date-fns": "^4.1.0",
     "defu": "^6.1.4",
     "gray-matter": "^4.0.3",
     "react": "^19.2.4",

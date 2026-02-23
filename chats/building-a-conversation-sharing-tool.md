@@ -1,14 +1,17 @@
 ---
-platform: Discord
-topic: Building a Conversation Sharing Tool
+title: Building a Conversation Sharing Tool
 date: 2026-02-19
-message_count: 10
+sessionId: sess_1029384756
+channel: discord
+model: MiniMax-M2.5
+totalMessages: 10
 visibility: public
+description: Building a conversation sharing tool for AI agent interactions
 ---
 
 # Building a Conversation Sharing Tool
 
-> Discord · 2026-02-19 · 10 messages
+> 2026-02-19
 
 ---
 

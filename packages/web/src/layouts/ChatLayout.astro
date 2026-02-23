@@ -1,12 +1,22 @@
 ---
+interface Props {
+  title: string
+  channel?: string
+  model?: string
+  date?: string
+  messageCount?: number
+}
+
+const { title, channel, model, date, messageCount } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={`${Astro.props.platform} Chats Share - ${Astro.props.title}`} />
-    <title>{Astro.props.title} | chats-share</title>
+    <meta name="description" content={`${model} Chats Share - ${title}`} />
+    <title>{title} | chats-share</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -162,21 +172,34 @@
 
     <div class="layout-container">
       <div class="layout-header-wrapper">
-        <header class="layout-header-title">{Astro.props.title}</header>
+        <header class="layout-header-title">{title}</header>
         <p class="layout-meta">
-          <span class="layout-meta-item">
-            <span class="meta-label">platform</span>
-            <span>{Astro.props.platform}</span>
-          </span>
-          <span class="layout-meta-separator">◆</span>
+          {channel && (
+            <>
+              <span class="layout-meta-item">
+                <span class="meta-label">channel</span>
+                <span>{channel}</span>
+              </span>
+              <span class="layout-meta-separator">◆</span>
+            </>
+          )}
+          {model && (
+            <>
+              <span class="layout-meta-item">
+                <span class="meta-label">model</span>
+                <span>{model}</span>
+              </span>
+              <span class="layout-meta-separator">◆</span>
+            </>
+          )}
           <span class="layout-meta-item">
             <span class="meta-label">date</span>
-            <span>{Astro.props.date}</span>
+            <span>{date}</span>
           </span>
           <span class="layout-meta-separator">◆</span>
           <span class="layout-meta-item">
             <span class="meta-label">msgs</span>
-            <span>{Astro.props.messageCount}</span>
+            <span>{messageCount}</span>
           </span>
         </p>
       </div>

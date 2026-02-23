@@ -9,6 +9,7 @@ This directory contains Openclaw session export files in Markdown format, genera
 | `title` | `FormatConstraint.name` | Yes | Session title / export name | `My Session` |
 | `date` | `session.timestamp` | Yes | Session date (YYYY-MM-DD) | `2026-02-15` |
 | `sessionId` | `session.id` | Yes | Unique session ID | `cf1f8dbe-2a12-47cf-8221-9fcbf0c47466` |
+| `channel` | Manual | No | Channel/platform name | `discord`, `telegram` |
 | `model` | First message's `model` field | No | Model used in session | `MiniMax-M2.5` |
 | `totalMessages` | Count of all messages | No | Total message count | `42` |
 | `totalTokens` | Sum of `usage.totalTokens` | No | Total tokens consumed | `12345` |

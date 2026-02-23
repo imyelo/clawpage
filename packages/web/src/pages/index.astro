@@ -206,13 +206,23 @@ const chats = getChatsSortedByDate(getPublicChats())
         <div class="chats-list">
           {chats.map(chat => (
             <a href={`/share/${chat.slug}`} class="chat-item">
-              <div class="chat-topic">{chat.topic}</div>
+              <div class="chat-topic">{chat.title}</div>
               <div class="chat-meta">
-                <span class="platform-badge">{chat.platform}</span>
-                <span class="meta-separator">◆</span>
+                {chat.channel && (
+                  <>
+                    <span class="platform-badge">{chat.channel}</span>
+                    <span class="meta-separator">◆</span>
+                  </>
+                )}
+                {chat.model && (
+                  <>
+                    <span class="chat-meta-item">{chat.model}</span>
+                    <span class="meta-separator">◆</span>
+                  </>
+                )}
                 <span class="chat-meta-item">{chat.date}</span>
                 <span class="meta-separator">◆</span>
-                <span class="chat-meta-item">{chat.messageCount} msgs</span>
+                <span class="chat-meta-item">{chat.totalMessages} msgs</span>
               </div>
             </a>
           ))}
