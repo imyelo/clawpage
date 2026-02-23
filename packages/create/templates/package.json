@@ -5,6 +5,7 @@
     "package.json",
     "astro.config.mjs",
     "uno.config.ts",
+    "chats-share.toml",
     ".github/workflows/deploy.yml",
     "chats/.gitkeep"
   ],

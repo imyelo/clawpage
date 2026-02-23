@@ -22,6 +22,7 @@ mkdirSync(join(targetDir, 'chats'), { recursive: true })
 cpSync(join(import.meta.dir, '../templates/package.json'), join(targetDir, 'package.json'))
 cpSync(join(import.meta.dir, '../templates/astro.config.mjs'), join(targetDir, 'astro.config.mjs'))
 cpSync(join(import.meta.dir, '../templates/uno.config.ts'), join(targetDir, 'uno.config.ts'))
+cpSync(join(import.meta.dir, '../templates/chats-share.toml'), join(targetDir, 'chats-share.toml'))
 cpSync(join(import.meta.dir, '../templates/chats/.gitkeep'), join(targetDir, 'chats/.gitkeep'))
 
 // Copy GitHub workflow

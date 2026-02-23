@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "astro": "^5.0.0",
+    "c12": "^3.0.0",
+    "defu": "^6.1.4",
     "react": "^19.2.4",
     "react-markdown": "^10.1.0",
     "unocss": "^66.6.0"

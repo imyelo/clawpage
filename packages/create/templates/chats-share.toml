@@ -1,0 +1,25 @@
+# chats-share.toml
+# Configuration for openclaw-chats-share-web.
+# Uncomment and edit the values below to customise the Astro build.
+#
+# For JS/TS-based config (e.g. to add Astro integrations), you can use
+# chats-share.ts instead of this file.
+
+# Full URL of your deployed site (used for canonical URLs, sitemaps, etc.)
+# site = "https://your-username.github.io"
+
+# Base path for your site.
+# Required for GitHub Pages project sites (e.g. "/your-repo-name").
+# base = "/"
+
+# Directory for static assets, relative to this file.
+# public_dir = "public"
+
+# Build output directory, relative to this file.
+# out_dir = "dist"
+
+# Advanced: pass any Astro config options directly.
+# These are merged with the built-in Astro configuration.
+# [astro]
+# trailingSlash = "always"
+# compressHTML = false

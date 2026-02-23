@@ -1,0 +1,3 @@
+site = "https://chats-share.yelo.ooo"
+public_dir = "public"
+out_dir = "dist"

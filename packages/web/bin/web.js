@@ -6,9 +6,7 @@ import { parseArgs } from 'node:util'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const packageDir = dirname(__dirname)
-const packagesDir = dirname(packageDir)
-const rootDir = dirname(packagesDir)
-const astroBin = join(rootDir, 'node_modules/.bin/astro')
+const astroBin = join(process.cwd(), 'node_modules/.bin/astro')
 
 const { positionals } = parseArgs({
   options: {},
@@ -34,6 +32,7 @@ const proc = spawn(commands[command][0], [commands[command][1]], {
   stdio: 'inherit',
   shell: true,
   cwd: packageDir,
+  env: { ...process.env, CHATS_SHARE_WORKDIR: process.cwd() },
 })
 
 proc.on('exit', code => process.exit(code || 0))
