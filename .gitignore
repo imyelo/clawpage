@@ -20,6 +20,7 @@ node_modules
 /lib
 /dist
 /.astro
+packages/cli/dist
 packages/web/dist
 packages/web/.astro
 

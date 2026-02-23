@@ -5,8 +5,8 @@
 
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
-import type { ContentSection, FormatConstraint } from '../format-constraint/index'
-import type { ParsedMessage, ParsedSession } from '../session-log-parser/index'
+import type { ContentSection, FormatConstraint } from '../format-constraint/index.js'
+import type { ParsedMessage, ParsedSession } from '../session-log-parser/index.js'
 
 export interface GeneratorOptions {
   includeFrontMatter?: boolean

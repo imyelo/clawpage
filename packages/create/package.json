@@ -4,5 +4,12 @@
   "type": "module",
   "bin": {
     "create-openclaw-chats-share": "./bin/create.js"
+  },
+  "files": [
+    "bin",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=18"
   }
 }

@@ -1,9 +1,9 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { readFileSync, writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
-import { DEFAULT_CONSTRAINT } from '../src/format-constraint/index.js'
-import { MDGenerator } from '../src/md-generator/index.js'
-import { LogParser } from '../src/session-log-parser/index.js'
+import { DEFAULT_CONSTRAINT } from '../dist/format-constraint/index.js'
+import { MDGenerator } from '../dist/md-generator/index.js'
+import { LogParser } from '../dist/session-log-parser/index.js'
 
 const { values, positionals } = parseArgs({
   options: {

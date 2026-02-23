@@ -1,6 +1,7 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { cpSync, mkdirSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 
 const { positionals } = parseArgs({
@@ -19,7 +20,7 @@ mkdirSync(targetDir, { recursive: true })
 mkdirSync(join(targetDir, 'chats'), { recursive: true })
 mkdirSync(join(targetDir, '.vscode'), { recursive: true })
 
-const tpl = (...parts) => join(import.meta.dir, '../templates', ...parts)
+const tpl = (...parts) => join(dirname(fileURLToPath(import.meta.url)), '../templates', ...parts)
 const out = (...parts) => join(targetDir, ...parts)
 
 // Core config

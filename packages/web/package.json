@@ -5,6 +5,15 @@
   "bin": {
     "openclaw-chats-share-web": "./bin/web.js"
   },
+  "files": [
+    "bin",
+    "src",
+    "public",
+    "astro.config.mjs"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build"
