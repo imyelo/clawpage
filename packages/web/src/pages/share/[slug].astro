@@ -1,0 +1,191 @@
+---
+import ChatLayout from '../../layouts/ChatLayout.astro';
+import { ChatMessage, CollapsibleMessage } from '../../components/ChatComponents';
+import { AVATAR_COLORS } from '../../constants/index.js';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+  // Go up from packages/web to monorepo root
+  const dataDir = path.join(process.cwd(), '..', '..', 'chats');
+  if (!fs.existsSync(dataDir)) {
+    return [];
+  }
+  const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.md'));
+
+  return files.map(file => {
+    const content = fs.readFileSync(path.join(dataDir, file), 'utf-8');
+    const slug = file.replace('.md', '');
+
+    // Parse frontmatter
+    const match = content.match(/^---\n([\s\S]*?)\n---/);
+    let metadata: Record<string, string> = {};
+    if (match) {
+      const pairs = match[1].split('\n').filter(line => line.includes(':'));
+      for (const pair of pairs) {
+        const [key, ...valueParts] = pair.split(':');
+        if (key && valueParts.length) {
+          metadata[key.trim()] = valueParts.join(':').trim();
+        }
+      }
+    }
+
+    // Parse messages
+    const parts = content.split(/\n---\n/);
+    const messageBlocks = parts.slice(2);
+
+    return {
+      params: { slug },
+      props: {
+        metadata,
+        messageBlocks,
+      },
+    };
+  });
+}
+
+interface Props {
+  metadata: Record<string, string>;
+  messageBlocks: string[];
+}
+
+const { metadata, messageBlocks } = Astro.props;
+const { topic, title, platform, date, message_count } = metadata;
+const displayTitle = topic || title || '';
+
+// Parse message blocks into structured data
+const messages = messageBlocks
+  .filter(block => block.trim())
+  .flatMap(block => {
+    // Regular message header check
+    const headerMatch = block.match(/\*\*(.*?)\*\* · (.+)/);
+    if (!headerMatch) return [];
+    
+    const author = headerMatch[1];
+    const timestamp = headerMatch[2].trim();
+    const isUser = author.toLowerCase() === 'user';
+    
+    // The rest of the block content after the header
+    const contentBody = block.substring(headerMatch.index + headerMatch[0].length).trim();
+    
+    // Check if the content contains a collapsible block
+    const collapsibleRegex = /:::\{type=(\w+),collapsed=(\w+)\}\n(.*?)\n([\s\S]*?):::/g;
+    
+    const parsedMessages = [];
+    let lastIndex = 0;
+    let match;
+    
+    while ((match = collapsibleRegex.exec(contentBody)) !== null) {
+      // Add text before the collapsible block if it exists
+      const preText = contentBody.substring(lastIndex, match.index).trim();
+      if (preText) {
+        parsedMessages.push({
+          type: 'message',
+          author,
+          timestamp,
+          content: preText,
+          isUser,
+        });
+      }
+      
+      const type = match[1];
+      const collapsed = match[2] === 'true';
+      const labelLine = match[3] || '';
+      const labelMatch = labelLine.match(/^(.*?) \*\*(.+)\*\*$/);
+      const icon = labelMatch ? labelMatch[1].trim() : '';
+      const label = labelMatch ? labelMatch[2].trim() : type;
+      const content = match[4].trim();
+      
+      parsedMessages.push({
+        type: 'collapsible',
+        collapsibleType: type,
+        icon,
+        label,
+        collapsed,
+        content,
+        author,
+        timestamp,
+        isUser,
+      });
+      
+      lastIndex = collapsibleRegex.lastIndex;
+    }
+    
+    // Add any remaining text after the last collapsible block
+    const remainingText = contentBody.substring(lastIndex).trim();
+    if (remainingText) {
+      parsedMessages.push({
+        type: 'message',
+        author,
+        timestamp,
+        content: remainingText,
+        isUser,
+      });
+    }
+    
+    return parsedMessages;
+  })
+  .filter(Boolean);
+
+// Create avatar color mapping for unique authors (non-agent)
+const authorColorMap = new Map<string, number>();
+let colorIndex = 0;
+messages.forEach((msg: any) => {
+  const authorLower = msg.author.toLowerCase();
+  const isAgent = authorLower.includes('agent') || authorLower.includes('assistant');
+  if (!isAgent && !authorColorMap.has(msg.author)) {
+    authorColorMap.set(msg.author, colorIndex % AVATAR_COLORS.length);
+    colorIndex++;
+  }
+});
+---
+
+<ChatLayout
+  title={displayTitle}
+  platform={platform}
+  date={date}
+  messageCount={parseInt(message_count) || 0}
+>
+  {messages.map((msg: any, index: number) => {
+    const isFirstInGroup = index === 0 || messages[index - 1].author !== msg.author;
+    const isLastInGroup = index === messages.length - 1 || messages[index + 1].author !== msg.author;
+
+    if (msg.type === 'collapsible') {
+      const authorLower = msg.author.toLowerCase();
+      const isAgent = authorLower.includes('agent') || authorLower.includes('assistant');
+      const avatarColorIndex = isAgent ? undefined : authorColorMap.get(msg.author);
+      return (
+        <CollapsibleMessage
+          client:load
+          type={msg.collapsibleType}
+          icon={msg.icon}
+          label={msg.label}
+          collapsed={msg.collapsed}
+          color={msg.collapsibleType}
+          content={msg.content}
+          author={msg.author}
+          timestamp={msg.timestamp}
+          isFirstInGroup={isFirstInGroup}
+          isLastInGroup={isLastInGroup}
+          avatarColorIndex={avatarColorIndex}
+        />
+      );
+    }
+
+    const authorLower = msg.author.toLowerCase();
+    const isAgent = authorLower.includes('agent') || authorLower.includes('assistant');
+    const avatarColorIndex = isAgent ? undefined : authorColorMap.get(msg.author);
+    return (
+      <ChatMessage
+        client:load
+        author={msg.author}
+        timestamp={msg.timestamp}
+        content={msg.content}
+        isUser={msg.isUser}
+        isFirstInGroup={isFirstInGroup}
+        isLastInGroup={isLastInGroup}
+        avatarColorIndex={avatarColorIndex}
+      />
+    );
+  })}
+</ChatLayout>

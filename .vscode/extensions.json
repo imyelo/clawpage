@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "biomejs.biome",
+    "mikestead.dotenv",
+    "editorconfig.editorconfig",
+    "tamasfe.even-better-toml",
+    "hverlin.mise-vscode",
+    "astro-build.astro-vscode",
+    "unifiedjs.vscode-mdx",
+    "antfu.unocss"
+  ]
+}

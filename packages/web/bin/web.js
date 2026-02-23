@@ -1,0 +1,39 @@
+#!/usr/bin/env bun
+import { spawn } from 'node:child_process'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { parseArgs } from 'node:util'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const packageDir = dirname(__dirname)
+const packagesDir = dirname(packageDir)
+const rootDir = dirname(packagesDir)
+const astroBin = join(rootDir, 'node_modules/.bin/astro')
+
+const { positionals } = parseArgs({
+  options: {},
+  positionals: ['command'],
+  allowPositionals: true,
+})
+
+const [command] = positionals
+
+const commands = {
+  dev: [astroBin, 'dev'],
+  build: [astroBin, 'build'],
+  preview: [astroBin, 'preview'],
+  deploy: [astroBin, 'build'],
+}
+
+if (!commands[command]) {
+  console.log('Commands: dev, build, preview, deploy')
+  process.exit(1)
+}
+
+const proc = spawn(commands[command][0], [commands[command][1]], {
+  stdio: 'inherit',
+  shell: true,
+  cwd: packageDir,
+})
+
+proc.on('exit', code => process.exit(code || 0))

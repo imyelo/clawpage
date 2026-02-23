@@ -1,0 +1,223 @@
+---
+import { getPublicChats, getChatsSortedByDate } from '../lib/chats.js'
+
+const chats = getChatsSortedByDate(getPublicChats())
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="OpenClaw Chats Share - A place for sharing and exploring AI chat conversations." />
+    <title>chats-share</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      /* Base reset & theme using CSS variables */
+      :root {
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #141414;
+        --bg-tertiary: #1a1a1a;
+        --text-primary: #e8e6e3;
+        --text-secondary: #8a8785;
+        --text-muted: #5c5958;
+        --accent: #d4a853;
+        --accent-dim: #8b7038;
+        --border: #2a2a2a;
+        --glow: rgba(212, 168, 83, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--bg-primary);
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Libre Baskerville', Georgia, serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* Scanline texture overlay */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px
+        );
+        z-index: 9999;
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 5rem 1.5rem;
+      }
+
+      /* Header */
+      .header {
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .title {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        font-family: 'IBM Plex Mono', monospace;
+      }
+
+      /* Chats list */
+      .chats-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .chat-item {
+        display: block;
+        padding: 1.5rem 1.25rem;
+        text-decoration: none;
+        color: inherit;
+        border-left: 2px solid transparent;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .chat-item:hover {
+        background: var(--bg-secondary);
+        border-left-color: var(--accent-dim);
+      }
+
+      .chat-item:hover .chat-topic {
+        color: var(--accent);
+      }
+
+      .chat-topic {
+        font-size: 1.125rem;
+        font-weight: 400;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        transition: color 0.2s ease;
+      }
+
+      .chat-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-family: 'IBM Plex Mono', monospace;
+        color: var(--text-muted);
+      }
+
+      .chat-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .meta-separator {
+        color: var(--border);
+        font-size: 0.625rem;
+      }
+
+      .platform-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.125rem 0.5rem;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-secondary);
+      }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-muted);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.875rem;
+        border: 1px dashed var(--border);
+      }
+
+      /* Decorative corner */
+      .corner-mark {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        border: 1px solid var(--accent-dim);
+        opacity: 0.4;
+      }
+      .corner-mark.top-left { top: 1rem; left: 1rem; border-right: none; border-bottom: none; }
+      .corner-mark.top-right { top: 1rem; right: 1rem; border-left: none; border-bottom: none; }
+      .corner-mark.bottom-left { bottom: 1rem; left: 1rem; border-right: none; border-top: none; }
+      .corner-mark.bottom-right { bottom: 1rem; right: 1rem; border-left: none; border-top: none; }
+    </style>
+  </head>
+  <body>
+    <!-- Decorative corners -->
+    <div class="corner-mark top-left"></div>
+    <div class="corner-mark top-right"></div>
+    <div class="corner-mark bottom-left"></div>
+    <div class="corner-mark bottom-right"></div>
+
+    <div class="container">
+      <header class="header">
+        <h1 class="title">chats-share</h1>
+        <p class="subtitle">// conversation archive</p>
+      </header>
+
+      {chats.length === 0 ? (
+        <div class="empty-state">
+          <p>// no conversations yet</p>
+        </div>
+      ) : (
+        <div class="chats-list">
+          {chats.map(chat => (
+            <a href={`/share/${chat.slug}`} class="chat-item">
+              <div class="chat-topic">{chat.topic}</div>
+              <div class="chat-meta">
+                <span class="platform-badge">{chat.platform}</span>
+                <span class="meta-separator">◆</span>
+                <span class="chat-meta-item">{chat.date}</span>
+                <span class="meta-separator">◆</span>
+                <span class="chat-meta-item">{chat.messageCount} msgs</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </body>
+</html>

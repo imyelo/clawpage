@@ -1,0 +1,3 @@
+{"type":"session","version":3,"id":"sample-session","timestamp":"2026-02-17T23:02:38.146Z","cwd":"/home/test"}
+{"type":"message","id":"msg1","parentId":null,"timestamp":"2026-02-17T23:02:38.166Z","message":{"role":"user","content":[{"type":"text","text":"Hello world"}]}}
+{"type":"message","id":"msg2","parentId":"msg1","timestamp":"2026-02-17T23:02:52.044Z","message":{"role":"assistant","content":[{"type":"text","text":"Hi there! How can I help?"}]}}

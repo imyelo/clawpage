@@ -1,0 +1,27 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+
+# Secrets
+*.local
+
+# Editor
+.DS_Store
+
+# Build
+/lib
+/dist
+/.astro
+packages/web/dist
+packages/web/.astro
+
+# Agents
+skills-lock.json

@@ -1,0 +1,19 @@
+{
+  "name": "my-chats-project",
+  "private": true,
+  "templateFiles": [
+    "package.json",
+    "astro.config.mjs",
+    "uno.config.ts",
+    ".github/workflows/deploy.yml",
+    "chats/.gitkeep"
+  ],
+  "scripts": {
+    "dev": "openclaw-chats-share-web dev",
+    "build": "openclaw-chats-share-web build",
+    "deploy": "openclaw-chats-share-web deploy"
+  },
+  "dependencies": {
+    "openclaw-chats-share-web": "^1.0.0"
+  }
+}

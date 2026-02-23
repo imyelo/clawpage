@@ -1,0 +1,23 @@
+{
+  "name": "openclaw-chats-share-demo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "openclaw-chats-share-web dev",
+    "build": "openclaw-chats-share-web build || true",
+    "deploy": "openclaw-chats-share-web deploy",
+    "test": "bun --bun test",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "openclaw-chats-share-web": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "@yelo/biome-config": "^0.1.4",
+    "@yelo/tsconfig": "^0.6.0",
+    "husky": "^9.1.7"
+  }
+}

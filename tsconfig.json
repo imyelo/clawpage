@@ -1,0 +1,7 @@
+{
+  "extends": "@yelo/tsconfig/bun",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["tsconfig.json", "tsconfig.esm.json", "packages/*/src"]
+}
