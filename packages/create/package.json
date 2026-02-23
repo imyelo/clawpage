@@ -1,6 +1,6 @@
 {
   "name": "create-openclaw-chats-share",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "bin": {
     "create-openclaw-chats-share": "./bin/create.js"
