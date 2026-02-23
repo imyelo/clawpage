@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { ConstraintValidator, createConstraint, createValidator, DEFAULT_CONSTRAINT } from '../src/index'
+import { createConstraint, createValidator, DEFAULT_CONSTRAINT } from '../src/index'
 
 describe('ConstraintValidator', () => {
   it('should validate valid data', () => {
