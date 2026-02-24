@@ -181,6 +181,33 @@ bun run build
 bun run deploy
 ```
 
+## Release
+
+This project uses [changesets](https://github.com/changesets/changesets) for versioning and changelog management.
+
+```bash
+# Create a new changeset
+bun run changeset
+
+# Check changeset status
+bunx changeset status
+
+# Preview version bumps (dry run)
+bunx changeset version --dry-run
+
+# Apply version bumps and update changelogs
+bun run version
+```
+
+### Release Workflow
+
+1. Create a changeset before merging a PR: `bun run changeset`
+2. Select affected packages and bump type (patch/minor/major)
+3. Write a description of the changes
+4. Commit the changeset file with your PR
+5. After merging, the changesets action creates a "Version Packages" PR
+6. Merging the version PR triggers npm publish
+
 ## Project Structure
 
 ```
