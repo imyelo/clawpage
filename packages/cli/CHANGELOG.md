@@ -1,5 +1,15 @@
 # openclaw-chats-share
 
+## 0.2.1
+
+### Patch Changes
+
+- Release for changes since last version
+
+  - cli: Update tests and lint for participants field
+  - web: Adjust CollapsibleMessage chevron sizing and padding
+  - web: Allow Vite fs to serve host project files when installed as package
+
 ## 0.2.0
 
 ### Minor Changes
