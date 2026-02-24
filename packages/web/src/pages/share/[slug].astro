@@ -1,52 +1,22 @@
 ---
-import { format } from 'date-fns'
 import ChatLayout from '../../layouts/ChatLayout.astro';
 import { ChatMessage, CollapsibleMessage } from '../../components/ChatComponents';
 import { AVATAR_COLORS } from '../../constants/index.js';
-import fs from 'node:fs';
-import path from 'node:path';
-import matter from 'gray-matter';
+import { getAllChatsWithContent, type ChatWithContent } from '../../lib/chats';
 
 export async function getStaticPaths() {
-  // Go up from packages/web to monorepo root
-  const dataDir = path.join(process.cwd(), '..', '..', 'chats');
-  if (!fs.existsSync(dataDir)) {
-    return [];
-  }
-  const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.md'));
-
-  return files.map(file => {
-    const raw = fs.readFileSync(path.join(dataDir, file), 'utf-8');
-    const slug = file.replace('.md', '');
-
-    const { data, content } = matter(raw);
-    const metadata: Record<string, string> = Object.fromEntries(
-      Object.entries(data).map(([k, v]) => [k, String(v)])
-    );
-
-    // Parse messages
-    const parts = content.split(/\n---\n/);
-    const messageBlocks = parts.slice(1);
-
-    return {
-      params: { slug },
-      props: {
-        metadata,
-        messageBlocks,
-      },
-    };
-  });
+  return getAllChatsWithContent().map(chat => ({
+    params: { slug: chat.slug },
+    props: { chat },
+  }));
 }
 
 interface Props {
-  metadata: Record<string, string>;
-  messageBlocks: string[];
+  chat: ChatWithContent;
 }
 
-const { metadata, messageBlocks } = Astro.props;
-const { title, channel, model, date: dateRaw, totalMessages, sessionId } = metadata;
-// Format date as YYYY-MM-DD
-const date = format(new Date(dateRaw), 'yyyy-MM-dd');
+const { chat } = Astro.props;
+const { title, channel, model, date, totalMessages, messageBlocks } = chat;
 const displayTitle = title || '';
 
 // Parse message blocks into structured data
@@ -141,7 +111,7 @@ messages.forEach((msg: any) => {
   channel={channel}
   model={model}
   date={date}
-  messageCount={parseInt(totalMessages) || 0}
+  messageCount={totalMessages}
 >
   {messages.map((msg: any, index: number) => {
     const isFirstInGroup = index === 0 || messages[index - 1].author !== msg.author;

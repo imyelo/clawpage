@@ -24,12 +24,20 @@ export interface ChatData extends ChatMetadata {
   slug: string
 }
 
-/**
- * Fetch all share chats from chats/
- */
-export function getAllChats(): ChatData[] {
+export interface ChatWithContent extends ChatData {
+  messageBlocks: string[]
+}
+
+function getDataDir(): string {
   const workdir = process.env.CHATS_SHARE_WORKDIR ?? path.join(process.cwd(), '..', '..')
-  const dataDir = path.join(workdir, 'chats')
+  return path.join(workdir, 'chats')
+}
+
+/**
+ * Fetch all share chats from chats/, including parsed message blocks
+ */
+export function getAllChatsWithContent(): ChatWithContent[] {
+  const dataDir = getDataDir()
   if (!fs.existsSync(dataDir)) {
     return []
   }
@@ -38,7 +46,7 @@ export function getAllChats(): ChatData[] {
   return files.map(file => {
     const raw = fs.readFileSync(path.join(dataDir, file), 'utf-8')
     const slug = file.replace('.md', '')
-    const { data } = matter(raw)
+    const { data, content } = matter(raw)
 
     return {
       slug,
@@ -52,8 +60,16 @@ export function getAllChats(): ChatData[] {
       tags: Array.isArray(data.tags) ? data.tags : [],
       visibility: (data.visibility as 'public' | 'private') || 'private',
       description: data.description || '',
+      messageBlocks: content.split(/\n---\n/).slice(1),
     }
   })
+}
+
+/**
+ * Fetch all share chats from chats/
+ */
+export function getAllChats(): ChatData[] {
+  return getAllChatsWithContent().map(({ messageBlocks: _, ...chat }) => chat)
 }
 
 /**
