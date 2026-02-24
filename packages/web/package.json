@@ -20,6 +20,8 @@
     "prepublish": "bun run build"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/react": "^4.4.2",
     "astro": "^5.0.0",
     "c12": "^3.0.0",
     "date-fns": "^4.1.0",
@@ -32,8 +34,6 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/react": "^4.4.2",
     "@types/marked": "^6.0.0",
     "@types/react": "^19.2.14",
     "typescript": "^5.9.3"
