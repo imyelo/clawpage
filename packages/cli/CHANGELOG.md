@@ -1,5 +1,16 @@
 # openclaw-chats-share
 
+## 0.2.0
+
+### Minor Changes
+
+- Add participants frontmatter field and refactor web styling
+
+  - Add `participants` frontmatter field for human/agent classification
+  - Replace UnoCSS with PostCSS and CSS Modules
+  - Overhaul typography system
+  - Fix user/agent message detection
+
 ## 0.1.0
 
 ### Minor Changes
