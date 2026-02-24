@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import UnoCSS from 'unocss/astro';
+import { presetUno, presetAttributify } from 'unocss';
+import presetTypography from '@unocss/preset-typography';
 import { loadConfig } from 'c12';
 import { createDefu } from 'defu';
 import { join, resolve } from 'node:path';
@@ -76,7 +78,60 @@ export default defineConfig(merge(
   { ...mapped, ...(config.astro ?? {}) },
   {
     integrations: [
-      UnoCSS({ injectReset: true }),
+      UnoCSS({
+        injectReset: true,
+        presets: [
+          presetUno(),
+          presetTypography({
+            cssExtend: {
+              // Remove decorative backtick pseudo-elements around inline code
+              'code::before': { content: 'none' },
+              'code::after': { content: 'none' },
+              // Remove decorative quote pseudo-elements around blockquotes
+              'blockquote p:first-of-type::before': { content: 'none' },
+              'blockquote p:last-of-type::after': { content: 'none' },
+              // Use design system colors instead of preset defaults
+              ':is(.prose)': {
+                '--un-prose-body': 'var(--text-primary)',
+                '--un-prose-invert-body': 'var(--text-primary)',
+                '--un-prose-links': 'var(--accent)',
+                '--un-prose-invert-links': 'var(--accent)',
+                '--un-prose-headings': 'var(--text-primary)',
+                '--un-prose-invert-headings': 'var(--text-primary)',
+                '--un-prose-code': 'var(--text-primary)',
+                '--un-prose-invert-code': 'var(--text-primary)',
+                '--un-prose-pre-bg': 'var(--bg-tertiary)',
+                '--un-prose-invert-pre-bg': 'var(--bg-tertiary)',
+                '--un-prose-bullets': 'var(--text-muted)',
+                '--un-prose-invert-bullets': 'var(--text-muted)',
+                '--un-prose-counters': 'var(--text-muted)',
+                '--un-prose-invert-counters': 'var(--text-muted)',
+                '--un-prose-quotes': 'var(--text-secondary)',
+                '--un-prose-invert-quotes': 'var(--text-secondary)',
+                '--un-prose-quote-borders': 'var(--border)',
+                '--un-prose-invert-quote-borders': 'var(--border)',
+              },
+            },
+          }),
+          presetAttributify(),
+        ],
+        theme: {
+          colors: {
+            'text-primary': 'var(--text-primary)',
+            'text-secondary': 'var(--text-secondary)',
+            'text-muted': 'var(--text-muted)',
+            'accent': 'var(--accent)',
+            'border': 'var(--border)',
+            'bg-primary': 'var(--bg-primary)',
+            'bg-secondary': '#141414',
+            'bg-tertiary': 'var(--bg-tertiary)',
+            'msg-assistant-bg': 'var(--assistant-msg-bg)',
+            'msg-assistant-border': 'var(--assistant-msg-border)',
+            'msg-user-bg': 'var(--user-msg-bg)',
+            'msg-user-border': 'var(--user-msg-border)',
+          },
+        },
+      }),
       react(),
     ],
     vite: {
