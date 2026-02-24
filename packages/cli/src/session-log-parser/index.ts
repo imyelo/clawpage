@@ -24,13 +24,18 @@ export interface SessionMeta {
 }
 
 export interface MessageContentBlock {
-  type: 'text' | 'thinking' | 'toolCall'
+  type: 'text' | 'thinking' | 'toolCall' | 'image'
   text?: string
   thinking?: string
   thinkingSignature?: string
   id?: string
   name?: string
   arguments?: Record<string, unknown>
+  source?: {
+    type: 'base64'
+    media_type: string
+    data: string
+  }
 }
 
 export interface Usage {
@@ -225,6 +230,11 @@ export class LogParser {
           name: block.name || '',
           arguments: block.arguments || {},
         }
+      } else if (block.type === 'image') {
+        // Image content: store reference for potential future display
+        // Currently not rendered in markdown output
+        const mediaType = block.source?.media_type || 'image'
+        parsed.content += `[${mediaType} attachment]`
       }
     }
 

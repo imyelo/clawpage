@@ -2,7 +2,7 @@
 import ChatLayout from '../../layouts/ChatLayout.astro';
 import ChatMessage from '../../components/ChatMessage.astro';
 import { CollapsibleMessage } from '../../components/CollapsibleMessage';
-import { AVATAR_COLORS } from '../../constants/index.js';
+import { AVATAR_COLORS, MESSAGE_TYPE_INFO } from '../../constants/index.js';
 import { getAllChatsWithContent, type ChatWithContent } from '../../lib/chats';
 
 export async function getStaticPaths() {
@@ -68,10 +68,22 @@ const messages = messageBlocks
       const type = match[1];
       const collapsed = match[2] === 'true';
       const labelLine = match[3] || '';
-      const labelMatch = labelLine.match(/^(.*?) \*\*(.+)\*\*$/);
-      const icon = labelMatch ? labelMatch[1].trim() : '';
-      const label = labelMatch ? labelMatch[2].trim() : type;
-      const content = match[4].trim();
+      // Match pattern like "🔧 **edit** · /path", "⚙️ **Plugin Call: GitHub Action**", or "🧠 **Thinking**"
+      // Icon is before **, label is the bold text, content is after ** (optional trailing space)
+      const labelMatch = labelLine.match(/^(.*?) \*\*(.+?)\*\* ?/);
+      let icon = labelMatch ? labelMatch[1].trim() : '';
+      let label = labelMatch ? labelMatch[2].trim() : '';
+
+      // If label extraction failed, check MESSAGE_TYPE_INFO for known types
+      if (!label && type in MESSAGE_TYPE_INFO) {
+        icon = MESSAGE_TYPE_INFO[type].icon;
+        label = MESSAGE_TYPE_INFO[type].label;
+      } else if (!label) {
+        label = type;
+      }
+
+      // Use the content from match[4] directly, stripping leading *** or --- separators
+      const content = match[4].trim().replace(/^[\*\-]{3,}\n?/, '')
       
       parsedMessages.push({
         type: 'collapsible',

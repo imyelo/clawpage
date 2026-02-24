@@ -165,7 +165,7 @@ describe('parseSession (convenience function)', () => {
 
     // Verify session meta
     expect(result.meta.id).toBe('session-001')
-    expect(result.meta.cwd).toBe('/home/agent/workspace')
+    expect(result.meta.cwd).toBe('/home/user/workspace')
 
     // Verify messages
     expect(result.messages).toHaveLength(4)

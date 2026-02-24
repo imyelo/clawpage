@@ -110,6 +110,87 @@ export class MDGenerator {
   }
 
   /**
+   * Format tool arguments for display
+   */
+  private formatToolArguments(toolName: string, args: Record<string, unknown>): string | null {
+    if (!args || Object.keys(args).length === 0) return null
+
+    const lines: string[] = []
+
+    switch (toolName) {
+      case 'write': {
+        const filePath = args.file_path as string | undefined
+        const content = args.content as string | undefined
+        if (filePath) lines.push(`**File**: ${filePath}`)
+        if (content) {
+          // Remove any --- to avoid breaking the block structure
+          const cleanContent = content.replace(/^---$/gm, '').trim()
+          lines.push(`**Content** (${cleanContent.length} chars):\n\`\`\`\n${cleanContent}\n\`\`\``)
+        }
+        break
+      }
+      case 'read': {
+        const filePath = args.file_path as string | undefined
+        if (filePath) lines.push(`**File**: \`${filePath}\``)
+        break
+      }
+      case 'edit': {
+        const filePath = args.file_path as string | undefined
+        const oldText = args.oldText as string | undefined
+        const newText = args.newText as string | undefined
+        if (filePath) lines.push(`**File**: ${filePath}`)
+        if (oldText) {
+          const cleanOld = oldText.replace(/^---$/gm, '').trim()
+          lines.push(`**Old**:\n\`\`\`\n${cleanOld}\n\`\`\``)
+        }
+        if (newText) {
+          const cleanNew = newText.replace(/^---$/gm, '').trim()
+          lines.push(`**New**:\n\`\`\`\n${cleanNew}\n\`\`\``)
+        }
+        break
+      }
+      case 'exec': {
+        const command = args.command as string | undefined
+        if (command) lines.push(`**Command**:\n\`\`\`\n${command}\n\`\`\``)
+        break
+      }
+      case 'process': {
+        const command = args.command as string | undefined
+        const name = args.name as string | undefined
+        if (name) lines.push(`**Process**: ${name}`)
+        if (command) lines.push(`**Command**:\n\`\`\`\n${command}\n\`\`\``)
+        break
+      }
+      case 'curl': {
+        const url = args.url as string | undefined
+        const method = args.method as string | undefined
+        const body = args.body as string | undefined
+        if (method) lines.push(`**Method**: ${method}`)
+        if (url) lines.push(`**URL**: ${url}`)
+        if (body) lines.push(`**Body**:\n\`\`\`\n${body}\n\`\`\``)
+        break
+      }
+      case 'openclaw camofox': {
+        // This is a custom tool, show its arguments
+        for (const [key, value] of Object.entries(args)) {
+          const strValue = typeof value === 'string' ? value : JSON.stringify(value)
+          lines.push(`**${key}**:\n\`\`\`\n${strValue}\n\`\`\``)
+        }
+        break
+      }
+      default: {
+        // Generic format for unknown tools
+        for (const [key, value] of Object.entries(args)) {
+          const strValue = typeof value === 'string' ? value : JSON.stringify(value)
+          lines.push(`**${key}**:\n\`\`\`\n${strValue}\n\`\`\``)
+        }
+      }
+    }
+
+    return lines.length > 0 ? lines.join('\n') : null
+  }
+
+  /**
    * Render a single message block
    */
   private renderMessage(msg: ParsedMessage, toolResultMap?: Map<string, ParsedMessage>): string {
@@ -145,17 +226,27 @@ export class MDGenerator {
       if (toolResultMsg?.toolResult) {
         // Render tool call and result together in one block
         const tr = toolResultMsg.toolResult
-        const icon = tr.isError ? '❌' : '✅'
         const blockType = tr.isError ? 'error' : 'custom'
         const collapsed = tr.isError ? 'false' : 'true'
         blocks.push(`:::{type=${blockType},collapsed=${collapsed}}`)
-        blocks.push(`🔧 **${msg.toolCall.name}**${argDesc}`)
-        blocks.push(`${icon} **${tr.toolName}** · ${tr.content}`)
+        // First line is the label (with icon and tool name) - includes the path for context
+        blocks.push(`🔧 **Tool Call - ${msg.toolCall.name}**${argDesc}`)
+
+        // Add tool arguments/details as middle paragraph
+        const argDetails = this.formatToolArguments(msg.toolCall.name, msg.toolCall.arguments)
+        if (argDetails) {
+          blocks.push('***')
+          blocks.push(argDetails)
+        }
+
+        // Add result content (wrap in code block to prevent markdown rendering)
+        blocks.push('***')
+        blocks.push(`\`\`\`\n${tr.content}\n\`\`\``)
         blocks.push(`:::`)
       } else {
         // No result yet - just show the tool call
         blocks.push(`:::{type=custom,collapsed=true}`)
-        blocks.push(`🔧 **${msg.toolCall.name}**${argDesc}`)
+        blocks.push(`🔧 **Tool Call - ${msg.toolCall.name}**${argDesc}`)
         blocks.push(`:::`)
       }
     }
@@ -185,7 +276,7 @@ export class MDGenerator {
       case 'model_change': {
         const modelId = String(e.modelId || '')
         const provider = e.provider ? ` (${e.provider})` : ''
-        return `:::{type=custom,collapsed=true}\nModel changed: ${modelId}${provider}\n:::`
+        return `:::{type=custom,collapsed=true}\n🔧 **Model Change**: ${modelId}${provider}\n:::`
       }
       case 'thinking_level_change': {
         const level = String(e.thinkingLevel || '')
@@ -198,13 +289,13 @@ export class MDGenerator {
         if (customType === 'model-snapshot' && data) {
           const modelId = String(data.modelId || '')
           const provider = data.provider ? ` (${data.provider})` : ''
-          desc = `Model snapshot: ${modelId}${provider}`
+          desc = `**${customType}**: ${modelId}${provider}`
         }
-        return `:::{type=custom,collapsed=true}\n${desc}\n:::`
+        return `:::{type=custom,collapsed=true}\n⚙️ ${desc}\n:::`
       }
       case 'compaction': {
         const tokens = e.tokensBefore ?? ''
-        return `:::{type=custom,collapsed=true}\nContext compacted (${tokens} tokens)\n:::`
+        return `:::{type=custom,collapsed=true}\n🗜️ **Context Compaction**: ${tokens} tokens\n:::`
       }
       case 'session': {
         const cwd = e.cwd ? ` (${e.cwd})` : ''

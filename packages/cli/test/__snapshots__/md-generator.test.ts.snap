@@ -24,8 +24,15 @@ Of course! How can I assist you today?
 Let me write that to a file.
 
 :::{type=custom,collapsed=true}
-🔧 **write** · /test.md
-✅ **write** · Successfully wrote 100 bytes to /test.md
+🔧 **Tool Call - write** · /test.md
+***
+**File**: /test.md
+**Content** (12 chars):
+\`\`\`
+test content
+\`\`\`
+***
+✅ Successfully wrote 100 bytes to /test.md
 :::"
 `;
 
@@ -68,8 +75,15 @@ Of course! How can I assist you today?
 Let me write that to a file.
 
 :::{type=custom,collapsed=true}
-🔧 **write** · /test.md
-✅ **write** · Successfully wrote 100 bytes to /test.md
+🔧 **Tool Call - write** · /test.md
+***
+**File**: /test.md
+**Content** (12 chars):
+\`\`\`
+test content
+\`\`\`
+***
+✅ Successfully wrote 100 bytes to /test.md
 :::"
 `;
 
@@ -97,8 +111,15 @@ Of course! How can I assist you today?
 Let me write that to a file.
 
 :::{type=custom,collapsed=true}
-🔧 **write** · /test.md
-✅ **write** · Successfully wrote 100 bytes to /test.md
+🔧 **Tool Call - write** · /test.md
+***
+**File**: /test.md
+**Content** (12 chars):
+\`\`\`
+test content
+\`\`\`
+***
+✅ Successfully wrote 100 bytes to /test.md
 :::"
 `;
 
@@ -219,8 +240,15 @@ Of course! How can I assist you today?
 Let me write that to a file.
 
 :::{type=custom,collapsed=true}
-🔧 **write** · /test.md
-✅ **write** · Successfully wrote 100 bytes to /test.md
+🔧 **Tool Call - write** · /test.md
+***
+**File**: /test.md
+**Content** (12 chars):
+\`\`\`
+test content
+\`\`\`
+***
+✅ Successfully wrote 100 bytes to /test.md
 :::"
 `;
 
@@ -248,13 +276,13 @@ participants:
 ---
 
 :::{type=session,collapsed=true}
-Session started (/home/agent/workspace)
+Session started (/home/user/workspace)
 :::
 
 ---
 
 :::{type=custom,collapsed=true}
-Model changed: MiniMax-M2.5 (minimax)
+🔧 **Model Change**: MiniMax-M2.5 (minimax)
 :::
 
 ---
@@ -266,7 +294,7 @@ Model changed: MiniMax-M2.5 (minimax)
 ---
 
 :::{type=custom,collapsed=true}
-Model snapshot: MiniMax-M2.5 (minimax)
+⚙️ **model-snapshot**: MiniMax-M2.5 (minimax)
 :::
 
 ---
@@ -287,8 +315,15 @@ Assistant thinking process here
 Assistant response text
 
 :::{type=custom,collapsed=true}
-🔧 **write** · /test.txt
-✅ **write** · Successfully wrote 100 bytes to /test.txt
+🔧 **Tool Call - write** · /test.txt
+***
+**File**: /test.txt
+**Content** (4 chars):
+\`\`\`
+test
+\`\`\`
+***
+✅ Successfully wrote 100 bytes to /test.txt
 :::
 
 ---
