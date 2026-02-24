@@ -19,9 +19,11 @@ packages/
   web/           - openclaw-chats-share-web package (Astro-based)
     src/
       pages/               - index.astro (chat index), share/[slug].astro (per-chat)
-      components/          - ChatComponents.tsx (React)
+      components/          - ChatComponents.tsx (React), Footer.astro, MemoryBackground.astro
       layouts/             - ChatLayout.astro
-      lib/chats.ts         - Reads chats/ from monorepo root
+      lib/chats.ts         - Reads chats/ from monorepo root (or chats_dir config)
+      lib/config-schema.ts - Zod schema for chats-share.toml (ChatsShareConfigSchema)
+      lib/config.ts        - Runtime config loader with validation
       constants/index.ts   - Message type color/style maps
   create/        - create-openclaw-chats-share scaffolding tool
     test/                  - Bun snapshot tests for scaffold output
@@ -83,7 +85,7 @@ The CLI processes session data through three sequential stages:
 
 ### Web Data Flow
 
-At build time, `packages/web/src/lib/chats.ts` reads all `*.md` files from `../../chats/` (monorepo root) relative to `packages/web/`. It parses frontmatter manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
+At build time, `packages/web/src/lib/chats.ts` reads all `*.md` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `chats-share.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
 
 Only chats with `visibility: public` (or no visibility field) are shown in the index. All slugs (including `private`) get individual pages and are accessible via direct URL.
 

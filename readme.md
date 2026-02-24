@@ -111,6 +111,60 @@ Message content...
 Response content...
 ```
 
+## Configuration
+
+The web package is configured via `chats-share.toml` in your working repo root.
+
+| Key | Type | Description | Example |
+|-----|------|-------------|---------|
+| `site` | string (URL) | Full URL of your deployed site | `"https://you.github.io"` |
+| `base` | string | Base path for GitHub Pages project sites | `"/my-repo"` |
+| `public_dir` | string | Static assets directory (relative to config file) | `"public"` |
+| `out_dir` | string | Build output directory (relative to config file) | `"dist"` |
+| `chats_dir` | string | Custom chats directory path (absolute or relative to config file) | `"../my-chats"` |
+| `template.options.title` | string | Homepage title | `"chats-share"` |
+| `template.options.subtitle` | string | Homepage subtitle | `"// conversation archive"` |
+| `template.options.description` | string | Meta description for the site | `"My conversation archive"` |
+| `template.options.footer` | string | Footer text (Markdown supported) | `` |
+
+**Example `chats-share.toml`:**
+
+```toml
+site = "https://your-username.github.io"
+base = "/your-repo-name"
+
+[template.options]
+title = "chats-share"
+subtitle = "// conversation archive"
+footer = "powered by [@imyelo](https://github.com/imyelo)"
+```
+
+### Custom Domain (GitHub Pages)
+
+To serve your site from a custom domain instead of `your-username.github.io`:
+
+1. Add a `CNAME` file to your `public/` directory containing your domain:
+
+   ```
+   chats-share.example.com
+   ```
+
+2. Set `site` in `chats-share.toml` to your custom domain:
+
+   ```toml
+   site = "https://chats-share.example.com"
+   ```
+
+3. Configure your DNS provider to point the domain to GitHub Pages:
+   - For an apex domain (`example.com`): add `A` records pointing to GitHub's IPs
+   - For a subdomain (`chats-share.example.com`): add a `CNAME` record pointing to `your-username.github.io`
+
+4. Enable HTTPS in your GitHub repository's **Settings → Pages** after DNS propagates.
+
+> When using a custom domain, omit `base` from `chats-share.toml` (or set it to `"/"`), since the site serves from the domain root.
+
+Also check [Managing a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) for detailed GitHub Pages custom domain setup instructions.
+
 ## Development
 
 ```bash
@@ -133,6 +187,10 @@ bun run deploy
 packages/
   cli/     - openclaw-chats-share CLI (session log parser + Markdown generator)
   web/     - openclaw-chats-share-web (Astro static site)
+    src/
+      components/  - ChatComponents.tsx, Footer.astro, MemoryBackground.astro
+      lib/         - chats.ts, config.ts, config-schema.ts
+      pages/       - index.astro, share/[slug].astro
   create/  - create-openclaw-chats-share scaffolding tool
 chats/     - Demo Markdown chat files
 docs/      - Project documentation
