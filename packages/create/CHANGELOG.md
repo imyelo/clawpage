@@ -1,5 +1,19 @@
 # create-openclaw-chats-share
 
+## 0.2.1
+
+### Patch Changes
+
+- Update GitHub Pages deploy workflow
+
+  - Add workflow_dispatch trigger for manual deployment
+  - Add explicit contents:write permissions
+  - Rename job to build-and-deploy for clarity
+  - Update oven-sh/setup-bun to v2 with explicit bun-version
+  - Update peaceiris/actions-gh-pages to v4
+  - Add named steps for better readability
+  - Add publish_branch: gh-pages configuration
+
 ## 0.2.0
 
 ### Minor Changes
