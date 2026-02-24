@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "bin": {
-    "openclaw-chats-share": "./bin/cli.js"
+    "openclaw-chats-share": "bin/cli.js"
   },
   "main": "./dist/index.js",
   "exports": {
