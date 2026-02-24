@@ -1,5 +1,13 @@
 # openclaw-chats-share-web
 
+## 0.3.1
+
+### Patch Changes
+
+- b83f2cf: Move @astrojs/check and @astrojs/react from devDependencies to dependencies
+
+  These packages are required at runtime for the Astro web application.
+
 ## 0.3.0
 
 ### Minor Changes
