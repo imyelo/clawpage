@@ -17,8 +17,18 @@ interface Props {
 }
 
 const { chat } = Astro.props;
-const { title, channel, model, date, totalMessages, messageBlocks } = chat;
+const { title, channel, model, date, totalMessages, messageBlocks, participants } = chat;
 const displayTitle = title || '';
+
+// Resolve whether a participant name is an agent.
+// Checks the frontmatter participants map first; falls back to keyword heuristic.
+function isSpeakerAgent(author: string): boolean {
+  if (participants && author in participants) {
+    return participants[author].role === 'agent';
+  }
+  const lower = author.toLowerCase();
+  return lower.includes('agent') || lower.includes('assistant');
+}
 
 // Parse message blocks into structured data
 const messages = messageBlocks
@@ -27,11 +37,10 @@ const messages = messageBlocks
     // Regular message header check
     const headerMatch = block.match(/\*\*(.*?)\*\* · (.+)/);
     if (!headerMatch) return [];
-    
+
     const author = headerMatch[1];
     const timestamp = headerMatch[2].trim();
-    const authorLower = author.toLowerCase();
-    const isUser = !authorLower.includes('agent') && !authorLower.includes('assistant');
+    const isUser = !isSpeakerAgent(author);
     
     // The rest of the block content after the header
     const contentBody = block.substring(headerMatch.index + headerMatch[0].length).trim();
@@ -95,13 +104,11 @@ const messages = messageBlocks
   })
   .filter(Boolean);
 
-// Create avatar color mapping for unique authors (non-agent)
+// Create avatar color mapping for unique human authors
 const authorColorMap = new Map<string, number>();
 let colorIndex = 0;
 messages.forEach((msg: any) => {
-  const authorLower = msg.author.toLowerCase();
-  const isAgent = authorLower.includes('agent') || authorLower.includes('assistant');
-  if (!isAgent && !authorColorMap.has(msg.author)) {
+  if (!isSpeakerAgent(msg.author) && !authorColorMap.has(msg.author)) {
     authorColorMap.set(msg.author, colorIndex % AVATAR_COLORS.length);
     colorIndex++;
   }
@@ -120,9 +127,7 @@ messages.forEach((msg: any) => {
     const isLastInGroup = index === messages.length - 1 || messages[index + 1].author !== msg.author;
 
     if (msg.type === 'collapsible') {
-      const authorLower = msg.author.toLowerCase();
-      const isAgent = authorLower.includes('agent') || authorLower.includes('assistant');
-      const avatarColorIndex = isAgent ? undefined : authorColorMap.get(msg.author);
+      const avatarColorIndex = isSpeakerAgent(msg.author) ? undefined : authorColorMap.get(msg.author);
       return (
         <CollapsibleMessage
           client:load
@@ -141,9 +146,7 @@ messages.forEach((msg: any) => {
       );
     }
 
-    const authorLower = msg.author.toLowerCase();
-    const isAgent = authorLower.includes('agent') || authorLower.includes('assistant');
-    const avatarColorIndex = isAgent ? undefined : authorColorMap.get(msg.author);
+    const avatarColorIndex = isSpeakerAgent(msg.author) ? undefined : authorColorMap.get(msg.author);
     return (
       <ChatMessage
         author={msg.author}

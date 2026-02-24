@@ -16,6 +16,7 @@ This directory contains Openclaw session export files in Markdown format, genera
 | `tags` | Manual | No | Tag array for categorization | `[coding, debug]` |
 | `visibility` | Manual | No | Controls index visibility (`public` or `private`) | `private` (default) |
 | `description` | Manual | No | Brief description for index display | `Debugging a tricky async issue` |
+| `participants` | CLI / Manual | No | Maps each participant name to `{ role: "human" \| "agent" }`; used by the web to style messages correctly | see example below |
 
 ## Visibility
 
@@ -39,6 +40,12 @@ model: MiniMax-M2.5
 totalMessages: 42
 totalTokens: 12345
 visibility: public
+participants:
+  Alice:
+    role: human
+  Claude:
+    role: agent
+    model: claude-sonnet-4-6
 ---
 
 # Debugging Async Issue

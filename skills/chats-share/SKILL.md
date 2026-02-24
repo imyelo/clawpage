@@ -40,11 +40,15 @@ Share OpenClaw conversations as public web pages.
    - Show candidates to user for confirmation
 5. Parse to temp: `openclaw-chats-share parse {session} -o {projectDir}/chats/.tmp/{timestamp}.md`
 6. Digest summary from parsed file, suggest topic name based on content (e.g. "How to use OpenClaw with Python")
-7. Confirm with user: show preview, ask to confirm or modify topic name
-8. Rename: `mv {temp} {projectDir}/chats/{YYYYMMDD}-{topic}.md`
-9. Redact sensitive info (e.g.: API keys, tokens, paths, emails, IPs) (see "Redact" section below)
-10. Confirm with user before commit: `git add {projectDir}/chats/{topic}.md && git commit -m "docs: add {topic}"`
-11. Confirm with user before push: `git push`
+7. Confirm participants: Read the auto-generated `participants` frontmatter from the temp file.
+   Show the current entries and ask the user if they want to customize the display names
+   (e.g. rename `user` to their real name, or `assistant` to the agent's display name).
+   Update the frontmatter in-place if the user provides new names — keep all other fields (`role`, `model`) unchanged.
+8. Confirm with user: show preview, ask to confirm or modify topic name
+9. Rename: `mv {temp} {projectDir}/chats/{YYYYMMDD}-{topic}.md`
+10. Redact sensitive info (e.g.: API keys, tokens, paths, emails, IPs) (see "Redact" section below)
+11. Confirm with user before commit: `git add {projectDir}/chats/{topic}.md && git commit -m "docs: add {topic}"`
+12. Confirm with user before push: `git push`
 
 ## First Time Setup
 

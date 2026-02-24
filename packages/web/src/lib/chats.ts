@@ -19,6 +19,7 @@ export interface ChatMetadata {
   tags: string[]
   visibility: 'public' | 'private'
   description: string
+  participants?: Record<string, { role: 'human' | 'agent'; model?: string }>
 }
 
 export interface ChatData extends ChatMetadata {
@@ -65,6 +66,10 @@ export async function getAllChatsWithContent(): Promise<ChatWithContent[]> {
       tags: Array.isArray(data.tags) ? data.tags : [],
       visibility: (data.visibility as 'public' | 'private') || 'private',
       description: data.description || '',
+      participants:
+        data.participants && typeof data.participants === 'object'
+          ? (data.participants as Record<string, { role: 'human' | 'agent'; model?: string }>)
+          : undefined,
       messageBlocks: content.split(/\n---\n/).slice(1),
     }
   })

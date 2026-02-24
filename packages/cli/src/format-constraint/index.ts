@@ -64,6 +64,12 @@ export const DEFAULT_CONSTRAINT: FormatConstraint = {
     { key: 'tags', type: 'array', required: false, description: 'Tags/categories' },
     { key: 'visibility', type: 'string', required: false, description: 'Visibility: public or private' },
     { key: 'description', type: 'string', required: false, description: 'Brief description' },
+    {
+      key: 'participants',
+      type: 'object',
+      required: false,
+      description: 'Participant map: name → { role: "human" | "agent" }',
+    },
   ],
   sections: [
     { id: 'summary', title: 'Summary', order: 1, contentKey: 'summary' },
