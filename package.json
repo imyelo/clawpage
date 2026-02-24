@@ -15,7 +15,8 @@
     "release": "bun run test && bunx changeset publish",
     "prepublish": "bun run build",
     "changeset": "changeset",
-    "version": "bunx changeset version"
+    "version": "bunx changeset version",
+    "skill:publish": "clawhub publish ./skills/chats-share --slug chats-share --name \"Chats Share\""
   },
   "dependencies": {
     "openclaw-chats-share-web": "workspace:*"
@@ -25,6 +26,7 @@
     "@changesets/cli": "^2.29.8",
     "@yelo/biome-config": "^0.1.4",
     "@yelo/tsconfig": "^0.6.0",
+    "clawhub": "^0.7.0",
     "husky": "^9.1.7"
   },
   "version": ""
