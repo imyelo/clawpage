@@ -23,6 +23,7 @@
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
     "astro": "^5.0.0",
+    "autoprefixer": "^10.4.21",
     "c12": "^3.0.0",
     "date-fns": "^4.1.0",
     "defu": "^6.1.4",
@@ -30,7 +31,6 @@
     "marked": "^17.0.3",
     "react": "^19.2.4",
     "react-markdown": "^10.1.0",
-    "unocss": "^66.6.0",
     "zod": "^3.24.0"
   },
   "devDependencies": {

@@ -1,0 +1,49 @@
+/**
+ * Design System Tokens — Retro Geek Dark Theme
+ *
+ * Central source of truth for all CSS custom properties.
+ * Mirrors the former UnoCSS theme in uno.config.ts so that any
+ * component can reference tokens directly without a build-time
+ * class-name lookup.
+ */
+
+:root {
+  /* Typography */
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-serif: "Libre Baskerville", Georgia, serif;
+
+  /* Backgrounds */
+  --bg-primary:   #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-tertiary:  #1a1a1a;
+
+  /* Text */
+  --text-primary:   #e8e6e3;
+  --text-secondary: #8a8785;
+  --text-muted:     #5c5958;
+
+  /* Accent */
+  --accent:       #d4a853;
+  --accent-dim:   #8b7038;
+  --accent-hover: #e8c678;
+
+  /* Structural */
+  --border: #2a2a2a;
+  --glow:   rgba(212, 168, 83, 0.15);
+
+  /* Message bubbles */
+  --user-msg-bg:          #0f0f0f;
+  --user-msg-border:      #2d2d2d;
+  --assistant-msg-bg:     #121212;
+  --assistant-msg-border: #252525;
+
+  /* Collapsible panel type colours */
+  --collapsible-error-border:   #ef4444;
+  --collapsible-error-accent:   #f87171;
+  --collapsible-session-border: #10b981;
+  --collapsible-session-accent: #34d399;
+  --collapsible-custom-border:  #6366f1;
+  --collapsible-custom-accent:  #818cf8;
+  --collapsible-muted-border:   #6b7280;
+  --collapsible-muted-accent:   #9ca3af;
+}

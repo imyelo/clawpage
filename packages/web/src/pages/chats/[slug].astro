@@ -1,6 +1,7 @@
 ---
 import ChatLayout from '../../layouts/ChatLayout.astro';
-import { ChatMessage, CollapsibleMessage } from '../../components/ChatComponents';
+import ChatMessage from '../../components/ChatMessage.astro';
+import { CollapsibleMessage } from '../../components/CollapsibleMessage';
 import { AVATAR_COLORS } from '../../constants/index.js';
 import { getAllChatsWithContent, type ChatWithContent } from '../../lib/chats';
 
@@ -144,7 +145,6 @@ messages.forEach((msg: any) => {
     const avatarColorIndex = isAgent ? undefined : authorColorMap.get(msg.author);
     return (
       <ChatMessage
-        client:load
         author={msg.author}
         timestamp={msg.timestamp}
         content={msg.content}
@@ -175,7 +175,7 @@ messages.forEach((msg: any) => {
     gap: 0.5rem;
     color: var(--text-muted);
     text-decoration: none;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.875rem;
     transition: color 0.2s ease;
   }
