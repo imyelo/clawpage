@@ -62,25 +62,53 @@ async function getDataDir(): Promise<string> {
 }
 
 /**
- * Split message blocks by --- separator, but ignore --- inside :::{...} fenced directive blocks
+ * Split message blocks by --- separator, but ignore --- inside:
+ * 1. :::{...} fenced directive blocks
+ * 2. Regular ``` fenced code blocks
  */
 export function splitMessageBlocks(content: string): string[] {
   const blocks: string[] = []
   let current = ''
   let inFencedBlock = false
+  let fencedChar = '' // '`' or '~'
+  let fencedLen = 0
 
   const lines = content.split('\n')
 
   for (const line of lines) {
+    // Check for fenced code block start: ```lang or ~~~lang
+    if (!inFencedBlock) {
+      const fenceMatch = line.match(/^(`{3,}|~{3,})(\S*)$/)
+      if (fenceMatch) {
+        inFencedBlock = true
+        fencedChar = fenceMatch[1][0]
+        fencedLen = fenceMatch[1].length
+        current += (current ? '\n' : '') + line
+        continue
+      }
+    }
+
     // Check for fenced directive start: :::{...}
     if (!inFencedBlock && line.match(/^:::\{.+\}$/)) {
       inFencedBlock = true
+      fencedChar = ':'
+      fencedLen = 0 // directive blocks end with :::
       current += (current ? '\n' : '') + line
       continue
     }
 
+    // Check for fenced code block end: same char, same/more count, nothing else
+    if (inFencedBlock && fencedChar !== ':') {
+      const fenceClose = line.match(/^(`{3,}|~{3,})\s*$/)
+      if (fenceClose && fenceClose[1][0] === fencedChar && fenceClose[1].length >= fencedLen) {
+        inFencedBlock = false
+        current += `\n${line}`
+        continue
+      }
+    }
+
     // Check for fenced directive end: :::
-    if (inFencedBlock && line === ':::') {
+    if (inFencedBlock && fencedChar === ':' && line === ':::') {
       inFencedBlock = false
       current += `\n${line}`
       continue

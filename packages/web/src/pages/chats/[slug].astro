@@ -191,10 +191,10 @@ messages.forEach((msg: any) => {
 </style>
 
 <script>
-  function updateHeadersVisibility(isHidden) {
+  function updateHeadersVisibility(isHidden: boolean) {
     // Select all messages in order
     const articles = document.querySelectorAll('article[data-author]');
-    let lastVisibleAuthor = null;
+    let lastVisibleAuthor: string | null = null;
 
     articles.forEach((article) => {
       // Check if this article is currently hidden by our global class
@@ -225,7 +225,7 @@ messages.forEach((msg: any) => {
     });
   }
 
-  function setBtnState(btn, isHidden) {
+  function setBtnState(btn: HTMLElement, isHidden: boolean) {
     const label = isHidden ? 'Show process information' : 'Hide process information';
     btn.setAttribute('aria-label', label);
     btn.setAttribute('aria-pressed', String(isHidden));
@@ -236,8 +236,8 @@ messages.forEach((msg: any) => {
   // Animated batch hide/show for collapsible process messages.
   // display:none cannot be transitioned, so we drive visibility through inline
   // styles: fade-out → display:none when hiding, display:'' → fade-in when showing.
-  function animateCollapsibles(show) {
-    const items = document.querySelectorAll('.global-collapsible-message');
+  function animateCollapsibles(show: boolean) {
+    const items = document.querySelectorAll<HTMLElement>('.global-collapsible-message');
     if (show) {
       // Reveal elements at opacity 0, then animate to 1.
       items.forEach(el => {
