@@ -135,6 +135,19 @@ invalid json line
     expect(result.meta.version).toBe(0)
   })
 
+  it('should clean Discord untrusted metadata and extract body from chat history', () => {
+    const parser = new LogParser()
+    // Discord untrusted metadata format with embedded JSON
+    const discordText =
+      'Conversation info (untrusted metadata):\n```json\n{\n  "message_id": "123456789",\n  "conversation_label": "Guild #test channel id:123"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  "label": "testuser"\n}\n```\n\nChat history since last reply (untrusted, for context):\n```json\n[\n  {\n    "sender": "testuser",\n    "body": "previous message"\n  }\n]\n```\n\n<@1234567890123456789>'
+    const content = `{"type":"session","version":3,"id":"s1","timestamp":"2026-01-01T00:00:00.000Z","cwd":"/"}
+{"type":"message","id":"msg1","parentId":null,"timestamp":"2026-01-01T00:00:01.000Z","message":{"role":"user","content":[{"type":"text","text":${JSON.stringify(discordText)}}],"timestamp":1234567890000}}`
+
+    const result = parser.parseContent(content)
+    // Should extract the body from chat history
+    expect(result.messages[0].content).toBe('previous message')
+  })
+
   it('should clean Discord message metadata from user messages', () => {
     const parser = new LogParser()
     const content = `{"type":"session","version":3,"id":"s1","timestamp":"2026-01-01T00:00:00.000Z","cwd":"/"}

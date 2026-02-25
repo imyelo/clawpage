@@ -36,6 +36,9 @@ export interface MessageContentBlock {
     media_type: string
     data: string
   }
+  // For toolResult image blocks
+  data?: string
+  mimeType?: string
 }
 
 export interface Usage {
@@ -56,6 +59,12 @@ export interface Usage {
 export interface ToolResultContent {
   type: 'text'
   text: string
+}
+
+export interface ToolResultImage {
+  type: 'image'
+  data: string
+  mimeType: string
 }
 
 export interface ToolResultDetails {
@@ -104,6 +113,7 @@ export interface ParsedMessage {
     isError: boolean
     details?: ToolResultDetails
   }
+  images?: ToolResultImage[]
   usage?: Usage
   stopReason?: string
 }
@@ -214,6 +224,7 @@ export class LogParser {
     }
 
     // Extract content blocks
+    const images: ToolResultImage[] = []
     for (const block of message.content) {
       if (block.type === 'text' && block.text) {
         let text = block.text
@@ -231,11 +242,25 @@ export class LogParser {
           arguments: block.arguments || {},
         }
       } else if (block.type === 'image') {
-        // Image content: store reference for potential future display
-        // Currently not rendered in markdown output
-        const mediaType = block.source?.media_type || 'image'
-        parsed.content += `[${mediaType} attachment]`
+        // Extract image data from any message role (user, assistant, toolResult)
+        const mediaType = block.source?.media_type || 'image/png'
+        const imageData = block.source?.data || block.data || ''
+        if (imageData) {
+          images.push({
+            type: 'image',
+            data: imageData,
+            mimeType: mediaType,
+          })
+        } else {
+          // Fallback: just add text reference if no data
+          parsed.content += `[${mediaType} attachment]`
+        }
       }
+    }
+
+    // Store images if any were found
+    if (images.length > 0) {
+      parsed.images = images
     }
 
     // Handle toolResult
@@ -292,8 +317,83 @@ export class LogParser {
       return telegramMatch[1].trim()
     }
 
-    // If no pattern matches, return original text
-    return text
+    // Handle Discord untrusted metadata format:
+    // - "Conversation info (untrusted metadata):\n```json\n{...}\n```"
+    // - "Sender (untrusted metadata):\n```json\n{...}\n```"
+    // - "Chat history since last reply (untrusted, for context):\n```json\n[...]\n```"
+    // - "<@1234567890123456789>" mention at the end
+    // - "[media attached: /path/to/file.png (image/png) | /path/to/file.png]" debug info
+    // - "<media:image> (1 image)" Discord media marker
+    // - "To send an image back, prefer..." instruction text
+
+    // Note: In JSON strings, backticks are escaped as \` so we need to handle both cases
+    let cleaned = text
+
+    // Remove media attached line (e.g., "[media attached: /home/user/.openclaw/media/inbound/xxx.png (image/png) | /home/user/.openclaw/media/inbound/xxx.png]")
+    cleaned = cleaned.replace(/^\[media attached:[^\]]+\]\n?/g, '')
+
+    // Remove Discord image instruction lines
+    cleaned = cleaned.replace(/^To send an image back, prefer the message tool.*$/gm, '')
+
+    // Remove media:image marker (e.g., "<media:image> (1 image)")
+    cleaned = cleaned.replace(/^<media:[^>]+>\s*\((\d+)(\s+image)?\)\s*$/gm, '')
+
+    // Remove Conversation info (untrusted metadata) block with JSON
+    // In the parsed JSON string, the backticks are regular ``` (not escaped)
+    // Note: May have leading \n from previous block removal, so use \n? at start
+    cleaned = cleaned.replace(/^\n?Conversation info \(untrusted metadata\):\n```json\n[\s\S]*?```\n?/gm, '')
+
+    // Remove Sender (untrusted metadata) block with JSON
+    cleaned = cleaned.replace(/^\n?Sender \(untrusted metadata\):\n```json\n[\s\S]*?```\n?/gm, '')
+
+    // Remove Chat history since last reply block with JSON
+    // Extract the "body" field from the JSON as actual message content
+    const chatHistoryMatch = cleaned.match(
+      /^\n?Chat history since last reply \(untrusted, for context\):\n```json\n([\s\S]*?)```\n?/m
+    )
+    let chatHistoryBody = ''
+    if (chatHistoryMatch?.[1]) {
+      try {
+        const chatHistoryJson = JSON.parse(chatHistoryMatch?.[1] || '')
+        // Find the last message's body (most recent)
+        if (Array.isArray(chatHistoryJson) && chatHistoryJson.length > 0) {
+          const lastEntry = chatHistoryJson[chatHistoryJson.length - 1]
+          if (lastEntry?.body) {
+            chatHistoryBody = lastEntry.body
+          }
+        }
+      } catch (_e) {
+        // JSON parse error, ignore
+      }
+    }
+    cleaned = cleaned.replace(
+      /^\n?Chat history since last reply \(untrusted, for context\):\n```json\n[\s\S]*?```\n?/gm,
+      ''
+    )
+    // If we extracted body content, prepend it to the cleaned text
+    if (chatHistoryBody) {
+      cleaned = `${chatHistoryBody}
+${cleaned}`
+    }
+
+    // Remove Discord mention tags like <@1234567890123456782> from the end
+    // Keep them if they're the only content
+    cleaned = cleaned.replace(/\n?<@\d+>\n?$/gm, '')
+
+    // Remove leading/trailing whitespace and empty lines
+    cleaned = cleaned.trim()
+
+    // If cleaned is empty but original had content, it means the message was only metadata
+    // In that case, try to keep just the mention if present
+    if (cleaned.length === 0) {
+      // Try to extract mention from original text
+      const mentionMatch = text.match(/<@\d+>/)
+      if (mentionMatch) {
+        return mentionMatch[0]
+      }
+      return ''
+    }
+    return cleaned
   }
 }
 

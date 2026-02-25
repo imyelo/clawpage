@@ -27,12 +27,15 @@ Let me write that to a file.
 🔧 **Tool Call - write** · /test.md
 ***
 **File**: /test.md
+
 **Content** (12 chars):
 \`\`\`
 test content
 \`\`\`
 ***
-✅ Successfully wrote 100 bytes to /test.md
+\`\`\`\`
+Successfully wrote 100 bytes to /test.md
+\`\`\`\`
 :::"
 `;
 
@@ -78,12 +81,15 @@ Let me write that to a file.
 🔧 **Tool Call - write** · /test.md
 ***
 **File**: /test.md
+
 **Content** (12 chars):
 \`\`\`
 test content
 \`\`\`
 ***
-✅ Successfully wrote 100 bytes to /test.md
+\`\`\`\`
+Successfully wrote 100 bytes to /test.md
+\`\`\`\`
 :::"
 `;
 
@@ -114,12 +120,15 @@ Let me write that to a file.
 🔧 **Tool Call - write** · /test.md
 ***
 **File**: /test.md
+
 **Content** (12 chars):
 \`\`\`
 test content
 \`\`\`
 ***
-✅ Successfully wrote 100 bytes to /test.md
+\`\`\`\`
+Successfully wrote 100 bytes to /test.md
+\`\`\`\`
 :::"
 `;
 
@@ -243,12 +252,15 @@ Let me write that to a file.
 🔧 **Tool Call - write** · /test.md
 ***
 **File**: /test.md
+
 **Content** (12 chars):
 \`\`\`
 test content
 \`\`\`
 ***
-✅ Successfully wrote 100 bytes to /test.md
+\`\`\`\`
+Successfully wrote 100 bytes to /test.md
+\`\`\`\`
 :::"
 `;
 
@@ -318,12 +330,15 @@ Assistant response text
 🔧 **Tool Call - write** · /test.txt
 ***
 **File**: /test.txt
+
 **Content** (4 chars):
 \`\`\`
 test
 \`\`\`
 ***
-✅ Successfully wrote 100 bytes to /test.txt
+\`\`\`\`
+Successfully wrote 100 bytes to /test.txt
+\`\`\`\`
 :::
 
 ---

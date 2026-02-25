@@ -6,7 +6,7 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import type { FormatConstraint } from '../format-constraint/index.js'
-import type { ParsedMessage, ParsedSession, SessionEvent } from '../session-log-parser/index.js'
+import type { ParsedMessage, ParsedSession, SessionEvent, ToolResultImage } from '../session-log-parser/index.js'
 
 export interface GeneratorOptions {
   includeFrontMatter?: boolean
@@ -187,7 +187,20 @@ export class MDGenerator {
       }
     }
 
-    return lines.length > 0 ? lines.join('\n') : null
+    return lines.length > 0 ? lines.join('\n\n') : null
+  }
+
+  /**
+   * Render images from message
+   */
+  private renderImages(images?: ToolResultImage[]): string[] {
+    const blocks: string[] = []
+    if (images && images.length > 0) {
+      for (const img of images) {
+        blocks.push(`![${img.mimeType}](data:${img.mimeType};base64,${img.data})`)
+      }
+    }
+    return blocks
   }
 
   /**
@@ -215,6 +228,11 @@ export class MDGenerator {
       blocks.push(msg.content)
     }
 
+    // Render images for non-toolResult messages (e.g., user sending images)
+    if (!isToolResult) {
+      blocks.push(...this.renderImages(msg.images))
+    }
+
     // Tool call - include tool result if available
     if (msg.toolCall && !isToolResult) {
       const argDesc = msg.toolCall.arguments.file_path ? ` · ${msg.toolCall.arguments.file_path}` : ''
@@ -240,8 +258,13 @@ export class MDGenerator {
         }
 
         // Add result content (wrap in code block to prevent markdown rendering)
+        // Use 4 backticks to avoid nesting issues if content contains ``` code blocks
         blocks.push('***')
-        blocks.push(`\`\`\`\n${tr.content}\n\`\`\``)
+        blocks.push(`\`\`\`\`\n${tr.content}\n\`\`\`\``)
+
+        // Add images if present (from toolResultMsg.images)
+        blocks.push(...this.renderImages(toolResultMsg.images))
+
         blocks.push(`:::`)
       } else {
         // No result yet - just show the tool call
@@ -261,6 +284,10 @@ export class MDGenerator {
       }
       blocks.push(`:::{type=${blockType},collapsed=${collapsed}}`)
       blocks.push(`${icon} **${msg.toolResult.toolName}** · ${msg.toolResult.content}`)
+
+      // Add images if present (from msg.images)
+      blocks.push(...this.renderImages(msg.images))
+
       blocks.push(`:::`)
     }
 
