@@ -37,6 +37,7 @@ const messages = messageBlocks.flatMap(block => {
 });
 
 const hasProcessMessages = messages.some((msg: any) => msg.kind === 'directive');
+const regularMessageCount = messages.filter((msg: any) => msg.kind !== 'directive').length;
 
 // Create avatar color mapping for unique human authors
 const authorColorMap = new Map<string, number>();
@@ -55,6 +56,7 @@ messages.forEach((msg: any) => {
   model={model}
   date={date}
   messageCount={totalMessages}
+  regularMessageCount={regularMessageCount}
 >
   {hasProcessMessages && (
     <button slot="controls" id="toggle-collapsible-btn" class="toggle-btn" aria-label="Show process information" aria-pressed="true">

@@ -9,9 +9,10 @@ interface Props {
   model?: string
   date?: string
   messageCount?: number
+  regularMessageCount?: number
 }
 
-const { title, channel, model, date, messageCount } = Astro.props;
+const { title, channel, model, date, messageCount, regularMessageCount } = Astro.props;
 ---
 
 <!doctype html>
@@ -161,7 +162,7 @@ const { title, channel, model, date, messageCount } = Astro.props;
           <span class="layout-meta-separator">◆</span>
           <span class="layout-meta-item">
             <span class="meta-label">msgs</span>
-            <span>{messageCount}</span>
+            <span>{regularMessageCount} / {messageCount}</span>
           </span>
         </p>
       </div>
