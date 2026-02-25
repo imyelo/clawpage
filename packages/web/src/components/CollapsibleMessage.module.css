@@ -157,7 +157,7 @@
 }
 
 .collapsibleContentOpen {
-  max-height: 5000px;
+  max-height: 20000px;
   opacity: 1;
 }
 
@@ -305,4 +305,13 @@
 
 .prose td {
   color: #c5c4c2;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
 }

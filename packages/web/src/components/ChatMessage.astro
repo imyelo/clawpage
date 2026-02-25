@@ -215,4 +215,13 @@ const htmlContent = md.parse(content, { async: false }) as string
   .message-content :global(td) {
     color: #c5c4c2;
   }
+
+  .message-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+  }
 </style>
