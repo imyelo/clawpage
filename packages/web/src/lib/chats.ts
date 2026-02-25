@@ -159,7 +159,7 @@ function parseMessageBlock(raw: string): ParsedMessageBlock | null {
     const headerLine = firstNl === -1 ? directiveBody : directiveBody.slice(0, firstNl)
     const rawContent = firstNl === -1 ? '' : directiveBody.slice(firstNl + 1).trim()
     // Strip the leading *** or --- separator the md-generator inserts between label and body
-    const content = rawContent.replace(/^[*\-]{3,}\n?/, '')
+    const content = rawContent.replace(/^[*-]{3,}\n?/, '')
 
     const { icon, label: rawLabel } = parseDirectiveHeader(headerLine)
     // Fallback: use type as label if the header line carried no bold text
