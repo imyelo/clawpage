@@ -63,9 +63,13 @@ const htmlContent = md.parse(content, { async: false }) as string
     width: 100%;
   }
 
-  .last-in-group     { margin-bottom: 1.5rem; }
-  .not-last-in-group { margin-bottom: 0.25rem; }
-  .not-first-in-group { margin-top: 0.25rem; }
+  /* Regular messages always carry the full 1.5rem gap below them — the loose
+     spacing marks the end of a speech unit regardless of what follows.
+     No extra top margin is needed: the gap comes from the previous
+     element's margin-bottom, not from the receiver's margin-top. */
+  .last-in-group      { margin-bottom: 1.5rem; }
+  .not-last-in-group  { margin-bottom: 1.5rem; }
+  .not-first-in-group { margin-top: 0; }
 
   .message-body {
     width: 100%;
@@ -79,12 +83,12 @@ const htmlContent = md.parse(content, { async: false }) as string
 
   .body-agent {
     background-color: var(--assistant-msg-bg);
-    box-shadow: 0 0 0 1px var(--assistant-msg-border);
+    border: 1px solid var(--assistant-msg-border);
   }
 
   .body-user {
     background-color: var(--user-msg-bg);
-    box-shadow: 0 0 0 1px var(--user-msg-border);
+    border: 1px solid var(--user-msg-border);
   }
 
   .message-content {

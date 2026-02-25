@@ -72,9 +72,13 @@
   width: 100%;
 }
 
-.collapsibleLastInGroup    { margin-bottom: 1.5rem; }
-.collapsibleNotLastInGroup { margin-bottom: 0.75rem; }
-.collapsibleNotFirstInGroup { margin-top: 0.75rem; }
+/* Collapsibles always use tight bottom margin — they are process information,
+   not primary content. The large spacing between conversation turns comes
+   from the regular message that follows, not from the collapsible itself.
+   (isLastInGroup is still used for the stacked border-radius logic above.) */
+.collapsibleLastInGroup    { margin-bottom: 0.125rem; }
+.collapsibleNotLastInGroup { margin-bottom: 0.125rem; }
+.collapsibleNotFirstInGroup { margin-top: 0; }
 
 .collapsibleWrapper {
   width: 100%;
@@ -82,17 +86,26 @@
   max-width: 100%;
   border-radius: 2px;
   overflow: hidden;
-  background-color: color-mix(in srgb, var(--bg-secondary) 50%, transparent);
+  background-color: var(--bg-secondary);
+}
+
+/* Stacked-corner logic: consecutive collapsibles share flush edges,
+   only the outermost items get rounded corners. */
+.collapsibleNotLastInGroup .collapsibleWrapper {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.collapsibleNotFirstInGroup .collapsibleWrapper {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .collapsibleBorder {
   width: 100%;
   padding-left: 1rem;
-  border-left: 2px solid transparent;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   margin-bottom: 0;
-  transition: border-color 0.3s;
 }
 
 .collapsibleToggle {
@@ -112,7 +125,8 @@
 }
 
 .collapsibleToggle:hover {
-  opacity: 0.85;
+  background-color: rgba(255, 255, 255, 0.025);
+  opacity: 0.9;
 }
 
 .collapsibleTypeIcon {
@@ -148,7 +162,7 @@
 .chevron {
   width: 1rem;
   height: 1rem;
-  transition: transform 0.3s;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .chevronOpen {
@@ -156,21 +170,34 @@
 }
 
 .collapsibleContent {
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  /* Grid-based height animation: animates the actual intrinsic content height
+     without the jank of large max-height values. The child (.collapsibleBody)
+     needs overflow:hidden so it can shrink below its content height. */
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease;
 }
 
 .collapsibleContentOpen {
-  max-height: 20000px;
+  grid-template-rows: 1fr;
   opacity: 1;
 }
 
-.collapsibleContentClosed {
-  max-height: 0;
-  opacity: 0;
-}
+/* .collapsibleContentClosed inherits the defaults above (0fr / opacity 0) */
 
 .collapsibleBody {
+  /* overflow:hidden + no padding is required by the grid height animation.
+     Padding on this element counts toward the grid item's minimum size and
+     prevents the row from truly collapsing to 0. Padding lives in the inner
+     wrapper (.collapsibleBodyInner) instead. */
+  overflow: hidden;
+  min-height: 0;
+}
+
+.collapsibleBodyInner {
   padding: 0.75rem 1rem 0.75rem 2.25rem;
   font-size: 12px;
   font-family: var(--font-mono);

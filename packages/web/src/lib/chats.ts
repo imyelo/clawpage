@@ -122,7 +122,9 @@ function parseDirectiveAttrs(attrStr: string): Record<string, string> {
 /** Extracts icon and bold label from a directive header line like `🔧 **Tool Call**` */
 function parseDirectiveHeader(line: string): { icon: string; label: string } {
   const m = line.match(/^(.*?)\*\*(.+?)\*\*/)
-  if (!m) return { icon: '', label: line.trim() }
+  if (!m) {
+    return { icon: '', label: line.trim() }
+  }
   return { icon: m[1].trim(), label: m[2].trim() }
 }
 
@@ -136,18 +138,22 @@ const DIRECTIVE_RE = /:::\{([^}]+)\}\n([\s\S]*?)\n:::/g
  */
 function parseMessageBlock(raw: string): ParsedMessageBlock | null {
   const headerMatch = raw.match(/\*\*(.*?)\*\* · (.+)/)
-  if (!headerMatch) return null
+  if (!headerMatch) {
+    return null
+  }
 
   const author = headerMatch[1]
   const timestamp = headerMatch[2].trim()
-  const body = raw.slice(headerMatch.index! + headerMatch[0].length).trim()
+  const body = raw.slice((headerMatch.index ?? 0) + headerMatch[0].length).trim()
 
   const segments: MessageSegment[] = []
   let lastIndex = 0
 
   for (const m of body.matchAll(new RegExp(DIRECTIVE_RE.source, 'g'))) {
-    const preText = body.slice(lastIndex, m.index!).trim()
-    if (preText) segments.push({ kind: 'text', content: preText })
+    const preText = body.slice(lastIndex, m.index ?? lastIndex).trim()
+    if (preText) {
+      segments.push({ kind: 'text', content: preText })
+    }
 
     const attrs = parseDirectiveAttrs(m[1])
     const type = attrs.type ?? m[1]
@@ -166,11 +172,13 @@ function parseMessageBlock(raw: string): ParsedMessageBlock | null {
     const label = rawLabel || type
 
     segments.push({ kind: 'directive', type, collapsed, icon, label, content })
-    lastIndex = m.index! + m[0].length
+    lastIndex = (m.index ?? lastIndex) + m[0].length
   }
 
   const remainingText = body.slice(lastIndex).trim()
-  if (remainingText) segments.push({ kind: 'text', content: remainingText })
+  if (remainingText) {
+    segments.push({ kind: 'text', content: remainingText })
+  }
 
   return { author, timestamp, segments }
 }

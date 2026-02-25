@@ -36,6 +36,8 @@ const messages = messageBlocks.flatMap(block => {
   return block.segments.map(seg => ({ ...seg, author: block.author, timestamp: block.timestamp, isUser }));
 });
 
+const hasProcessMessages = messages.some((msg: any) => msg.kind === 'directive');
+
 // Create avatar color mapping for unique human authors
 const authorColorMap = new Map<string, number>();
 let colorIndex = 0;
@@ -54,10 +56,12 @@ messages.forEach((msg: any) => {
   date={date}
   messageCount={totalMessages}
 >
-  <button slot="controls" id="toggle-collapsible-btn" class="toggle-btn" aria-label="Hide process information" aria-pressed="false">
-    <span class="toggle-pip" aria-hidden="true"></span>
-    <span class="toggle-text">hide process</span>
-  </button>
+  {hasProcessMessages && (
+    <button slot="controls" id="toggle-collapsible-btn" class="toggle-btn" aria-label="Show process information" aria-pressed="true">
+      <span class="toggle-pip" aria-hidden="true"></span>
+      <span class="toggle-text">show process</span>
+    </button>
+  )}
 
   {messages.map((msg: any, index: number) => {
     const isFirstInGroup = index === 0 || messages[index - 1].author !== msg.author;
@@ -72,7 +76,6 @@ messages.forEach((msg: any) => {
           icon={msg.icon}
           label={msg.label}
           collapsed={msg.collapsed}
-          color={msg.type}
           content={msg.content}
           author={msg.author}
           timestamp={msg.timestamp}
@@ -187,12 +190,6 @@ messages.forEach((msg: any) => {
   }
 </style>
 
-<style is:global>
-  body.hide-collapsible-messages .global-collapsible-message {
-    display: none !important;
-  }
-</style>
-
 <script>
   function updateHeadersVisibility(isHidden) {
     // Select all messages in order
@@ -236,14 +233,63 @@ messages.forEach((msg: any) => {
     if (textEl) { textEl.textContent = isHidden ? 'show process' : 'hide process'; }
   }
 
+  // Animated batch hide/show for collapsible process messages.
+  // display:none cannot be transitioned, so we drive visibility through inline
+  // styles: fade-out → display:none when hiding, display:'' → fade-in when showing.
+  function animateCollapsibles(show) {
+    const items = document.querySelectorAll('.global-collapsible-message');
+    if (show) {
+      // Reveal elements at opacity 0, then animate to 1.
+      items.forEach(el => {
+        el.style.display = '';
+        el.style.opacity = '0';
+      });
+      // Double rAF ensures the browser has painted the display:'' state
+      // before starting the transition (avoids the transition being skipped).
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          items.forEach(el => {
+            el.style.transition = 'opacity 0.2s ease';
+            el.style.opacity = '';
+          });
+          setTimeout(() => {
+            items.forEach(el => { el.style.transition = ''; });
+          }, 220);
+        });
+      });
+    } else {
+      // Fade out, then collapse with display:none.
+      items.forEach(el => {
+        el.style.transition = 'opacity 0.12s ease';
+        el.style.opacity = '0';
+      });
+      setTimeout(() => {
+        items.forEach(el => {
+          el.style.display = 'none';
+          el.style.opacity = '';
+          el.style.transition = '';
+        });
+      }, 130);
+    }
+  }
+
   function setupToggle() {
     const btn = document.getElementById('toggle-collapsible-btn');
     if (!btn) return;
 
-    // Body class persists across Astro page transitions; sync button state on every page load.
-    const isCurrentlyHidden = document.body.classList.contains('hide-collapsible-messages');
-    setBtnState(btn, isCurrentlyHidden);
-    updateHeadersVisibility(isCurrentlyHidden);
+    // Default: process messages are hidden. Add the class if not already present
+    // (it may already be set if the user toggled during this tab session).
+    if (!document.body.classList.contains('hide-collapsible-messages')) {
+      document.body.classList.add('hide-collapsible-messages');
+    }
+
+    // Hide all collapsibles immediately (no animation on initial load).
+    document.querySelectorAll('.global-collapsible-message').forEach(el => {
+      (el as HTMLElement).style.display = 'none';
+    });
+
+    setBtnState(btn, true);
+    updateHeadersVisibility(true);
 
     btn.addEventListener('click', () => {
       document.body.classList.toggle('hide-collapsible-messages');
@@ -255,6 +301,7 @@ messages.forEach((msg: any) => {
 
       setBtnState(btn, isHidden);
       updateHeadersVisibility(isHidden);
+      animateCollapsibles(!isHidden);
     });
   }
 

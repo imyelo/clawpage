@@ -17,7 +17,9 @@ import type { ParsedMessage, ParsedSession, SessionEvent, ToolResultImage } from
 function fenceBlock(content: string): string {
   let maxRun = 2 // fence minimum is 3, so floor is 2
   for (const m of content.matchAll(/`+/g)) {
-    if (m[0].length > maxRun) maxRun = m[0].length
+    if (m[0].length > maxRun) {
+      maxRun = m[0].length
+    }
   }
   const fence = '`'.repeat(maxRun + 1)
   return `${fence}\n${content}\n${fence}`
@@ -128,7 +130,9 @@ export class MDGenerator {
    * Format tool arguments for display
    */
   private formatToolArguments(toolName: string, args: Record<string, unknown>): string | null {
-    if (!args || Object.keys(args).length === 0) return null
+    if (!args || Object.keys(args).length === 0) {
+      return null
+    }
 
     const lines: string[] = []
 
@@ -136,7 +140,9 @@ export class MDGenerator {
       case 'write': {
         const filePath = args.file_path as string | undefined
         const content = args.content as string | undefined
-        if (filePath) lines.push(`**File**: ${filePath}`)
+        if (filePath) {
+          lines.push(`**File**: ${filePath}`)
+        }
         if (content) {
           // Remove any --- to avoid breaking the block structure
           const cleanContent = content.replace(/^---$/gm, '').trim()
@@ -146,14 +152,18 @@ export class MDGenerator {
       }
       case 'read': {
         const filePath = args.file_path as string | undefined
-        if (filePath) lines.push(`**File**: \`${filePath}\``)
+        if (filePath) {
+          lines.push(`**File**: \`${filePath}\``)
+        }
         break
       }
       case 'edit': {
         const filePath = args.file_path as string | undefined
         const oldText = args.oldText as string | undefined
         const newText = args.newText as string | undefined
-        if (filePath) lines.push(`**File**: ${filePath}`)
+        if (filePath) {
+          lines.push(`**File**: ${filePath}`)
+        }
         if (oldText) {
           const cleanOld = oldText.replace(/^---$/gm, '').trim()
           lines.push(`**Old**:\n\`\`\`\n${cleanOld}\n\`\`\``)
@@ -166,23 +176,35 @@ export class MDGenerator {
       }
       case 'exec': {
         const command = args.command as string | undefined
-        if (command) lines.push(`**Command**:\n\`\`\`\n${command}\n\`\`\``)
+        if (command) {
+          lines.push(`**Command**:\n\`\`\`\n${command}\n\`\`\``)
+        }
         break
       }
       case 'process': {
         const command = args.command as string | undefined
         const name = args.name as string | undefined
-        if (name) lines.push(`**Process**: ${name}`)
-        if (command) lines.push(`**Command**:\n\`\`\`\n${command}\n\`\`\``)
+        if (name) {
+          lines.push(`**Process**: ${name}`)
+        }
+        if (command) {
+          lines.push(`**Command**:\n\`\`\`\n${command}\n\`\`\``)
+        }
         break
       }
       case 'curl': {
         const url = args.url as string | undefined
         const method = args.method as string | undefined
         const body = args.body as string | undefined
-        if (method) lines.push(`**Method**: ${method}`)
-        if (url) lines.push(`**URL**: ${url}`)
-        if (body) lines.push(`**Body**:\n\`\`\`\n${body}\n\`\`\``)
+        if (method) {
+          lines.push(`**Method**: ${method}`)
+        }
+        if (url) {
+          lines.push(`**URL**: ${url}`)
+        }
+        if (body) {
+          lines.push(`**Body**:\n\`\`\`\n${body}\n\`\`\``)
+        }
         break
       }
       case 'openclaw camofox': {
@@ -231,7 +253,7 @@ export class MDGenerator {
 
     // Thinking block (only for non-toolResult messages)
     if (msg.thinking && !isToolResult) {
-      blocks.push(`:::{type=thinking_level_change,collapsed=true}`)
+      blocks.push(`:::{type=thinking_level_change}`)
       blocks.push(`🧠 **Thinking**`)
       blocks.push(msg.thinking)
       blocks.push(`:::`)
@@ -260,8 +282,7 @@ export class MDGenerator {
         // Render tool call and result together in one block
         const tr = toolResultMsg.toolResult
         const blockType = tr.isError ? 'error' : 'custom'
-        const collapsed = tr.isError ? 'false' : 'true'
-        blocks.push(`:::{type=${blockType},collapsed=${collapsed}}`)
+        blocks.push(`:::{type=${blockType}}`)
         // First line is the label (with icon and tool name) - includes the path for context
         blocks.push(`🔧 **Tool Call - ${msg.toolCall.name}**${argDesc}`)
 
@@ -282,7 +303,7 @@ export class MDGenerator {
         blocks.push(`:::`)
       } else {
         // No result yet - just show the tool call
-        blocks.push(`:::{type=custom,collapsed=true}`)
+        blocks.push(`:::{type=custom}`)
         blocks.push(`🔧 **Tool Call - ${msg.toolCall.name}**${argDesc}`)
         blocks.push(`:::`)
       }
@@ -292,11 +313,10 @@ export class MDGenerator {
     if (msg.toolResult && !msg.toolCall) {
       const icon = msg.toolResult.isError ? '❌' : '✅'
       const blockType = msg.toolResult.isError ? 'error' : 'custom'
-      const collapsed = msg.toolResult.isError ? 'false' : 'true'
       if (!isToolResult) {
         blocks.push('')
       }
-      blocks.push(`:::{type=${blockType},collapsed=${collapsed}}`)
+      blocks.push(`:::{type=${blockType}}`)
       blocks.push(`${icon} **${msg.toolResult.toolName}** · ${msg.toolResult.content}`)
 
       // Add images if present (from msg.images)
@@ -317,11 +337,11 @@ export class MDGenerator {
       case 'model_change': {
         const modelId = String(e.modelId || '')
         const provider = e.provider ? ` (${e.provider})` : ''
-        return `:::{type=custom,collapsed=true}\n🔧 **Model Change**: ${modelId}${provider}\n:::`
+        return `:::{type=custom}\n🔧 **Model Change**: ${modelId}${provider}\n:::`
       }
       case 'thinking_level_change': {
         const level = String(e.thinkingLevel || '')
-        return `:::{type=thinking_level_change,collapsed=true}\n🧠 **Thinking** level: ${level}\n:::`
+        return `:::{type=thinking_level_change}\n🧠 **Thinking** level: ${level}\n:::`
       }
       case 'custom': {
         const customType = String(e.customType || 'custom')
@@ -332,15 +352,15 @@ export class MDGenerator {
           const provider = data.provider ? ` (${data.provider})` : ''
           desc = `**${customType}**: ${modelId}${provider}`
         }
-        return `:::{type=custom,collapsed=true}\n⚙️ ${desc}\n:::`
+        return `:::{type=custom}\n⚙️ ${desc}\n:::`
       }
       case 'compaction': {
         const tokens = e.tokensBefore ?? ''
-        return `:::{type=custom,collapsed=true}\n🗜️ **Context Compaction**: ${tokens} tokens\n:::`
+        return `:::{type=custom}\n🗜️ **Context Compaction**: ${tokens} tokens\n:::`
       }
       case 'session': {
         const cwd = e.cwd ? ` (${e.cwd})` : ''
-        return `:::{type=session,collapsed=true}\nSession started${cwd}\n:::`
+        return `:::{type=session}\nSession started${cwd}\n:::`
       }
       default:
         return null

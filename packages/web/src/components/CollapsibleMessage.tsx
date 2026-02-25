@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-import { AVATAR_COLORS, COLLAPSIBLE_TYPE_STYLES, SPEC_COLOR_MAP } from '../constants/index.js'
+import { AVATAR_COLORS, COLLAPSIBLE_TYPE_STYLES } from '../constants/index.js'
 import styles from './CollapsibleMessage.module.css'
 
 function cn(...classes: (string | false | null | undefined)[]): string {
@@ -61,7 +61,6 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
   icon,
   label,
   collapsed = false,
-  color,
   content,
   author,
   timestamp,
@@ -73,7 +72,6 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
   icon: string
   label: string
   collapsed?: boolean
-  color?: string
   content: string
   author?: string
   timestamp?: string
@@ -82,11 +80,6 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
   avatarColorIndex?: number
 }) {
   const [isOpen, setIsOpen] = useState(!collapsed)
-
-  const colors = useMemo(() => {
-    const lookupKey = color && SPEC_COLOR_MAP[color] ? color : SPEC_COLOR_MAP[type] ? type : 'default'
-    return SPEC_COLOR_MAP[lookupKey] || { borderColor: '#d4a853', color: '#d4a853' }
-  }, [color, type])
 
   const style = useMemo(() => {
     return COLLAPSIBLE_TYPE_STYLES[type] || COLLAPSIBLE_TYPE_STYLES.thinking_level_change
@@ -111,10 +104,7 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
         avatarColorIndex={avatarColorIndex}
       />
       <div className={styles.collapsibleWrapper}>
-        <div
-          className={styles.collapsibleBorder}
-          style={{ borderLeftColor: colors.borderColor }}
-        >
+        <div className={styles.collapsibleBorder}>
           <button
             type="button"
             onClick={() => setIsOpen(prev => !prev)}
@@ -147,13 +137,17 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
               isOpen ? styles.collapsibleContentOpen : styles.collapsibleContentClosed
             )}
           >
-            <div className={cn(styles.collapsibleBody, styles.prose)}>
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                urlTransform={(url: string) => url}
-              >
-                {content}
-              </ReactMarkdown>
+            {/* .collapsibleBody is the grid item — no padding so it collapses to true 0.
+                Padding lives in the inner wrapper to avoid the "blank space" artifact. */}
+            <div className={styles.collapsibleBody}>
+              <div className={cn(styles.collapsibleBodyInner, styles.prose)}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  urlTransform={(url: string) => url}
+                >
+                  {content}
+                </ReactMarkdown>
+              </div>
             </div>
           </div>
         </div>
