@@ -1,2 +1,4 @@
 [tools]
 bun = "1.2.20"
+jujutsu = "latest"
+jujutsu-ui = "latest"
