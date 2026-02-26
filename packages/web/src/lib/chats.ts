@@ -20,6 +20,7 @@ export interface ChatMetadata {
   visibility: 'public' | 'private'
   description: string
   participants?: Record<string, { role: 'human' | 'agent'; model?: string }>
+  defaultShowProcess?: boolean
 }
 
 export interface ChatData extends ChatMetadata {
