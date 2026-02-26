@@ -9,6 +9,7 @@ const { values, positionals } = parseArgs({
   options: {
     output: { type: 'string', short: 'o' },
     constraint: { type: 'string', short: 'c' },
+    'default-show-process': { type: 'boolean', default: false },
   },
   allowPositionals: true,
 })
@@ -25,7 +26,9 @@ if (command === 'parse') {
   const parser = new LogParser()
   const session = parser.parseContent(content)
 
-  const generator = new MDGenerator(DEFAULT_CONSTRAINT)
+  const generator = new MDGenerator(DEFAULT_CONSTRAINT, {
+    defaultShowProcess: values['default-show-process'],
+  })
   const markdown = generator.generateWithFrontMatter(session)
 
   const outputPath = values.output || inputPath.replace('.jsonl', '.md')

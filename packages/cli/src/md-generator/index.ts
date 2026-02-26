@@ -29,12 +29,14 @@ export interface GeneratorOptions {
   includeFrontMatter?: boolean
   includeTimestamps?: boolean
   indentSize?: number
+  defaultShowProcess?: boolean
 }
 
 const DEFAULT_OPTIONS: GeneratorOptions = {
   includeFrontMatter: true,
   includeTimestamps: true,
   indentSize: 2,
+  defaultShowProcess: false,
 }
 
 /**
@@ -253,7 +255,7 @@ export class MDGenerator {
 
     // Thinking block (only for non-toolResult messages)
     if (msg.thinking && !isToolResult) {
-      blocks.push(`:::{type=thinking_level_change}`)
+      blocks.push(`:::{type=thinking_level_change,collapsed=true}`)
       blocks.push(`🧠 **Thinking**`)
       blocks.push(msg.thinking)
       blocks.push(`:::`)
@@ -282,7 +284,8 @@ export class MDGenerator {
         // Render tool call and result together in one block
         const tr = toolResultMsg.toolResult
         const blockType = tr.isError ? 'error' : 'custom'
-        blocks.push(`:::{type=${blockType}}`)
+        const collapsed = tr.isError ? 'collapsed=false' : 'collapsed=true'
+        blocks.push(`:::{type=${blockType},${collapsed}}`)
         // First line is the label (with icon and tool name) - includes the path for context
         blocks.push(`🔧 **Tool Call - ${msg.toolCall.name}**${argDesc}`)
 
@@ -303,7 +306,7 @@ export class MDGenerator {
         blocks.push(`:::`)
       } else {
         // No result yet - just show the tool call
-        blocks.push(`:::{type=custom}`)
+        blocks.push(`:::{type=custom,collapsed=true}`)
         blocks.push(`🔧 **Tool Call - ${msg.toolCall.name}**${argDesc}`)
         blocks.push(`:::`)
       }
@@ -313,10 +316,11 @@ export class MDGenerator {
     if (msg.toolResult && !msg.toolCall) {
       const icon = msg.toolResult.isError ? '❌' : '✅'
       const blockType = msg.toolResult.isError ? 'error' : 'custom'
+      const collapsed = msg.toolResult.isError ? 'collapsed=false' : 'collapsed=true'
       if (!isToolResult) {
         blocks.push('')
       }
-      blocks.push(`:::{type=${blockType}}`)
+      blocks.push(`:::{type=${blockType},${collapsed}}`)
       blocks.push(`${icon} **${msg.toolResult.toolName}** · ${msg.toolResult.content}`)
 
       // Add images if present (from msg.images)
@@ -337,11 +341,11 @@ export class MDGenerator {
       case 'model_change': {
         const modelId = String(e.modelId || '')
         const provider = e.provider ? ` (${e.provider})` : ''
-        return `:::{type=custom}\n🔧 **Model Change**: ${modelId}${provider}\n:::`
+        return `:::{type=custom,collapsed=true}\n🔧 **Model Change**: ${modelId}${provider}\n:::`
       }
       case 'thinking_level_change': {
         const level = String(e.thinkingLevel || '')
-        return `:::{type=thinking_level_change}\n🧠 **Thinking** level: ${level}\n:::`
+        return `:::{type=thinking_level_change,collapsed=true}\n🧠 **Thinking** level: ${level}\n:::`
       }
       case 'custom': {
         const customType = String(e.customType || 'custom')
@@ -352,15 +356,15 @@ export class MDGenerator {
           const provider = data.provider ? ` (${data.provider})` : ''
           desc = `**${customType}**: ${modelId}${provider}`
         }
-        return `:::{type=custom}\n⚙️ ${desc}\n:::`
+        return `:::{type=custom,collapsed=true}\n⚙️ ${desc}\n:::`
       }
       case 'compaction': {
         const tokens = e.tokensBefore ?? ''
-        return `:::{type=custom}\n🗜️ **Context Compaction**: ${tokens} tokens\n:::`
+        return `:::{type=custom,collapsed=true}\n🗜️ **Context Compaction**: ${tokens} tokens\n:::`
       }
       case 'session': {
         const cwd = e.cwd ? ` (${e.cwd})` : ''
-        return `:::{type=session}\nSession started${cwd}\n:::`
+        return `:::{type=session,collapsed=true}\nSession started${cwd}\n:::`
       }
       default:
         return null
@@ -414,6 +418,8 @@ export class MDGenerator {
       }
       case 'visibility':
         return 'private'
+      case 'defaultShowProcess':
+        return this.options.defaultShowProcess ?? false
       // Manual fields - return undefined to allow manual addition
       case 'channel':
       case 'tags':

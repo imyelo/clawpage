@@ -48,6 +48,7 @@ model: "unknown"
 totalMessages: 4
 totalTokens: 0
 visibility: "private"
+defaultShowProcess: false
 participants:
   user:
     role: "human"
@@ -141,6 +142,7 @@ model: "unknown"
 totalMessages: 1
 totalTokens: 30
 visibility: "private"
+defaultShowProcess: false
 participants:
   user:
     role: "human"
@@ -219,6 +221,7 @@ model: "unknown"
 totalMessages: 4
 totalTokens: 0
 visibility: "private"
+defaultShowProcess: false
 participants:
   user:
     role: "human"
@@ -273,6 +276,7 @@ model: "MiniMax-M2.5"
 totalMessages: 4
 totalTokens: 650
 visibility: "private"
+defaultShowProcess: false
 participants:
   user:
     role: "human"
