@@ -1,174 +1,80 @@
 ---
 name: chats-share
-description: "Use when user wants to share OpenClaw channel conversations externally"
+description: "Share AI agent conversations as public web pages. Use when the user wants to share a conversation externally, export conversation history for documentation, or publish a chat session to a public URL."
 metadata: {"openclaw":{"emoji":"💬","homepage":"https://github.com/imyelo/openclaw-chats-share"}}
 ---
 
 # chats-share
 
-Share OpenClaw conversations as public web pages.
+Share AI agent conversations as public web pages.
 
-## When to Use
+## Supported Agents
 
-- User wants to share a conversation externally
-- User wants to export conversation history for docs
+| Agent | Profile |
+|-------|---------|
+| OpenClaw | [references/openclaw.md](references/openclaw.md) |
 
-## Config
+> For unlisted agents: ask the user for the session file path and project dir directly.
 
-**Project dir**: Where `create-openclaw-chats-share` was run
+## Core Workflow
 
-- **OpenClaw**: Read from `~/.openclaw/workspace/TOOLS.md`
-- **Other agents**: Pass as argument
+### 1. Setup Check
 
-**site**: Read `site` URL from `{projectDir}/chats-share.toml`
+- Detect agent type; load project dir + site URL using the agent profile
+- If project not configured → [First-Time Setup](references/setup.md)
 
-**outputDir**: `{projectDir}/chats/` (convention, not config)
+### 2. Locate Session
 
-## Steps
+- List sessions using agent profile discovery
+- Show candidates → user confirms selection
 
-1. **Pre-check**: Check if a `chats-share` project dir is configured in TOOLS.md
-   - Read `~/.openclaw/workspace/TOOLS.md`
-   - If no project directory found -> Run first-time setup (see "First Time Setup" section below)
-2. Load project dir (from TOOLS.md or arguments)
-3. Load `site` URL from `{projectDir}/chats-share.toml` (use as base for output URL)
-4. Find session:
-   - List all sessions: `ls -t ~/.openclaw/agents/main/sessions/*.jsonl`
-   - Filter by:
-     - `sessionId=xxx` -> grep exact ID
-     - `topic=xxx` -> grep topic keyword in content
-     - `current` -> use most recent (first line after ls -t)
-   - Show candidates to user for confirmation
+### 3. Extract & Convert
 
-### Phase 2: Choose Implementation Mode
+- Check file size — if large (> 1 MB or > 500 lines) → [Large File Handling](references/large-file.md)
+- Read (small) or preprocess (large) session content
+- Convert to chats-share Markdown format
+  Template: [references/output-template.md](references/output-template.md)
+- **Critical:** Format conversion only — do NOT modify original content
+- Save to `{projectDir}/chats/.tmp/{timestamp}.md`
 
-**How would you like to process this session?**
+### 4. Populate Metadata
 
-1. **CLI Mode** (Recommended)
-   - Fast, handles large files (>1MB, >500 messages)
-   - Reliable parsing of all event types
-   - Less flexible
+Auto-fill from session data, then confirm with user:
 
-2. **Agent Skills Mode**
-   - Flexible editing during parse
-   - Can summarize, redact, or transform on-the-fly
-   - Slower, may miss edge cases
+| Field | Source | Action |
+|-------|--------|--------|
+| `date`, `sessionId` | Session file | Auto |
+| `model`, `totalMessages` | Session data | Auto |
+| `title`, `description` | Content analysis | Suggest → confirm |
+| `participants` | Session roles | Extract → ask user to customize display names |
+| `visibility` | — | Default: `public` |
+| `defaultShowProcess` | — | Default: `false` |
+| `tags` | — | Skip (user can add manually later) |
 
-[1/2]
+### 5. Redact
 
-#### CLI Mode
-
-5. Parse to temp: `npx openclaw-chats-share parse {session} -o {projectDir}/chats/.tmp/{timestamp}.md`
-
-#### Agent Skills Mode
-
-**Step 2a: Check file size**
-```bash
-ls -lh {session}.jsonl
-wc -l {session}.jsonl
-```
-
-**Step 2b: For large files (>1MB or >500 messages), strip base64/images, extract text**
-```bash
-jq -r '
-  if .type == "message" then
-    .message.content[]?.text // ""
-  elif .type == "thinking" then
-    "[Thinking]\n" + (.thinking // "")
-  elif .type == "tool_call" then
-    "[Tool Call]\n" + (.tool_calls[].name // "unknown") + "\n" + (.tool_calls[].arguments | tostring)
-  elif .type == "tool_result" then
-    "[Tool Result]\n" + (.toolResult.content[0:2000] // "")
-  elif .type == "custom" then
-    "[Custom] " + (.customType // "unknown") + " - " + (.data | tostring)
-  elif .type == "model_change" then
-    "[Model Change] " + .modelId
-  elif .type == "thinking_level_change" then
-    "[Thinking Level] " + .thinkingLevel
-  else empty end
-' {session}.jsonl > {projectDir}/chats/.tmp/{name}-raw.txt
-```
-
-**Step 2c: If still too large (>2000 lines), truncate to recent messages:**
-```bash
-tail -200 {projectDir}/chats/.tmp/{name}-raw.txt > {projectDir}/chats/.tmp/{name}-truncated.txt
-```
-
-**Step 2d: Generate markdown via prompt**
-
-Send prompt:
-```
-Convert this OpenClaw session into chats-share format.
-- Do NOT modify original content, only perform format conversion
-- Preserve all thinking, tool calls, tool results
-- Use :::{type=thinking_level_change} for thinking blocks (NO collapsed attribute)
-- Use :::{type=custom} for tool calls and results (NO collapsed attribute)
-- Use :::{type=error,collapsed=false} for errors
-- Use :::{type=session} for session events
-
-Reference: docs/chats-share-data-format.md
-```
-
-**Important:** Agent Skills Mode should NOT add `collapsed` attribute to thinking/tool blocks - let the web page decide default behavior.
-
-**Step 2e: Save output to temp file**
-
-Save the converted content to: `{projectDir}/chats/.tmp/{timestamp}.md`
-
-6. Digest summary from parsed file, suggest topic name based on content (e.g. "How to use OpenClaw with Python")
-7. Confirm participants: Read the auto-generated `participants` frontmatter from the temp file.
-   Show the current entries and ask the user if they want to customize the display names
-   (e.g. rename `user` to their real name, or `assistant` to the agent's display name).
-   Update the frontmatter in-place if the user provides new names -> keep all other fields (`role`, `model`) unchanged.
-8. Confirm with user: show preview, ask to confirm or modify topic name
-9. Rename: `mv {temp} {projectDir}/chats/{YYYYMMDD}-{topic}.md`
-10. Redact sensitive info (e.g.: API keys, tokens, paths, emails, IPs) (see "Redact" section below)
-11. Confirm with user before commit: `git add {projectDir}/chats/{topic}.md && git commit -m "docs: add {topic}"`
-12. Create new branch and push:
-    - Branch name: chat/{slug} (e.g., chat/20260215-debugging-async)
-    - git checkout -b chat/{slug}
-    - git add {projectDir}/chats/{topic}.md
-    - git commit -m "docs: add {topic}"
-    - git push -u origin chat/{slug}
-13. Show guidance message with PR URL:
-    ```
-    ✓ Branch pushed: chat/{slug}
-
-    Next steps:
-    1. Open https://github.com/{repo}/pull/new/chat/{slug}
-    2. Review and create PR
-    3. Or merge manually via GitHub UI
-    ```
-
-## First Time Setup
-
-Run once to initialize project:
-```bash
-create-openclaw-chats-share
-```
-This sets up the project structure.
-
-After setup, register project in TOOLS.md:
-```bash
-# Append to ~/.openclaw/workspace/TOOLS.md
-echo -e "\n## chats-share\n\n- Project: {projectDir}\n" >> ~/.openclaw/workspace/TOOLS.md
-```
-
-## Redact
-
-When sharing publicly, review and redact:
+Review and remove sensitive information:
 - API keys, tokens, passwords
-- File paths with usernames (`/Users/xxx` -> `~`)
+- File paths with usernames (`/Users/xxx` → `~`)
 - Email addresses, phone numbers
 - Internal URLs and private IPs
 
-## Output
+### 6. Confirm & Save
 
-- File: `{projectDir}/chats/{YYYYMMDD}-{topic}.md`
-- URL: `{site}/share/{slug}`
+- Suggest filename: `{YYYYMMDD}-{topic}.md`
+- Show preview → user confirms or modifies topic/filename
+- Move: `{projectDir}/chats/.tmp/{timestamp}.md` → `{projectDir}/chats/{YYYYMMDD}-{topic}.md`
 
-## Dev
+---
 
-Run local dev server:
-```bash
-openclaw-chats-share-web dev
-```
+## Optional: Publish
+
+Push the file to a new branch and open a PR.
+See [references/publish.md](references/publish.md). Only proceed after explicit user request.
+
+---
+
+## Edge Cases
+
+- **First-time project setup** → [references/setup.md](references/setup.md)
+- **Large or complex sessions** → [references/large-file.md](references/large-file.md)
