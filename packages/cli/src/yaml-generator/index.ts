@@ -144,7 +144,10 @@ export class YAMLGenerator {
     return result
   }
 
-  private buildMessageEntries(msg: ParsedMessage, toolResultMap: Map<string, ParsedMessage>): Record<string, unknown>[] {
+  private buildMessageEntries(
+    msg: ParsedMessage,
+    toolResultMap: Map<string, ParsedMessage>
+  ): Record<string, unknown>[] {
     const isToolResult = msg.role === 'toolResult'
     const role = isToolResult ? 'tool' : msg.role
 
@@ -154,7 +157,9 @@ export class YAMLGenerator {
       speaker: role,
       timestamp: msg.timestamp,
     }
-    if (msg.model) { base.model = msg.model }
+    if (msg.model) {
+      base.model = msg.model
+    }
 
     const entries: Record<string, unknown>[] = []
 

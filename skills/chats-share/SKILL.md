@@ -13,8 +13,8 @@ Share AI agent conversations as public web pages.
 | Agent | Profile |
 |-------|---------|
 | OpenClaw | [references/platforms/openclaw.md](references/platforms/openclaw.md) |
-
-> For unlisted agents: ask the user for the session file path and project dir directly.
+| _(unknown)_ | [references/platforms/unknown.md](references/platforms/unknown.md) — generic skill-based fallback |
+| _(new platform)_ | Add a file following [references/platforms/TEMPLATE.md](references/platforms/TEMPLATE.md) |
 
 ## Core Workflow
 
@@ -30,27 +30,21 @@ Share AI agent conversations as public web pages.
 
 ### 3. Extract & Convert
 
-- Check file size — if large (> 1 MB or > 500 lines) → [Large File Handling](references/large-file.md)
-- Read (small) or preprocess (large) session content
-- Convert the session to chats-share Markdown format yourself as the Agent.
-  Do NOT run `openclaw-chats-share parse` — the CLI tool exists for end-users, not for skill execution.
-  Template: [references/output-template.md](references/output-template.md)
-- **Critical — verbatim content:** Copy all message text, tool arguments, and tool results exactly as they appear in the session. Do NOT paraphrase, summarize, translate, or reword any content. Format conversion only.
-- Save to `{projectDir}/chats/.tmp/{timestamp}.md`
+Follow the **Conversion** section in the platform profile detected in Step 1.
+Save the result to `{projectDir}/chats/.tmp/{timestamp}.yaml`.
 
 ### 4. Populate Metadata
 
-Auto-fill from session data, then confirm with user:
+The CLI auto-fills structural fields. The Skill's job is to fill in the human-facing metadata:
 
-| Field | Source | Action |
-|-------|--------|--------|
-| `date`, `sessionId` | Session file | Auto |
-| `model`, `totalMessages` | Session data | Auto |
-| `title`, `description` | Content analysis | Suggest → confirm |
-| `participants` | Session roles | Extract → ask user to customize display names |
-| `visibility` | — | Default: `public` |
-| `defaultShowProcess` | — | Default: `false` |
-| `tags` | — | Skip (user can add manually later) |
+| Field | CLI default | Action |
+|-------|-------------|--------|
+| `date`, `sessionId`, `model`, `totalMessages`, `totalTokens`, `defaultShowProcess` | Auto-filled | Review only |
+| `visibility` | `private` | Update to `public` |
+| `participants` | Generic role names (`user`, `assistant`) | Ask user for display names → rename keys |
+| `title` | `'Session Export'` (generic) | Skim generated YAML → suggest → confirm |
+| `description` | _(absent)_ | Write one-sentence summary → confirm |
+| `tags` | _(absent)_ | Skip (user adds manually later) |
 
 ### 5. Redact
 
@@ -62,9 +56,9 @@ Review and remove sensitive information:
 
 ### 6. Confirm & Save
 
-- Suggest filename: `{YYYYMMDD}-{topic}.md`
+- Suggest filename: `{YYYYMMDD}-{topic}.yaml`
 - Show preview → user confirms or modifies topic/filename
-- Move: `{projectDir}/chats/.tmp/{timestamp}.md` → `{projectDir}/chats/{YYYYMMDD}-{topic}.md`
+- Move: `{projectDir}/chats/.tmp/{timestamp}.yaml` → `{projectDir}/chats/{YYYYMMDD}-{topic}.yaml`
 
 ---
 
@@ -78,4 +72,4 @@ See [references/publish.md](references/publish.md). Only proceed after explicit 
 ## Edge Cases
 
 - **First-time project setup** → [references/setup.md](references/setup.md)
-- **Large or complex sessions** → [references/large-file.md](references/large-file.md)
+- **Large or complex sessions (unknown platforms)** → [references/large-file.md](references/large-file.md)
