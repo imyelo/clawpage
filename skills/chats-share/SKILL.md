@@ -58,13 +58,25 @@ Review and remove sensitive information:
 
 - Suggest filename: `{YYYYMMDD}-{topic}.yaml`
 - Show preview → user confirms or modifies topic/filename
+- **Before moving the file, create a dedicated branch** (see below — required even if the user does not publish yet):
+  ```bash
+  cd {projectDir}
+  git checkout -b chat/{YYYYMMDD}-{topic}
+  ```
 - Move: `{projectDir}/chats/.tmp/{timestamp}.yaml` → `{projectDir}/chats/{YYYYMMDD}-{topic}.yaml`
+- Stage and commit immediately so the file is isolated on its own branch:
+  ```bash
+  git add chats/{YYYYMMDD}-{topic}.yaml
+  git commit -m "docs: add {topic}"
+  ```
+
+> **Why create a branch here?** Saving on the default branch risks mixing unrelated changes into a future PR. Always commit each chat file on its own dedicated branch.
 
 ---
 
 ## Optional: Publish
 
-Push the file to a new branch and open a PR.
+Push the branch created in step 6 and open a PR.
 See [references/publish.md](references/publish.md). Only proceed after explicit user request.
 
 ---
