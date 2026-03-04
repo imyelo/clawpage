@@ -29,10 +29,74 @@ const { title, channel, model, date, messageCount, regularMessageCount, showProc
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
+      /* Sticky nav */
+      .page-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-primary);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+      }
+
+      .page-nav.scrolled {
+        border-bottom-color: var(--border);
+      }
+
+      .page-nav-inner {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-family: var(--font-mono);
+        font-size: 0.625rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.8;
+        transition: color 0.15s ease, opacity 0.15s ease;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .back-link:hover {
+        color: var(--text-primary);
+        opacity: 1;
+      }
+
+      .nav-title {
+        flex: 1;
+        min-width: 0;
+        font-family: var(--font-serif);
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .nav-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Layout */
       .layout-container {
         max-width: 720px;
         margin: 0 auto;
-        padding: 4rem 1.5rem;
+        padding: 2.5rem 1.5rem 4rem;
       }
 
       /* Header */
@@ -77,50 +141,25 @@ const { title, channel, model, date, messageCount, regularMessageCount, showProc
         color: var(--border);
         font-size: 0.5rem;
       }
-
-      /* Page nav */
-      .page-nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 2rem;
-      }
-
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.375rem;
-        color: var(--text-muted);
-        text-decoration: none;
-        font-family: var(--font-mono);
-        font-size: 0.625rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        opacity: 0.8;
-        transition: color 0.15s ease, opacity 0.15s ease;
-      }
-
-      .back-link:hover {
-        color: var(--text-primary);
-        opacity: 1;
-      }
-
     </style>
   </head>
   <body class:list={[showProcessByDefault && 'show-process']}>
     <MemoryBackground />
     <DecorativeCorners />
 
-    <div class="layout-container">
-      <nav class="page-nav">
+    <nav class="page-nav" id="page-nav">
+      <div class="page-nav-inner">
         <a href="/" class="back-link">
           <span aria-hidden="true">←</span> archive
         </a>
+        <span class="nav-title" id="nav-title" aria-hidden="true"></span>
         <slot name="controls" />
-      </nav>
+      </div>
+    </nav>
 
+    <div class="layout-container">
       <div class="layout-header-wrapper">
-        <header class="layout-header-title">{title}</header>
+        <header class="layout-header-title" id="page-title">{title}</header>
         <p class="layout-meta">
           {channel && (
             <>
@@ -158,5 +197,26 @@ const { title, channel, model, date, messageCount, regularMessageCount, showProc
 
       <Footer />
     </div>
+
+    <script>
+      const nav = document.getElementById('page-nav');
+      const navTitle = document.getElementById('nav-title');
+      const pageTitle = document.getElementById('page-title');
+
+      if (navTitle && pageTitle) {
+        navTitle.textContent = pageTitle.textContent;
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            const isHidden = !entry.isIntersecting;
+            navTitle.classList.toggle('visible', isHidden);
+            nav?.classList.toggle('scrolled', isHidden);
+          },
+          { threshold: 0 }
+        );
+
+        observer.observe(pageTitle);
+      }
+    </script>
   </body>
 </html>

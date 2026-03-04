@@ -168,7 +168,10 @@ export class OpenClawParser implements Platform {
    * Parse a single message event
    * Returns the parsed message plus any extracted exec results from user messages
    */
-  private parseMessageEvent(event: MessageEvent): { message: ParsedMessage | null; execResults: ExtractedExecResult[] } {
+  private parseMessageEvent(event: MessageEvent): {
+    message: ParsedMessage | null
+    execResults: ExtractedExecResult[]
+  } {
     const { message } = event
     if (!message) {
       return { message: null, execResults: [] }
@@ -288,7 +291,9 @@ export class OpenClawParser implements Platform {
 
     // Try to remove trailing [from: xxx] or [message_id: xxx] suffix (single or multi-line)
     // Matches "content [from: xxx]" or "content [from: xxx]\n[message_id: xxx]"
-    const suffixMatch = cleaned.match(/^(.+?)\s*\[(?:from|message_id):[^\]]+\](?:\n\[(?:from|message_id):[^\]]+\])?\s*$/s)
+    const suffixMatch = cleaned.match(
+      /^(.+?)\s*\[(?:from|message_id):[^\]]+\](?:\n\[(?:from|message_id):[^\]]+\])?\s*$/s
+    )
     if (suffixMatch) {
       return { cleanedContent: suffixMatch[1].trim(), execResults }
     }
