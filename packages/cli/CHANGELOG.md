@@ -1,5 +1,11 @@
 # openclaw-chats-share
 
+## 0.3.0
+
+### Minor Changes
+
+- Improved the stability of log parsing.
+
 ## 0.2.1
 
 ### Patch Changes
