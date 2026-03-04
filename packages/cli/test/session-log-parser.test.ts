@@ -157,6 +157,26 @@ invalid json line
     expect(result.messages[0].content).toBe('some ideas forbar')
   })
 
+  it('should clean Telegram Conversation info/Sender blocks and discard exec results', () => {
+    const parser = new LogParser()
+    // This is the actual format from the user's data
+    const telegramText =
+      'System: [2026-02-19 21:09:43 GMT+8] Exec completed (gentle-c, code 0) :: {"tabId":"abc123","url":"https://example.com"}\nSystem: [2026-02-19 21:10:37 GMT+8] Exec completed (mild-ced, code 0) :: some output\n\nConversation info (untrusted metadata):\n```json\n{\n  "message_id": "332",\n  "conversation_label": "Group id:-1234567890",\n  "sender": "123456",\n  "group_subject": "Group"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  "label": "Abcdefg",\n  "name": "Abcdefg",\n  "username": "abcdefg"\n}\n```\n\nfoobarbazqaz'
+    const content = `{"type":"session","version":3,"id":"s1","timestamp":"2026-01-01T00:00:00.000Z","cwd":"/"}
+{"type":"message","id":"msg1","parentId":null,"timestamp":"2026-01-01T00:00:01.000Z","message":{"role":"user","content":[{"type":"text","text":${JSON.stringify(telegramText)}}],"timestamp":1234567890000}}`
+
+    const result = parser.parseContent(content)
+    // First message should be the user message without exec results and without Conversation info/Sender
+    expect(result.messages[0].content).toBe('foobarbazqaz')
+    expect(result.messages[0].content).not.toContain('Conversation info')
+    expect(result.messages[0].content).not.toContain('Sender')
+    expect(result.messages[0].content).not.toContain('Exec completed')
+
+    // Should NOT have toolResult messages for the exec results (they are discarded)
+    const toolResultMessages = result.messages.filter(m => m.role === 'toolResult')
+    expect(toolResultMessages.length).toBe(0)
+  })
+
   it('should handle user messages without Discord metadata', () => {
     const parser = new LogParser()
     const content = `{"type":"session","version":3,"id":"s1","timestamp":"2026-01-01T00:00:00.000Z","cwd":"/"}

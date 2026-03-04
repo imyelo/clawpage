@@ -47,6 +47,14 @@ export interface ToolResultDetails {
   [key: string]: unknown
 }
 
+export interface ExtractedExecResult {
+  timestamp: string
+  name: string
+  code: number
+  content: string
+  isError: boolean
+}
+
 export interface ParsedMessage {
   id: string
   parentId?: string

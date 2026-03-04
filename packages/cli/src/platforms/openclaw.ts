@@ -7,6 +7,7 @@ import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import type { Platform } from '../platform.js'
 import type {
+  ExtractedExecResult,
   ParsedMessage,
   ParsedSession,
   ParserOptions,
@@ -119,12 +120,32 @@ export class OpenClawParser implements Platform {
     const modelChanges = events.filter(e => e.type === 'model_change')
     const nonMessageEvents = events.filter(e => e.type !== 'message')
     const messages: ParsedMessage[] = []
+    let execResultCounter = 0
 
     for (const event of events) {
       if (event.type === 'message') {
-        const parsed = this.parseMessageEvent(event as unknown as MessageEvent)
-        if (parsed) {
-          messages.push(parsed)
+        const result = this.parseMessageEvent(event as unknown as MessageEvent)
+        if (result.message) {
+          messages.push(result.message)
+
+          // Create toolResult messages for any extracted exec results
+          for (const execResult of result.execResults) {
+            execResultCounter++
+            const toolResultMessage: ParsedMessage = {
+              id: `${result.message.id}-exec-${execResultCounter}`,
+              parentId: result.message.id,
+              timestamp: result.message.timestamp,
+              role: 'toolResult',
+              content: execResult.content,
+              toolResult: {
+                toolCallId: `exec-${execResultCounter}`,
+                toolName: execResult.name,
+                content: execResult.content,
+                isError: execResult.isError,
+              },
+            }
+            messages.push(toolResultMessage)
+          }
         }
       }
     }
@@ -145,11 +166,12 @@ export class OpenClawParser implements Platform {
 
   /**
    * Parse a single message event
+   * Returns the parsed message plus any extracted exec results from user messages
    */
-  private parseMessageEvent(event: MessageEvent): ParsedMessage | null {
+  private parseMessageEvent(event: MessageEvent): { message: ParsedMessage | null; execResults: ExtractedExecResult[] } {
     const { message } = event
     if (!message) {
-      return null
+      return { message: null, execResults: [] }
     }
 
     // Convert Openclaw session role ('user'/'assistant') to chats-share role ('human'/'agent')
@@ -169,6 +191,9 @@ export class OpenClawParser implements Platform {
       model: message.model,
     }
 
+    // Collect exec results from user messages
+    let execResults: ExtractedExecResult[] = []
+
     // Extract content blocks
     const images: ToolResultImage[] = []
     for (const block of message.content) {
@@ -176,7 +201,9 @@ export class OpenClawParser implements Platform {
         let text = block.text
         // Clean up Discord/Telegram metadata prefix from user messages
         if (message.role === 'user') {
-          text = this.cleanExternalChannelMessage(text)
+          const result = this.cleanExternalChannelMessage(text)
+          text = result.cleanedContent
+          execResults = result.execResults
         }
         parsed.content += text
       } else if (block.type === 'thinking' && this.options.includeThinking) {
@@ -226,15 +253,24 @@ export class OpenClawParser implements Platform {
       parsed.stopReason = message.stopReason
     }
 
-    return parsed
+    return { message: parsed, execResults }
   }
 
   /**
-   * Clean up Discord/Telegram/etc metadata prefix from user messages
-   * Example: "[Discord Guild #channel ...] user: message content [from: user]"
-   * becomes: "message content"
+   * Extract and clean user message content, discarding exec results
+   * Returns cleaned content (exec results are discarded)
    */
-  private cleanExternalChannelMessage(text: string): string {
+  private cleanExternalChannelMessage(text: string): { cleanedContent: string; execResults: ExtractedExecResult[] } {
+    const execResults: ExtractedExecResult[] = []
+
+    // Discard System: Exec completed/failed lines (single-line output after ::)
+    // Pattern: "System: [timestamp] Exec completed|failed (name, code X) :: output"
+    const execPattern = /^System:\s*\[[^\]]+\]\s*Exec\s+(?:completed|failed)\s+\([^,]+,\s*code\s+\d+\)\s*::[^\n]*/gm
+    const processedText = text.replace(execPattern, '')
+
+    // Now clean the remaining text using the original logic
+    let cleaned = processedText
+
     // Pattern for Discord messages: [Discord ...] user (username): message [from: ...]
     // Pattern for Telegram messages: user (username): message
     // Remove the channel metadata prefix and trailing metadata like [message_id: xxx] or [from: xxx]
@@ -243,24 +279,18 @@ export class OpenClawParser implements Platform {
     // First, try to match and remove Discord-style prefix (may have trailing metadata on new line)
     // Example: [Discord Guild #lambda-test channel id:1234567890123456789 Wed 2026-02-18 07:02 GMT+8] yelo (xxx): message [from: yelo (1234567890123456789)]
     // with optional [message_id: xxx] on second line
-    const discordMatch = text.match(
+    const discordMatch = cleaned.match(
       /^\[Discord[^\]]*\]\s*[^\s:]+(?:\s*\([^)]+\))?:\s*(.+?)(?:\s*\[(?:from|message_id):[^\]]+\])?(?:\n\[(?:from|message_id):[^\]]+\])?\s*$/s
     )
     if (discordMatch) {
-      return discordMatch[1].trim()
+      return { cleanedContent: discordMatch[1].trim(), execResults }
     }
 
     // Try to remove trailing [from: xxx] or [message_id: xxx] suffix (single or multi-line)
     // Matches "content [from: xxx]" or "content [from: xxx]\n[message_id: xxx]"
-    const suffixMatch = text.match(/^(.+?)\s*\[(?:from|message_id):[^\]]+\](?:\n\[(?:from|message_id):[^\]]+\])?\s*$/s)
+    const suffixMatch = cleaned.match(/^(.+?)\s*\[(?:from|message_id):[^\]]+\](?:\n\[(?:from|message_id):[^\]]+\])?\s*$/s)
     if (suffixMatch) {
-      return suffixMatch[1].trim()
-    }
-
-    // Try Telegram-style prefix: user (username): message
-    const telegramMatch = text.match(/^[^\s:]+(?:\s*\([^)]+\))?:\s*(.+)$/s)
-    if (telegramMatch) {
-      return telegramMatch[1].trim()
+      return { cleanedContent: suffixMatch[1].trim(), execResults }
     }
 
     // Handle Discord untrusted metadata format:
@@ -273,8 +303,6 @@ export class OpenClawParser implements Platform {
     // - "To send an image back, prefer..." instruction text
 
     // Note: In JSON strings, backticks are escaped as \` so we need to handle both cases
-    let cleaned = text
-
     // Remove media attached line (e.g., "[media attached: /home/user/.openclaw/media/inbound/xxx.png (image/png) | /home/user/.openclaw/media/inbound/xxx.png]")
     cleaned = cleaned.replace(/^\[media attached:[^\]]+\]\n?/g, '')
 
@@ -329,17 +357,24 @@ ${cleaned}`
     // Remove leading/trailing whitespace and empty lines
     cleaned = cleaned.trim()
 
+    // Now try Telegram-style prefix: "Name (handle): message"
+    // Requiring the parenthetical handle prevents false positives on normal messages like "Note: …"
+    const telegramMatch = cleaned.match(/^[^\s:]+\s*\([^)]+\):\s*(.+)$/s)
+    if (telegramMatch) {
+      return { cleanedContent: telegramMatch[1].trim(), execResults }
+    }
+
     // If cleaned is empty but original had content, it means the message was only metadata
     // In that case, try to keep just the mention if present
     if (cleaned.length === 0) {
       // Try to extract mention from original text
       const mentionMatch = text.match(/<@\d+>/)
       if (mentionMatch) {
-        return mentionMatch[0]
+        return { cleanedContent: mentionMatch[0], execResults }
       }
-      return ''
+      return { cleanedContent: '', execResults }
     }
-    return cleaned
+    return { cleanedContent: cleaned, execResults }
   }
 }
 
