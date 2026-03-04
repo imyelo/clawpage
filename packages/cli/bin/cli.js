@@ -1,8 +1,8 @@
 #!/usr/bin/env node
+import { writeFile } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
 import { DEFAULT_CONSTRAINT } from '../dist/format-constraint/index.js'
 import { YAMLGenerator } from '../dist/yaml-generator/index.js'
-import { writeFile } from 'node:fs/promises'
 
 const PLATFORMS = {
   openclaw: async () => {
@@ -16,12 +16,17 @@ const { values, positionals } = parseArgs({
     output: { type: 'string', short: 'o' },
     constraint: { type: 'string', short: 'c' },
     'default-show-process': { type: 'boolean', default: false },
+    'exclude-process': { type: 'string' },
     platform: { type: 'string', short: 'p', default: 'openclaw' },
   },
   allowPositionals: true,
 })
 
 const [command, inputPath] = positionals
+
+const excludeProcess = values['exclude-process']
+  ? values['exclude-process'].split(',')
+  : []
 
 if (command === 'parse') {
   if (!inputPath) {
@@ -40,6 +45,7 @@ if (command === 'parse') {
 
   const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
     defaultShowProcess: values['default-show-process'],
+    excludeProcess,
   })
   const yaml = generator.generate(session)
 
