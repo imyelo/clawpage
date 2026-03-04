@@ -175,7 +175,7 @@ export class YAMLGenerator {
     }
 
     // Tool call → separate entry
-    if (msg.toolCall) {
+    if (msg.toolCall && !this.shouldExclude('toolcalls')) {
       const toolResultMsg = msg.toolCall.id ? toolResultMap.get(msg.toolCall.id) : undefined
       const tc: Record<string, unknown> = {
         type: 'tool_call',
@@ -193,7 +193,7 @@ export class YAMLGenerator {
     }
 
     // Standalone toolResult without a matching toolCall → separate entry
-    if (isToolResult && msg.toolResult && !msg.toolCall) {
+    if (isToolResult && msg.toolResult && !msg.toolCall && !this.shouldExclude('toolresults')) {
       const tr = msg.toolResult
       entries.push({
         ...base,
