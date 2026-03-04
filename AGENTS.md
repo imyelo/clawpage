@@ -13,8 +13,8 @@ packages/
   cli/           - openclaw-chats-share CLI package
     src/
       session-log-parser/  - Parse Openclaw session.log JSONL files
-      format-constraint/   - Define and validate md output format constraints
-      md-generator/        - Generate markdown files from parsed sessions
+      format-constraint/   - Define and validate YAML output format constraints
+      yaml-generator/      - Generate YAML files from parsed sessions
     test/                  - Bun tests for all three modules
   web/           - openclaw-chats-share-web package (Astro-based)
     src/
@@ -27,7 +27,7 @@ packages/
       constants/index.ts   - Message type color/style maps
   create/        - create-openclaw-chats-share scaffolding tool
     test/                  - Bun snapshot tests for scaffold output
-chats/           - Chat Markdown files (read by web package at build time)
+chats/           - Chat YAML files (read by web package at build time)
 skills/          - Openclaw skills
 ```
 
@@ -60,7 +60,7 @@ cd packages/create && bun test
 
 ### openclaw-chats-share (CLI)
 ```bash
-npx openclaw-chats-share parse <session.log> [-o output.md]
+npx openclaw-chats-share parse <session.log> [-o output.yaml]
 ```
 
 ### openclaw-chats-share-web
@@ -80,12 +80,12 @@ npx create-openclaw-chats-share <project-name>
 The CLI processes session data through three sequential stages:
 
 1. **`LogParser`** (`session-log-parser/`) — reads a JSONL file, emits `ParsedSession` (`meta` + `messages[]` + `modelChanges[]`)
-2. **`FormatConstraint`** (`format-constraint/`) — schema object that defines which YAML frontmatter fields and which content sections to include; `DEFAULT_CONSTRAINT` covers the common case
-3. **`MDGenerator`** (`md-generator/`) — takes `ParsedSession` + `FormatConstraint`, renders YAML frontmatter + section bodies into a markdown string
+2. **`FormatConstraint`** (`format-constraint/`) — schema object that defines which fields and timeline entries to include; `DEFAULT_CONSTRAINT` covers the common case
+3. **`YAMLGenerator`** (`yaml-generator/`) — takes `ParsedSession` + `FormatConstraint`, renders a top-level metadata map + `timeline:` array into a YAML string
 
 ### Web Data Flow
 
-At build time, `packages/web/src/lib/chats.ts` reads all `*.md` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `chats-share.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
+At build time, `packages/web/src/lib/chats.ts` reads all `*.yaml` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `chats-share.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
 
 Only chats with `visibility: public` (or no visibility field) are shown in the index. All slugs (including `private`) get individual pages and are accessible via direct URL.
 
@@ -98,18 +98,17 @@ Openclaw session.log is a JSONL file with these event types:
 - `thinking_level_change` - Thinking level changes
 - `custom` - Custom events like model-snapshot
 
-### Chat Markdown Special Blocks
+### Chat YAML Timeline Format
 
-Non-message events in chat files use a fenced directive syntax rendered by the web package as collapsible panels:
+Chat files are pure YAML. Top-level fields are metadata; a `timeline:` array contains ordered event and message objects.
 
-```
-:::{type=thinking_level_change,collapsed=true}
-🧠 **Thinking**
-content...
-:::
-```
+Each timeline entry has a `type` field:
+- `message` — user/assistant message; may have `content` (text), `process[]` (thinking/tool_call blocks)
+- `session`, `model_change`, `thinking_level_change`, `compaction`, `custom` — non-message events rendered as collapsible panels
 
-Supported types and their UI colors: `thinking_level_change` (gray), `error` (red), `session` (green), `custom` (indigo). Color/style maps live in `packages/web/src/constants/index.ts`.
+UI panel colors by type: `thinking` / `thinking_level_change` (gray), `tool_call` with error (red), `session` (green), `model_change` / `compaction` / `custom` (indigo). Color/style maps live in `packages/web/src/constants/index.ts`.
+
+See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for the full schema and examples.
 
 ## Additional Resources
 

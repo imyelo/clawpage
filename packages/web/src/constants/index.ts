@@ -3,89 +3,16 @@
  */
 
 // ============================================================================
-// Message Type Color Mapping (for UI) - Using inline style values
+// CSS class names shared between Astro components and React components
 // ============================================================================
 
-export const SPEC_COLOR_MAP: Record<string, { borderColor: string; color: string }> = {
-  // Message types
-  thinking_level_change: {
-    borderColor: '#6b7280',
-    color: '#9ca3af',
-  },
-  error: {
-    borderColor: '#ef4444',
-    color: '#f87171',
-  },
-  session: {
-    borderColor: '#10b981',
-    color: '#34d399',
-  },
-  custom: {
-    borderColor: '#6b7280',
-    color: '#9ca3af',
-  },
-  // Fallback colors (manual color prop)
-  gray: { borderColor: '#6b7280', color: '#9ca3af' },
-  green: { borderColor: '#10b981', color: '#34d399' },
-  red: { borderColor: '#ef4444', color: '#f87171' },
-  default: { borderColor: '#6b7280', color: '#9ca3af' },
-}
-
-// Collapsible message style - single neutral style for all process message types
-export const COLLAPSIBLE_STYLE = {
-  accent: '#9ca3af',
-  hoverBg: 'rgba(107, 114, 128, 0.1)',
-  iconBg: 'rgba(107, 114, 128, 0.15)',
-}
-
-// ============================================================================
-// Message Type Info (for Markdown)
-// ============================================================================
-
-export interface MessageTypeInfo {
-  icon: string
-  label: string
-  collapsible: boolean
-  defaultOpen: boolean
-}
-
-export const MESSAGE_TYPE_INFO: Record<string, MessageTypeInfo> = {
-  thinking_level_change: {
-    icon: '🧠',
-    label: 'Thinking Level Changed',
-    collapsible: true,
-    defaultOpen: false,
-  },
-  custom: {
-    icon: '⚙️',
-    label: 'System Event',
-    collapsible: true,
-    defaultOpen: false,
-  },
-  session: {
-    icon: '🆕',
-    label: 'Session Started',
-    collapsible: true,
-    defaultOpen: false,
-  },
-  error: {
-    icon: '❌',
-    label: 'Error',
-    collapsible: true,
-    defaultOpen: false,
-  },
-}
-
-export function getMessageTypeInfo(messageType?: string): MessageTypeInfo {
-  return (
-    MESSAGE_TYPE_INFO[messageType ?? ''] ?? {
-      icon: '',
-      label: '',
-      collapsible: false,
-      defaultOpen: true,
-    }
-  )
-}
+// These strings must match the class names used in MessageHeader.astro and
+// ChatMessage.astro. Defining them here lets ShowProcessToggle.tsx reference
+// the same values without an invisible string contract.
+export const CSS_CLASSES = {
+  hiddenHeader: 'hidden-header',
+  notFirstInGroup: 'not-first-in-group',
+} as const
 
 // ============================================================================
 // Avatar Color Pool (Professional/Muted Style)

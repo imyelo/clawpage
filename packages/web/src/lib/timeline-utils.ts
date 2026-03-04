@@ -1,16 +1,18 @@
 import type { ChatEvent, ProcessBlock } from './chats.js'
 
-export type RenderItem = {
-  kind: 'text' | 'directive'
-  speaker: string
-  timestamp: string
-  isUser: boolean
-  content?: string
-  type?: string
-  icon?: string
-  label?: string
-  collapsed?: boolean
-}
+export type RenderItem =
+  | { kind: 'text'; speaker: string; timestamp: string; isUser: boolean; content: string }
+  | {
+      kind: 'directive'
+      speaker: string
+      timestamp: string
+      isUser: boolean
+      type: string
+      icon: string
+      label: string
+      content: string
+      collapsed: boolean
+    }
 
 /** Returns true when a speaker name belongs to an AI agent rather than a human. */
 export function isSpeakerAgent(speaker: string, participants?: Record<string, { role: string }>): boolean {

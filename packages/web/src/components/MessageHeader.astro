@@ -1,5 +1,5 @@
 ---
-import { AVATAR_COLORS } from '../constants/index.js'
+import { AVATAR_COLORS, CSS_CLASSES } from '../constants/index.js'
 
 interface Props {
   author?: string
@@ -23,7 +23,7 @@ if (avatarColorIndex !== undefined) {
 ---
 
 {author && timestamp && (
-  <div class:list={['message-header', !isFirstInGroup && 'hidden-header']} data-header="true">
+  <div class:list={['message-header', !isFirstInGroup && CSS_CLASSES.hiddenHeader]} data-header="true">
     <div
       class:list={['avatar', isAgent ? 'avatar-agent' : 'avatar-user']}
       style={avatarBg ? `background-color: ${avatarBg}; color: ${avatarColor}` : undefined}

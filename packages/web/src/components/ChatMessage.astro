@@ -3,6 +3,7 @@ import { Marked } from 'marked'
 import markedShiki from 'marked-shiki'
 import MessageHeader from './MessageHeader.astro'
 import { getHighlighter } from '../lib/highlighter'
+import { CSS_CLASSES } from '../constants/index.js'
 import '../styles/prose.css'
 
 interface Props {
@@ -52,7 +53,7 @@ const htmlContent = await md.parse(content)
   class:list={[
     'chat-message',
     isLastInGroup ? 'last-in-group' : 'not-last-in-group',
-    !isFirstInGroup && 'not-first-in-group',
+    !isFirstInGroup && CSS_CLASSES.notFirstInGroup,
   ]}
   data-author={author}
 >

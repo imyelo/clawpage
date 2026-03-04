@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { CSS_CLASSES } from '../constants/index.js'
 import styles from './ShowProcessToggle.module.css'
 
 function cn(...classes: (string | false | undefined | null)[]): string {
@@ -25,11 +26,11 @@ function reflowHeaders(showProcess: boolean) {
 
     const author = article.getAttribute('data-author')
     if (author !== lastVisibleAuthor) {
-      header.classList.remove('hidden-header')
-      article.classList.remove('not-first-in-group')
+      header.classList.remove(CSS_CLASSES.hiddenHeader)
+      article.classList.remove(CSS_CLASSES.notFirstInGroup)
     } else {
-      header.classList.add('hidden-header')
-      article.classList.add('not-first-in-group')
+      header.classList.add(CSS_CLASSES.hiddenHeader)
+      article.classList.add(CSS_CLASSES.notFirstInGroup)
     }
     lastVisibleAuthor = author
   }

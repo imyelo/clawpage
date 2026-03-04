@@ -137,12 +137,12 @@ messages.forEach(msg => {
       const avatarColorIndex = msg.speaker && !isSpeakerAgent(msg.speaker, participants) ? authorColorMap.get(msg.speaker) : undefined;
       return (
         <CollapsibleMessage
-          client:load
-          type={msg.type!}
-          icon={msg.icon!}
-          label={msg.label!}
-          collapsed={msg.collapsed ?? false}
-          content={msg.content ?? ''}
+          client:visible
+          type={msg.type}
+          icon={msg.icon}
+          label={msg.label}
+          collapsed={msg.collapsed}
+          content={msg.content}
           author={msg.speaker}
           timestamp={msg.timestamp}
           isFirstInGroup={isFirstInGroup}
@@ -157,7 +157,7 @@ messages.forEach(msg => {
       <ChatMessage
         author={msg.speaker}
         timestamp={msg.timestamp}
-        content={msg.content ?? ''}
+        content={msg.content}
         isUser={msg.isUser}
         isFirstInGroup={isFirstInGroup}
         isLastInGroup={isLastInGroup}

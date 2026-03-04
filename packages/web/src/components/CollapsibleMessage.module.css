@@ -121,6 +121,7 @@
   background: none;
   border: none;
   text-align: left;
+  color: var(--collapsible-muted-accent);
   transition: opacity 0.2s;
 }
 
@@ -139,6 +140,7 @@
   border-radius: 2px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  background-color: color-mix(in srgb, var(--collapsible-muted-border) 15%, transparent);
 }
 
 .collapsibleTypeLabel {

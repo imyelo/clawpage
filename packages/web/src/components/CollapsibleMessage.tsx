@@ -2,7 +2,7 @@ import { memo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-import { AVATAR_COLORS, COLLAPSIBLE_STYLE } from '../constants/index.js'
+import { AVATAR_COLORS } from '../constants/index.js'
 import styles from './CollapsibleMessage.module.css'
 import '../styles/prose.css'
 
@@ -104,16 +104,8 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
             type="button"
             onClick={() => setIsOpen(prev => !prev)}
             className={styles.collapsibleToggle}
-            style={{ color: COLLAPSIBLE_STYLE.accent }}
           >
-            {icon && (
-              <span
-                className={styles.collapsibleTypeIcon}
-                style={{ backgroundColor: COLLAPSIBLE_STYLE.iconBg }}
-              >
-                {icon}
-              </span>
-            )}
+            {icon && <span className={styles.collapsibleTypeIcon}>{icon}</span>}
             <span className={styles.collapsibleTypeLabel}>{label}</span>
             <span className={styles.chevronWrapper}>
               <svg

@@ -86,15 +86,26 @@ export async function getAllChatsWithContent(): Promise<ChatWithContent[]> {
   }
 
   const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.yaml'))
-  return files.map(file => {
+  const results: ChatWithContent[] = []
+  for (const file of files) {
     const raw = fs.readFileSync(path.join(dataDir, file), 'utf-8')
     const slug = file.replace('.yaml', '')
-    const data = parseYaml(raw) as Record<string, unknown>
+    let data: Record<string, unknown>
+    try {
+      data = parseYaml(raw) as Record<string, unknown>
+    } catch (err) {
+      console.warn(`[chats] Skipping ${file}: YAML parse error —`, err)
+      continue
+    }
 
-    return {
+    const rawDate = data.date ? String(data.date) : ''
+    const parsedDate = rawDate ? new Date(rawDate) : null
+    const formattedDate = parsedDate && !Number.isNaN(parsedDate.getTime()) ? format(parsedDate, 'yyyy-MM-dd') : rawDate
+
+    results.push({
       slug,
       title: String(data.title || ''),
-      date: data.date ? format(new Date(String(data.date)), 'yyyy-MM-dd') : '',
+      date: formattedDate,
       sessionId: String(data.sessionId || ''),
       channel: String(data.channel || ''),
       model: String(data.model || ''),
@@ -109,8 +120,9 @@ export async function getAllChatsWithContent(): Promise<ChatWithContent[]> {
           : undefined,
       defaultShowProcess: Boolean(data.defaultShowProcess),
       timeline: Array.isArray(data.timeline) ? (data.timeline as ChatTimelineItem[]) : [],
-    }
-  })
+    })
+  }
+  return results
 }
 
 /**

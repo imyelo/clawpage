@@ -27,6 +27,7 @@ timeline:
     model: MiniMax-M2.5
     process:
       - type: thinking
+        collapsed: true
         content: |-
           Analyzing the user's requirements: the user wants to export conversations from the platform and share them externally.
           Need to confirm the following core features:
