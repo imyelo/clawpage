@@ -12,6 +12,7 @@ import type { ParsedMessage, ParsedSession, SessionEvent } from '../session-log-
 export interface GeneratorOptions {
   includeTimestamps?: boolean
   defaultShowProcess?: boolean
+  excludeProcess?: string[]
 }
 
 const DEFAULT_OPTIONS: GeneratorOptions = {
