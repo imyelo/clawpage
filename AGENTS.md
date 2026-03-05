@@ -12,7 +12,7 @@ This is a monorepo for Openclaw conversation sharing tools. It includes a CLI fo
 packages/
   cli/           - openclaw-chats-share CLI package
     src/
-      session-log-parser/  - Parse Openclaw session.log JSONL files
+      session-log-parser/  - Parse Openclaw session JSONL files ({id}.jsonl)
       format-constraint/   - Define and validate YAML output format constraints
       yaml-generator/      - Generate YAML files from parsed sessions
     test/                  - Bun tests for all three modules
@@ -60,7 +60,7 @@ cd packages/create && bun test
 
 ### openclaw-chats-share (CLI)
 ```bash
-npx openclaw-chats-share parse <session.log> [-o output.yaml]
+npx openclaw-chats-share parse <{id}.jsonl> [-o output.yaml]
 ```
 
 ### openclaw-chats-share-web
@@ -89,9 +89,9 @@ At build time, `packages/web/src/lib/chats.ts` reads all `*.yaml` files from the
 
 Only chats with `visibility: public` (or no visibility field) are shown in the index. All slugs (including `private`) get individual pages and are accessible via direct URL.
 
-### Session Log Format
+### Session File Format
 
-Openclaw session.log is a JSONL file with these event types:
+Openclaw session files (`{id}.jsonl`) are JSONL files with these event types:
 - `session` - Session metadata (id, timestamp, cwd)
 - `message` - Messages with role (`user`/`assistant`/`toolResult`), content blocks (`text`/`thinking`/`toolCall`)
 - `model_change` - Model switching events

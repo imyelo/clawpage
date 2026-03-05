@@ -134,3 +134,65 @@ describe('YAMLGenerator excludeProcess', () => {
     expect(yaml).not.toContain('type: custom')
   })
 })
+
+describe('YAMLGenerator includeProcess', () => {
+  it('should include only thinking when specified', () => {
+    const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
+      includeProcess: ['thinking'],
+    })
+    const yaml = generator.generate(mockSession)
+    expect(yaml).toContain('I should respond politely')
+    expect(yaml).not.toContain('tool_call')
+  })
+
+  it('should include only toolcalls when specified', () => {
+    const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
+      includeProcess: ['toolcalls'],
+    })
+    const yaml = generator.generate(mockSession)
+    expect(yaml).toContain('tool_call')
+    expect(yaml).not.toContain('I should respond politely')
+  })
+
+  it('should include only specified event types', () => {
+    const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
+      includeProcess: ['session'],
+    })
+    const yaml = generator.generate(mockSessionWithAllEvents)
+    expect(yaml).toContain('type: session')
+    expect(yaml).not.toContain('type: model_change')
+    expect(yaml).not.toContain('type: compaction')
+    expect(yaml).not.toContain('type: custom')
+  })
+
+  it('should include multiple specified types', () => {
+    const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
+      includeProcess: ['thinking', 'session'],
+    })
+    const yaml = generator.generate(mockSessionWithAllEvents)
+    expect(yaml).toContain('I should respond politely')
+    expect(yaml).toContain('type: session')
+    expect(yaml).not.toContain('tool_call')
+    expect(yaml).not.toContain('type: model_change')
+  })
+
+  it('should include all when all specified', () => {
+    const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
+      includeProcess: ['all'],
+    })
+    const yaml = generator.generate(mockSessionWithAllEvents)
+    expect(yaml).toContain('I should respond politely')
+    expect(yaml).toContain('tool_call')
+    expect(yaml).toContain('type: session')
+    expect(yaml).toContain('type: model_change')
+  })
+
+  it('should include toolcalls when specified', () => {
+    const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
+      includeProcess: ['toolcalls'],
+    })
+    const yaml = generator.generate(mockSession)
+    expect(yaml).toContain('tool_call')
+    expect(yaml).not.toContain('I should respond politely')
+  })
+})

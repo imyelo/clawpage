@@ -13,6 +13,7 @@ export interface GeneratorOptions {
   includeTimestamps?: boolean
   defaultShowProcess?: boolean
   excludeProcess?: string[]
+  includeProcess?: string[]
 }
 
 const DEFAULT_OPTIONS: GeneratorOptions = {
@@ -36,9 +37,15 @@ export class YAMLGenerator {
     this.options = { ...DEFAULT_OPTIONS, ...options }
   }
 
-  private shouldExclude(type: string): boolean {
-    const excluded = new Set(this.options.excludeProcess || [])
-    return excluded.has('all') || excluded.has(type)
+  private shouldInclude(type: string): boolean {
+    const { includeProcess, excludeProcess } = this.options
+    if (includeProcess && includeProcess.length > 0) {
+      return includeProcess.includes('all') || includeProcess.includes(type)
+    }
+    if (excludeProcess && excludeProcess.length > 0) {
+      return !(excludeProcess.includes('all') || excludeProcess.includes(type))
+    }
+    return true
   }
 
   /**
@@ -141,8 +148,7 @@ export class YAMLGenerator {
         }
         result.push(...this.buildMessageEntries(item.data, toolResultMap))
       } else {
-        // Filter events based on excludeProcess
-        if (this.shouldExclude(item.data.type)) {
+        if (!this.shouldInclude(item.data.type)) {
           continue
         }
         const entry = this.buildEventEntry(item.data)
@@ -174,12 +180,12 @@ export class YAMLGenerator {
     const entries: Record<string, unknown>[] = []
 
     // Thinking block → separate entry
-    if (msg.thinking && !this.shouldExclude('thinking')) {
+    if (msg.thinking && this.shouldInclude('thinking')) {
       entries.push({ ...base, process: [{ type: 'thinking', content: msg.thinking }] })
     }
 
     // Tool call → separate entry
-    if (msg.toolCall && !this.shouldExclude('toolcalls')) {
+    if (msg.toolCall && this.shouldInclude('toolcalls')) {
       const toolResultMsg = msg.toolCall.id ? toolResultMap.get(msg.toolCall.id) : undefined
       const tc: Record<string, unknown> = {
         type: 'tool_call',
@@ -187,7 +193,7 @@ export class YAMLGenerator {
         name: msg.toolCall.name,
         arguments: msg.toolCall.arguments,
       }
-      if (toolResultMsg?.toolResult && !this.shouldExclude('toolresults')) {
+      if (toolResultMsg?.toolResult && this.shouldInclude('toolresults')) {
         tc.result = {
           content: toolResultMsg.toolResult.content,
           isError: toolResultMsg.toolResult.isError,
@@ -197,7 +203,7 @@ export class YAMLGenerator {
     }
 
     // Standalone toolResult without a matching toolCall → separate entry
-    if (isToolResult && msg.toolResult && !msg.toolCall && !this.shouldExclude('toolresults')) {
+    if (isToolResult && msg.toolResult && !msg.toolCall && this.shouldInclude('toolresults')) {
       const tr = msg.toolResult
       entries.push({
         ...base,

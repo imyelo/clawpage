@@ -1,6 +1,6 @@
 /**
  * OpenClaw platform parser
- * Handles Openclaw JSONL session.log files
+ * Handles Openclaw session JSONL files ({id}.jsonl)
  */
 
 import { readFile } from 'node:fs/promises'
@@ -76,7 +76,7 @@ export class OpenClawParser implements Platform {
   }
 
   /**
-   * Parse a session.log JSONL file
+   * Parse an Openclaw session JSONL file ({id}.jsonl)
    */
   async parseFile(filePath: string): Promise<ParsedSession> {
     const content = await readFile(resolve(filePath), 'utf-8')

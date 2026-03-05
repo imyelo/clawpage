@@ -50,10 +50,51 @@ This entry is what Config Lookup reads (see above).
 
 ## Conversion
 
-Run the CLI:
+### Step 1 — Choose content filtering
+
+Ask the user what to include in the export:
+
+1. **Everything** — include all process content (thinking, tool calls, events)
+2. **Messages only** — exclude all process content (`--exclude-process=all`)
+3. **Messages + specific process types** — include only chosen types (`--include-process=<types>`)
+4. **Custom** — let the user specify flags directly
+
+Available process types for `--include-process` / `--exclude-process`:
+
+| Type | What it covers |
+|------|----------------|
+| `thinking` | AI reasoning/thinking blocks |
+| `toolcalls` | Tool call blocks (name, arguments) |
+| `toolresults` | Tool result content embedded in tool call entries |
+| `session` | Session start events |
+| `model_change` | Model switching events |
+| `thinking_level_change` | Thinking level change events |
+| `compaction` | Context compaction events |
+| `custom` | Custom events (e.g. model-snapshot) |
+| `all` | Shorthand for all types above |
+
+`--include-process` and `--exclude-process` are mutually exclusive.
+
+### Step 2 — Run the CLI
 
 ```bash
-npx openclaw-chats-share parse {sessionPath} -o {projectDir}/chats/.tmp/{timestamp}.yaml
+npx openclaw-chats-share parse {sessionPath} -o {projectDir}/chats/.tmp/{timestamp}.yaml [--include-process=<types> | --exclude-process=<types>]
+```
+
+Examples:
+
+```bash
+# Everything (default — no filter flag needed)
+npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml
+
+# Messages only
+npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml --exclude-process=all
+
+# Messages + thinking only
+npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml --include-process=thinking
+
+# Messages + thinking + tool calls (without results)
+npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml --include-process=thinking,toolcalls
 ```
 
 The CLI handles format conversion, metadata extraction, and timeline building — including large files.

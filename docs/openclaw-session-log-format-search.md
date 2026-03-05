@@ -1,6 +1,6 @@
 # Openclaw Session Log Format Research
 
-The CLI parses Openclaw `session.log` files — JSONL where each line is a JSON event. The research data is contributed by the [@lambda610](https://github.com/lambda610).
+The CLI parses Openclaw session files (`{id}.jsonl`) — JSONL where each line is a JSON event. The research data is contributed by the [@lambda610](https://github.com/lambda610).
 
 ## Event Types (top-level `type` field)
 

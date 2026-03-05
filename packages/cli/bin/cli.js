@@ -17,6 +17,7 @@ const { values, positionals } = parseArgs({
     constraint: { type: 'string', short: 'c' },
     'default-show-process': { type: 'boolean', default: false },
     'exclude-process': { type: 'string' },
+    'include-process': { type: 'string' },
     platform: { type: 'string', short: 'p', default: 'openclaw' },
   },
   allowPositionals: true,
@@ -24,13 +25,17 @@ const { values, positionals } = parseArgs({
 
 const [command, inputPath] = positionals
 
-const excludeProcess = values['exclude-process']
-  ? values['exclude-process'].split(',')
-  : []
+if (values['exclude-process'] && values['include-process']) {
+  console.error('Error: --exclude-process and --include-process are mutually exclusive.')
+  process.exit(1)
+}
+
+const excludeProcess = values['exclude-process'] ? values['exclude-process'].split(',') : undefined
+const includeProcess = values['include-process'] ? values['include-process'].split(',') : undefined
 
 if (command === 'parse') {
   if (!inputPath) {
-    console.error('Usage: openclaw-chats-share parse <session.log> [-o output.yaml] [--platform <name>]')
+    console.error('Usage: openclaw-chats-share parse <{id}.jsonl> [-o output.yaml] [--platform <name>]')
     process.exit(1)
   }
 
@@ -46,6 +51,7 @@ if (command === 'parse') {
   const generator = new YAMLGenerator(DEFAULT_CONSTRAINT, {
     defaultShowProcess: values['default-show-process'],
     excludeProcess,
+    includeProcess,
   })
   const yaml = generator.generate(session)
 
@@ -54,6 +60,6 @@ if (command === 'parse') {
 
   console.log(`Generated: ${outputPath}`)
 } else {
-  console.log('Commands: parse <session.log>')
+  console.log('Commands: parse <{id}.jsonl>')
   process.exit(1)
 }
