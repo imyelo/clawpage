@@ -192,13 +192,14 @@ export default defineConfig({
   "private": true,
   "scripts": {
     "dev": "openclaw-chats-share-web dev",
-    "build": "openclaw-chats-share-web build"
+    "build": "rimraf ./dist && openclaw-chats-share-web build"
   },
   "dependencies": {
     "openclaw-chats-share-web": "latest"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.4"
+    "@biomejs/biome": "^2.4.4",
+    "rimraf": "^6.0.1"
   }
 }
 "
@@ -399,13 +400,14 @@ export default defineConfig({
   "private": true,
   "scripts": {
     "dev": "openclaw-chats-share-web dev",
-    "build": "openclaw-chats-share-web build"
+    "build": "rimraf ./dist && openclaw-chats-share-web build"
   },
   "dependencies": {
     "openclaw-chats-share-web": "latest"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.4"
+    "@biomejs/biome": "^2.4.4",
+    "rimraf": "^6.0.1"
   }
 }
 "

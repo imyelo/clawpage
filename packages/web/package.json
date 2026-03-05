@@ -16,7 +16,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "clean": "rimraf ./dist",
+    "build": "bun run clean && astro build",
     "check": "astro check",
     "prepublish": "bun run build",
     "test": "bun test"
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@types/marked": "^6.0.0",
     "@types/react": "^19.2.14",
+    "rimraf": "^6.0.1",
     "typescript": "^5.9.3"
   }
 }

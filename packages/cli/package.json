@@ -20,7 +20,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsc",
+    "clean": "rimraf ./dist",
+    "build": "bun run clean && tsc",
     "prepublish": "bun run build",
     "test": "bun test"
   },
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "rimraf": "^6.0.1",
     "typescript": "^5.0.0"
   }
 }

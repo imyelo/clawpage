@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev": "openclaw-chats-share-web dev",
-    "build:pages": "openclaw-chats-share-web build",
+    "build:pages": "rimraf ./dist && openclaw-chats-share-web build",
     "build": "bun --filter openclaw-chats-share build && bun --filter openclaw-chats-share-web build",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
@@ -28,7 +28,8 @@
     "@yelo/biome-config": "^0.1.4",
     "@yelo/tsconfig": "^0.6.0",
     "clawhub": "^0.7.0",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "rimraf": "^6.1.3"
   },
   "version": ""
 }
