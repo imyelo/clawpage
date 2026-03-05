@@ -252,6 +252,13 @@ docs/      - Project documentation
 skills/    - OpenClaw Skill definitions
 ```
 
+## Sites Using openclaw-chats-share
+
+Sites built with this tool:
+
+- [Yelo](https://vibe.yelo.cc)
+- Your site here — Add yours by [submitting a PR](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md)!
+
 ## Additional Resources
 
 - See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for complete frontmatter fields and content format.
