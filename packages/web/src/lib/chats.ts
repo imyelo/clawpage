@@ -21,6 +21,7 @@ export interface ChatMetadata {
   description: string
   participants?: Record<string, { role: 'human' | 'agent'; model?: string }>
   defaultShowProcess?: boolean
+  cover?: string
 }
 
 export interface ChatData extends ChatMetadata {
@@ -39,11 +40,6 @@ export type ProcessBlock =
       result?: { content: string; isError: boolean }
     }
 
-export interface ChatImage {
-  mimeType: string
-  data: string
-}
-
 export interface ChatMessage {
   type: 'message'
   role: 'human' | 'agent' | 'tool'
@@ -52,7 +48,6 @@ export interface ChatMessage {
   model?: string
   process?: ProcessBlock[]
   content?: string
-  images?: ChatImage[]
 }
 
 export interface ChatEvent {
@@ -119,6 +114,7 @@ export async function getAllChatsWithContent(): Promise<ChatWithContent[]> {
           ? (data.participants as Record<string, { role: 'human' | 'agent'; model?: string }>)
           : undefined,
       defaultShowProcess: Boolean(data.defaultShowProcess),
+      cover: data.cover ? String(data.cover) : undefined,
       timeline: Array.isArray(data.timeline) ? (data.timeline as ChatTimelineItem[]) : [],
     })
   }

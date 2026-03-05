@@ -34,9 +34,9 @@ const mockSession: ParsedSession = {
     {
       id: 'msg-4',
       timestamp: '2024-01-01T00:03:00Z',
-      role: 'tool',
+      role: 'toolResult',
       content: 'file1.txt\nfile2.txt',
-      toolResult: { id: 'tr-1', toolCallId: 'tc-1', result: 'file1.txt\nfile2.txt' },
+      toolResult: { toolCallId: 'tc-1', toolName: 'bash', content: 'file1.txt\nfile2.txt', isError: false },
     },
   ],
   modelChanges: [],

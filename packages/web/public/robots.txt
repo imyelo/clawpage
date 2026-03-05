@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+# Sitemap: https://your-site.com/sitemap-index.xml
+# Uncomment the line above and replace the URL with your site's sitemap URL
+# once you have configured `site` in chats-share.toml.

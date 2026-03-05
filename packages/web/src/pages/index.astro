@@ -11,6 +11,7 @@ const config = await getProjectConfig()
 const siteTitle = config.template?.options?.title || 'chats-share'
 const siteSubtitle = config.template?.options?.subtitle || '// openclaw conversation archive'
 const siteDescription = config.template?.options?.description || 'OpenClaw Chats Share - A place for sharing and exploring AI chat conversations.'
+const siteUrl = config.site?.replace(/\/$/, '') ?? ''
 ---
 
 <html lang="en">
@@ -19,6 +20,14 @@ const siteDescription = config.template?.options?.description || 'OpenClaw Chats
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={siteDescription} />
     <title>{siteTitle}</title>
+    <link rel="canonical" href={Astro.url.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:url" content={Astro.url.href} />
+    {siteUrl && <meta property="og:image" content={`${siteUrl}/cover.svg`} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {siteUrl && <meta name="twitter:image" content={`${siteUrl}/cover.svg`} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,7 +159,7 @@ const siteDescription = config.template?.options?.description || 'OpenClaw Chats
         <div class="chats-list">
           {chats.map(chat => (
             <a href={`/chats/${chat.slug}`} class="chat-item">
-              <div class="chat-topic">{chat.title}</div>
+              <h2 class="chat-topic">{chat.title}</h2>
               <div class="chat-meta">
                 {chat.channel && (
                   <>

@@ -1,22 +1,23 @@
 ---
-import ChatLayout from '../../layouts/ChatLayout.astro';
-import ChatMessage from '../../components/ChatMessage.astro';
-import { CollapsibleMessage } from '../../components/CollapsibleMessage';
-import { ShowProcessToggle } from '../../components/ShowProcessToggle';
-import { AVATAR_COLORS } from '../../constants/index.js';
+import ChatLayout from '../../../layouts/ChatLayout.astro';
+import ChatMessage from '../../../components/ChatMessage.astro';
+import { CollapsibleMessage } from '../../../components/CollapsibleMessage';
+import { ShowProcessToggle } from '../../../components/ShowProcessToggle';
+import { AVATAR_COLORS } from '../../../constants/index.js';
 import {
   getAllChatsWithContent,
   type ChatWithContent,
   type ChatMessage as ChatMsg,
   type ChatEvent,
   type ProcessBlock,
-} from '../../lib/chats';
+} from '../../../lib/chats';
+import { getProjectConfig } from '../../../lib/config.js';
 import {
   isSpeakerAgent,
   buildToolCallContent,
   expandEventToDirective,
   type RenderItem,
-} from '../../lib/timeline-utils';
+} from '../../../lib/timeline-utils';
 
 export async function getStaticPaths() {
   return (await getAllChatsWithContent()).map(chat => ({
@@ -30,10 +31,14 @@ interface Props {
 }
 
 const { chat } = Astro.props;
-const { title, description, channel, model, date, totalMessages, timeline, participants, defaultShowProcess = false } = chat;
+const { title, description, channel, model, date, totalMessages, timeline, participants, defaultShowProcess = false, cover, slug } = chat;
 const displayTitle = title || '';
 
 const showProcessByDefault = defaultShowProcess;
+
+const config = await getProjectConfig();
+const siteUrl = config.site?.replace(/\/$/, '') ?? '';
+const ogImageUrl = cover ?? (siteUrl ? `${siteUrl}/chats/${slug}/cover.svg` : undefined);
 
 // Build flat render list from the timeline
 const messages: RenderItem[] = [];
@@ -125,6 +130,7 @@ messages.forEach(msg => {
   messageCount={totalMessages}
   regularMessageCount={regularMessageCount}
   showProcessByDefault={showProcessByDefault}
+  ogImageUrl={ogImageUrl}
 >
   {hasProcessMessages && (
     <ShowProcessToggle client:load slot="controls" defaultShow={showProcessByDefault} />

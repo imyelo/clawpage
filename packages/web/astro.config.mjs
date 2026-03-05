@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import autoprefixer from 'autoprefixer';
 import { loadConfig } from 'c12';
 import { createDefu } from 'defu';
@@ -78,6 +79,7 @@ export default defineConfig(merge(
   {
     integrations: [
       react(),
+      ...(config.site ? [sitemap({ filter: (page) => !page.includes('/cover.svg') })] : []),
     ],
     vite: {
       server: {

@@ -23,6 +23,7 @@ Example: `20260215-debugging-async-issue.yaml`
 | `visibility` | Manual | No | Controls index visibility (`public` or `private`) | `private` (default) |
 | `defaultShowProcess` | CLI / Manual | No | If `true`, process blocks are shown by default | `false` |
 | `description` | Manual | No | Brief description for index display | `Debugging a tricky async issue` |
+| `cover` | Manual | No | Explicit OG image URL; overrides auto-generated SVG card | `https://example.com/preview.png` |
 | `participants` | CLI / Manual | No | Maps each participant name to `{ role: "human" \| "agent" }` | see example below |
 
 ## Visibility

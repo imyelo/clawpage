@@ -24,6 +24,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.0",
     "astro": "^5.0.0",
     "autoprefixer": "^10.4.21",
     "c12": "^3.0.0",
