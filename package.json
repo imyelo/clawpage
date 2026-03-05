@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev": "openclaw-chats-share-web dev",
-    "build": "openclaw-chats-share-web build || true",
+    "build": "bun --filter openclaw-chats-share build && bun --filter openclaw-chats-share-web build",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
     "lint": "biome lint .",
