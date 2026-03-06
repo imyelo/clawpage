@@ -1,5 +1,13 @@
 # create-openclaw-chats-share
 
+## 0.4.0
+
+### Minor Changes
+
+- Run `git init` and an initial commit after scaffolding so every project starts as its own independent git repository, preventing inheritance of a parent `.git` directory.
+
+  Honour the `--dir` flag for the output path: `targetDir` now resolves from `--dir` (absolute or relative to cwd) when provided, falling back to `<cwd>/<projectName>`. The `cd` hint now prints the full `targetDir`.
+
 ## 0.3.0
 
 ### Minor Changes
