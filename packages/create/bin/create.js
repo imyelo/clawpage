@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { execSync } from 'node:child_process'
 import { cpSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -46,6 +47,21 @@ cpSync(tpl('README.md'), out('README.md'))
 const ghWorkflowDir = out('.github/workflows')
 mkdirSync(ghWorkflowDir, { recursive: true })
 cpSync(tpl('.github/workflows/deploy.yml'), out('.github/workflows/deploy.yml'))
+
+// Initialize a fresh git repo so the project is not nested under any parent .git
+try {
+  const opts = { cwd: targetDir, stdio: 'ignore' }
+  execSync('git init', opts)
+  try {
+    execSync('git add .', opts)
+    execSync(`git commit -m "feat: scaffold ${projectName || 'my-chats-project'}"`, opts)
+  } catch {
+    console.warn('Warning: git init succeeded but initial commit failed (git identity may not be configured).')
+    console.warn('Run: git add . && git commit -m "feat: scaffold" inside the project directory.')
+  }
+} catch {
+  console.warn('Warning: git not found. Skipping git init.')
+}
 
 console.log('Project created!')
 console.log(`cd ${projectName || 'my-chats-project'}`)

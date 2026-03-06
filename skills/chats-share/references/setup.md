@@ -1,5 +1,11 @@
 # Setup
 
+## Prerequisites
+
+- **git** — must be installed and identity configured (`user.name` / `user.email`)
+- **gh** — GitHub CLI, authenticated (`gh auth login`)
+- **Node.js ≥ 18** or **Bun** — for running `npx`/`bun` commands
+
 ---
 
 ## First-Time Setup
@@ -22,15 +28,12 @@ Note the resulting `{owner}/{repoName}` for later steps.
 
 ```bash
 npx create-openclaw-chats-share {repoName}
-cd {repoName}
-
-# Initialize a fresh git repo (avoid inheriting parent directory's .git)
-git init
-git add .
-git commit -m "feat: scaffold {repoName}"
+cd {localDir}
 ```
 
-### 4. Configure the Site URL
+This scaffolds `chats-share.toml`, a `chats/` directory, a GitHub Actions workflow for Pages deployment, and initializes a git repository with an initial commit.
+
+### 5. Configure the Site URL
 
 Edit `chats-share.toml` and set:
 
@@ -41,14 +44,14 @@ base = "/{repoName}"
 
 Also set `[template.options]` title/subtitle if the user wants custom branding.
 
-### 5. Push to GitHub
+### 6. Push to GitHub
 
 ```bash
 git remote add origin https://github.com/{owner}/{repoName}.git
 git push -u origin main
 ```
 
-### 6. Enable GitHub Actions as the Pages Source
+### 7. Enable GitHub Actions as the Pages Source
 
 ```bash
 gh api repos/{owner}/{repoName}/pages --method POST -f build_type=workflow
@@ -57,7 +60,7 @@ gh api repos/{owner}/{repoName}/pages --method POST -f build_type=workflow
 If this fails (e.g. Pages not yet initialized), guide the user to enable it manually:
 **Settings → Pages → Source → GitHub Actions**
 
-### 7. Register with Your Agent
+### 8. Register with Your Agent
 
 → See [Register & Verify](#register--verify) below.
 
