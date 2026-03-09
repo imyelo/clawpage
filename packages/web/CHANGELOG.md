@@ -1,5 +1,11 @@
 # openclaw-chats-share-web
 
+## 0.7.1
+
+### Patch Changes
+
+- improve table styling for responsive overflow
+
 ## 0.7.0
 
 ### Minor Changes
