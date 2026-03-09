@@ -141,9 +141,12 @@
 }
 
 .prose table {
-  width: 100%;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.875em;
+  white-space: nowrap;
 }
 
 .prose :is(th, td) {
