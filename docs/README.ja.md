@@ -1,0 +1,268 @@
+# openclaw-chats-share
+
+> 📤 1つのコマンドでOpenClawのチャットを美丽的で恒久的なページに変換 — 自分のGitHub Pagesに自動デプロイ
+
+OpenClawの会話履歴を静的ウェブサイトとして共有するためのmonorepo。チャットチャンネルでshareコマンドをトリガーすると、恒久的で公開アクセス可能なページが自動的に取得できます — GitHub Pagesで自動構築・デプロイされます。
+
+## クイックスタート
+
+これをagentチャットにコピー＆ペーストしてください：
+
+```
+https://clawhub.ai/imyelo/chats-shareを読んでchats-share skillをインストールし、
+その後初めての設定を実行してください。
+```
+
+## Agentがやること
+
+agentは私有GitHubリポジトリをスキャフォールドし、Pages URLで`chats-share.toml`を設定し、初期コミットをプッシュし、GitHub ActionsをPagesソースとして有効化し、`/chats-share`がすぐに動作するようにプロジェクトを登録します。完全なステップバイステップは [skills/chats-share/references/setup.md](skills/chats-share/references/setup.md) を参照してください。
+
+## 仕組み
+
+```
+/chats-share
+    │
+    ▼
+OpenClaw Skill
+    │  1. エクスポートするセッションを特定して確認
+    │  2. メッセージ履歴を抽出
+    │  3. メタデータ（タイトル、参加者を記述
+    │  4. 機密データを編集
+    │  5. データリポジトリにYAMLを書き込む
+    │  6. 新しいブランチにプッシュ → PRを作成
+    ▼
+GitHub Pages
+    └── https://your-domain/share/{slug}
+```
+
+### ブランチベースワークフロー
+
+チャットはmainではなく新しいブランチ（`chat/{slug}`）にプッシュされ、マージ前にレビュー用のPRを作成するためのガイダンスが表示されます。
+
+## リポジトリアーキテクチャ
+
+このリポジトリは**公開テンプレート**です。実際のチャットデータは別の**私有ワークリポジトリ**に格納されます — これにより、テンプレートをデータ汚染なしにクリーンでfork可能な状態に保つことができます。
+
+| リポジトリ | 公開設定 | 目的 |
+|------|------------|---------|
+| `openclaw-chats-share` | 公開 | テンプレート、パッケージ、Skill |
+| `your-chats-share` | 私有 | 実際のチャットデータ |
+
+## パッケージ
+
+### `openclaw-chats-share` (CLI)
+
+OpenClaw `sessions/{uuid}.jsonl` 生JSONLファイルを解析し、YAML出力を生成します。
+
+```bash
+npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+```
+
+### `openclaw-chats-share-web`
+
+Astroベースの静的サイトジェネレーター。チャットYAMLファイルを共有可能なページにレンダリングします。
+
+```bash
+npx openclaw-chats-share-web dev     # ローカル開発サーバー
+npx openclaw-chats-share-web build   # 静的サイトをビルド
+npx openclaw-chats-share-web preview # ローカルでビルド結果をプレビュー
+```
+
+### `create-openclaw-chats-share`
+
+このテンプレートから新しいワークリポジトリを初期化するスキャフォールディングツール。
+
+```bash
+npx create-openclaw-chats-share <project-name>
+```
+
+## データ形式
+
+チャットファイルはYAMLとしてワークリポジトリの`chats/`ディレクトリに保存されます。CLIによってOpenClawセッションJSONLファイル（`{id}.jsonl`）から生成されます。
+
+**ファイル命名：** `YYYYMMDD-{slug}.yaml`
+
+**トップレベルメタデータフィールド：**
+
+| フィールド | 必須 | 説明 | 例 |
+|-------|----------|-------------|---------|
+| `title` | はい | セッションタイトル / エクスポート名 | `My Session` |
+| `date` | はい | セッション日付 (YYYY-MM-DD) | `2026-02-15` |
+| `sessionId` | はい | 一意のセッションID | `cf1f8dbe-2a12-47cf-8221-9fcbf0c47466` |
+| `channel` | いいえ | チャンネル/プラットフォーム名 | `discord`, `telegram` |
+| `model` | いいえ | セッションで使用されたモデル | `MiniMax-M2.5` |
+| `totalMessages` | いいえ | メッセージ総数 | `42` |
+| `totalTokens` | いいえ | 消費されたtoken総数 | `12345` |
+| `tags` | いいえ | 分類用のタグ配列 | `[coding, debug]` |
+| `visibility` | いいえ | インデックスの可視性 | `private` (デフォルト) |
+| `description` | いいえ | インデックスの簡単な説明 | `Debugging a tricky async issue` |
+| `defaultShowProcess` | いいえ | デフォルトでプロセス（思考、ツール呼び出し）を表示 | `false` |
+| `participants` | いいえ | 参加者名を`{ role: "human" \| "agent" }`にマッピング | 例を参照 |
+
+**可視性：**
+- `public` — ホームページのインデックスに表示
+- `private` (デフォルト) — 直接URLからのみアクセス可能、インデックスからは隠される
+
+`timeline:` キーはメッセージとイベントオブジェクトの順序付きリストを保持します。完全なスキーマは [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) を参照してください。
+
+**例ファイル：**
+
+```yaml
+title: Debugging Async Issue
+date: 2026-02-15
+sessionId: cf1f8dbe-2a12-47cf-8221-9fcbf0c47466
+model: MiniMax-M2.5
+totalMessages: 4
+totalTokens: 12345
+visibility: public
+defaultShowProcess: false
+participants:
+  Alice:
+    role: human
+  Claude:
+    role: agent
+
+timeline:
+  - type: message
+    role: human
+    speaker: Alice
+    timestamp: "2026-02-15T06:13:50.514Z"
+    content: |
+      Message content...
+
+  - type: message
+    role: agent
+    speaker: Claude
+    timestamp: "2026-02-15T06:14:05.123Z"
+    model: claude-sonnet-4-6
+    content: |
+      Response content...
+```
+
+## 設定
+
+webパッケージはワークリポジトリルートにある`chats-share.toml`で設定されます。
+
+| キー | 型 | 説明 | 例 |
+|-----|------|-------------|---------|
+| `site` | string (URL) | デプロイしたサイトの完全なURL | `"https://you.github.io"` |
+| `base` | string | GitHub Pagesプロジェクトサイトのベースパス | `"/my-repo"` |
+| `public_dir` | string | 静的アセットディレクトリ（設定ファイルからの相対パス） | `"public"` |
+| `out_dir` | string | ビルド出力ディレクトリ（設定ファイルからの相対パス） | `"dist"` |
+| `chats_dir` | string | カスタムチャットディレクトリパス（絶対パスまたは設定ファイルからの相対パス） | `"../my-chats"` |
+| `template.options.title` | string | ホームページタイトル | `"chats-share"` |
+| `template.options.subtitle` | string | ホームページサブタイトル | `"// conversation archive"` |
+| `template.options.description` | string | サイトのmeta description | `"My conversation archive"` |
+| `template.options.footer` | string | フッター texto（Markdownサポート） | `` |
+
+**例 `chats-share.toml`：**
+
+```toml
+site = "https://your-username.github.io"
+base = "/your-repo-name"
+
+[template.options]
+title = "chats-share"
+subtitle = "// conversation archive"
+footer = "powered by [@imyelo](https://github.com/imyelo)"
+```
+
+### カスタムドメイン（GitHub Pages）
+
+`your-username.github.io`ではなくカスタムドメインからサイトを提供する場合：
+
+1. `public/`ディレクトリにドメインを含む`CNAME`ファイルを追加：
+
+   ```
+   chats-share.example.com
+   ```
+
+2. `chats-share.toml`で`site`をカスタムドメインに設定：
+
+   ```toml
+   site = "https://chats-share.example.com"
+   ```
+
+3. DNSプロバイダーでドメインをGitHub Pagesにポイントするよう設定：
+   -  apexドメインの場合 (`example.com`): GitHub IPを指すAレコードを追加
+   - サブドメインの場合 (`chats-share.example.com`): `your-username.github.io`を指すCNAMEレコードを追加
+
+4. DNSが反映された後、GitHubリポジトリの **Settings → Pages** でHTTPSを有効化。
+
+> カスタムドメインを使用する場合、`chats-share.toml`から`base`を省略（または`"/"`に設定）してください。サイトがドメインルートから提供されるためです。
+
+詳細なGitHub Pagesカスタムドメインの設定については、[Managing a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)も参照してください。
+
+## 開発
+
+```bash
+# 依存関係をインストール
+bun install
+
+# デモ開発サーバーを起動
+bun run dev
+
+# デモ静的サイトをビルド
+bun run build
+
+# デモをGitHub Pagesにデプロイ
+bun run deploy
+```
+
+## リリース
+
+このプロジェクトはバージョン管理と changelog 管理に [changesets](https://github.com/changesets/changesets) を使用しています。
+
+```bash
+# 新しい changeset を作成
+bun run changeset
+
+# changeset のステータスを確認
+bunx changeset status
+
+# バージョンアップをプレビュー（ドライラン）
+bunx changeset version --dry-run
+
+# バージョンアップを適用して changelog を更新
+bun run version
+```
+
+### リリースワークフロー
+
+1. PRをマージする前に changeset を作成: `bun run changeset`
+2. 影響を受けるパッケージとバンプタイプ（patch/minor/major）を選択
+3. 変更の説明を書く
+4. changeset ファイルをPRと一緒にコミット
+5. マージ後、changesets actionが"Version Packages"PRを作成
+6. バージョンPRをマージするとnpm publishがトリガーされます
+
+## プロジェクト構造
+
+```
+packages/
+  cli/     - openclaw-chats-share CLI（セッショblog解析 + YAMLジェネレーター）
+  web/     - openclaw-chats-share-web（Astro静的サイト）
+    src/
+      components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
+      lib/         - chats.ts, config.ts, config-schema.ts
+      pages/       - index.astro, share/[slug].astro
+  create/  - create-openclaw-chats-share スキャフォールディングツール
+chats/     - デモ用YAMLチャットファイル
+docs/      - プロジェクトドキュメント
+skills/    - OpenClaw Skill定義
+```
+
+## openclaw-chats-shareを使用したサイト
+
+このツールで構築されたサイト：
+
+- [Yelo](https://vibe.yelo.cc)
+- あなたのサイト — [PRを提交](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md)して追加！
+
+## 追加リソース
+
+- 完全なfrontmatterフィールドとコンテンツ形式については [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) を参照してください。
+
+## ライセンス
+
+Apache-2.0 &copy; [yelo](https://github.com/imyelo), 2026 - present
