@@ -46,7 +46,16 @@ md.use(markedShiki({
   }
 }))
 
-const htmlContent = await md.parse(content)
+const rawHtml = await md.parse(content)
+// Replace [REDACTED] markers with the TV-static noise element.
+// After markdown parsing, [REDACTED] appears as literal text in the HTML
+// (no following URL → not parsed as a link).
+const REDACTED_HTML =
+  '<span class="redacted-inline" aria-label="Redacted content" title="This content has been redacted">' +
+  '<span class="redacted-noise" aria-hidden="true"></span>' +
+  '<span class="redacted-label" aria-hidden="true">REDACTED</span>' +
+  '</span>'
+const htmlContent = rawHtml.replace(/\[REDACTED\]/g, REDACTED_HTML)
 ---
 
 <article

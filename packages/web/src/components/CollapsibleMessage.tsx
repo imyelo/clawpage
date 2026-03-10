@@ -7,6 +7,22 @@ import { AVATAR_COLORS } from '../constants/index.js'
 import styles from './CollapsibleMessage.module.css'
 import '../styles/prose.css'
 
+// Sentinel used to pass [REDACTED] markers through ReactMarkdown as inline code.
+const REDACTED_SENTINEL = '__REDACTED__'
+
+function RedactedInline() {
+  return (
+    <span
+      className="redacted-inline"
+      aria-label="Redacted content"
+      title="This content has been redacted"
+    >
+      <span className="redacted-noise" aria-hidden="true" />
+      <span className="redacted-label" aria-hidden="true">REDACTED</span>
+    </span>
+  )
+}
+
 function cn(...classes: (string | false | null | undefined)[]): string {
   return classes.filter(Boolean).join(' ')
 }
@@ -81,6 +97,9 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
   isLastInGroup?: boolean
   avatarColorIndex?: number
 }) {
+  // Replace [REDACTED] markers with a backtick sentinel so ReactMarkdown
+  // produces an inline <code> node we can intercept in the components map.
+  const processedContent = content.replace(/\[REDACTED\]/g, `\`${REDACTED_SENTINEL}\``)
   const hasContent = Boolean(content && content.trim() !== '')
   const [isOpen, setIsOpen] = useState(hasContent ? !collapsed : false)
 
@@ -148,8 +167,19 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   urlTransform={(url: string) => url}
+                  components={{
+                    // Intercept inline code nodes that carry the redacted sentinel.
+                    // Block fenced code always has a className like "language-xxx";
+                    // plain inline code has no className.
+                    code: ({ children, className, ...props }) => {
+                      if (!className && String(children) === REDACTED_SENTINEL) {
+                        return <RedactedInline />
+                      }
+                      return <code className={className} {...props}>{children}</code>
+                    },
+                  }}
                 >
-                  {content}
+                  {processedContent}
                 </ReactMarkdown>
               </div>
             </div>

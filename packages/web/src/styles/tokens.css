@@ -43,6 +43,13 @@
   --agent-msg-bg:     #181818;
   --agent-msg-border: #272727;
 
+  /* Redacted content (TV-static noise) */
+  --redacted-bg:         #0d0808;
+  --redacted-border:     #4a2020;
+  --redacted-label:      #ff5555;
+  --redacted-label-glow: rgba(255, 85, 85, 0.6);
+  --redacted-glow:       rgba(255, 85, 85, 0.08);
+
   /* Collapsible panel type colours */
   --collapsible-error-border:   #ef4444;
   --collapsible-error-accent:   #f87171;
