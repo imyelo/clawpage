@@ -2,6 +2,8 @@
 
 > 📤 One command turns your Openclaw chats into beautiful, permanent pages — auto-deployed to your own GitHub Pages
 
+[Español](/docs/README.es.md) · [Français](/docs/README.fr.md) · [中文](/docs/README.zh.md) · [日本語](/docs/README.ja.md) · [한국어](/docs/README.ko.md)
+
 A monorepo for sharing OpenClaw conversation history as static websites. Trigger a share command in your chat channel and get a permanent, publicly accessible page — automatically built and deployed via GitHub Pages.
 
 ## Quick Start
