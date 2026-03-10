@@ -1,5 +1,11 @@
 # openclaw-chats-share-web
 
+## 0.7.2
+
+### Patch Changes
+
+- Add TV-static redacted content styling. Displays [REDACTED] markers with animated noise effect, scanlines, and glowing label for sensitive information.
+
 ## 0.7.1
 
 ### Patch Changes
