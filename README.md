@@ -1,10 +1,10 @@
 # openclaw-chats-share
 
-> 📤 One command turns your Openclaw chats into beautiful, permanent pages — auto-deployed to your own GitHub Pages
+> Type `/chats-share` in any Openclaw chat. Your conversation becomes a permanent, shareable page — built and deployed to GitHub Pages automatically.
 
 [Español](/docs/README.es.md) · [Français](/docs/README.fr.md) · [中文](/docs/README.zh.md) · [日本語](/docs/README.ja.md) · [한국어](/docs/README.ko.md)
 
-A monorepo for sharing OpenClaw conversation history as static websites. Trigger a share command in your chat channel and get a permanent, publicly accessible page — automatically built and deployed via GitHub Pages.
+No manual exports, no copy-pasting. One skill command exports the session, opens a PR, and publishes your chat to your own GitHub Pages site.
 
 ## Quick Start
 
@@ -15,9 +15,33 @@ Read https://clawhub.ai/imyelo/chats-share and install the chats-share skill,
 then run first-time setup for me.
 ```
 
-## What the Agent Does
+### What the Agent Does During Setup
 
 The agent will scaffold a private GitHub repo, configure `chats-share.toml` with your Pages URL, push the initial commit, enable GitHub Actions as the Pages source, and register the project so `/chats-share` works immediately. For the full step-by-step, see [skills/chats-share/references/setup.md](skills/chats-share/references/setup.md).
+
+## Live Demo
+
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
+## Share a Chat
+
+Once setup is complete, use the `/chats-share` skill command in any Openclaw chat to export it:
+
+```
+/chats-share
+```
+
+The agent will:
+
+1. Identify the current session to export
+2. Ask you to confirm the title, description, and visibility (`public` / `private`)
+3. Redact any sensitive data you flag
+4. Write the YAML file to your working repo on a new branch (`chat/{YYYYMMDD}-{slug}`)
+5. Prompt you to open a Pull Request — merging to `main` triggers the GitHub Pages build
+
+After the PR merges, your chat is live at `https://your-domain/share/{slug}`.
+
+> **Tip:** Set `visibility: private` (the default) to keep a chat accessible via direct link only, without it appearing on the public index page.
 
 ## How It Works
 

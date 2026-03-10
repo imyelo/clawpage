@@ -1,8 +1,8 @@
 # openclaw-chats-share
 
-> 📤 一条命令将你的 OpenClaw 对话转换为精美的永久页面 — 自动部署到你的 GitHub Pages
+> 📤 在任何 Openclaw 聊天中输入 `/chats-share`。你的对话将变成一个永久的、可共享的页面 — 自动构建并部署到 GitHub Pages。
 
-一个将 OpenClaw 对话历史分享为静态网站的 monorepo。在聊天频道触发分享命令，即可获得一个永久公开可访问的页面 — 通过 GitHub Pages 自动构建和部署。
+无需手动导出，无需复制粘贴。一个 skill 命令即可导出会话、创建 PR，并将你的聊天发布到自己的 GitHub Pages 站点。
 
 ## 快速开始
 
@@ -13,9 +13,33 @@
 然后帮我运行首次设置。
 ```
 
-## Agent 会做什么
+## Agent 在设置期间做什么
 
-Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](skills/chats-share/references/setup.md)。
+Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../skills/chats-share/references/setup.md)。
+
+## 实时演示
+
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
+## 分享聊天
+
+设置完成后，在任何 Openclaw 聊天中使用 `/chats-share` skill 命令来导出：
+
+```
+/chats-share
+```
+
+Agent 将：
+
+1. 识别要导出的当前会话
+2. 请你确认标题、描述和可见性（`public` / `private`）
+3. 脱敏你标记的敏感数据
+4. 将 YAML 文件写入工作仓库的新分支（`chat/{YYYYMMDD}-{slug}`）
+5. 提示你创建 Pull Request — 合并到 `main` 会触发 GitHub Pages 构建
+
+PR 合并后，你的聊天将在 `https://your-domain/share/{slug}` 上线。
+
+> **提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
 
 ## 工作原理
 
@@ -50,7 +74,7 @@ GitHub Pages
 
 ## Packages
 
-### `openclaw-chats-share` (CLI)
+### `openclaw-chats-share` (../CLI)
 
 解析 OpenClaw `sessions/{uuid}.jsonl` 原始 JSONL 文件并生成 YAML 输出。
 

@@ -1,8 +1,8 @@
 # openclaw-chats-share
 
-> 📤 Un comando transforma tus chats de OpenClaw en páginas hermosas y permanentes — desplegadas automáticamente en tu GitHub Pages
+> 📤 Escribe `/chats-share` en cualquier chat de Openclaw. Tu conversación se convierte en una página permanente y compartible — construida y desplegada en GitHub Pages automáticamente.
 
-Un monorepo para compartir el historial de conversaciones de OpenClaw como sitios web estáticos. Activa un comando de compartir en tu canal de chat y obtén una página permanentemente accesible públicamente — construida y desplegada automáticamente a través de GitHub Pages.
+Sin exportaciones manuales, sin copy-paste. Un comando skill exporta la sesión, abre un PR, y publica tu chat en tu propio sitio de GitHub Pages.
 
 ## Inicio Rápido
 
@@ -13,9 +13,33 @@ Lee https://clawhub.ai/imyelo/chats-share e instala la habilidad chats-share,
 luego ejecuta la configuración inicial para mí.
 ```
 
-## Lo Que Hace el Agent
+## Lo Que Hace el Agent Durante la Configuración
 
-El agent creará un repositorio privado de GitHub, configurará `chats-share.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/chats-share` funcione inmediatamente. Para el paso a paso completo, ver [skills/chats-share/references/setup.md](skills/chats-share/references/setup.md).
+El agent creará un repositorio privado de GitHub, configurará `chats-share.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/chats-share` funcione inmediatamente. Para el paso a paso completo, ver [skills/chats-share/references/setup.md](../skills/chats-share/references/setup.md).
+
+## Demo en Vivo
+
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
+## Compartir un Chat
+
+Una vez completada la configuración, usa el comando skill `/chats-share` en cualquier chat de Openclaw para exportarlo:
+
+```
+/chats-share
+```
+
+El agent va a:
+
+1. Identificar la sesión actual a exportar
+2. Pedirte queconfirmes el título, descripción y visibilidad (`public` / `private`)
+3. Redactar los datos sensibles que indiques
+4. Escribir el archivo YAML a tu repo de trabajo en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
+5. Pedirte que abras un Pull Request — hacer merge a `main` dispara el build de GitHub Pages
+
+Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/share/{slug}`.
+
+> **Consejo:** Establece `visibility: private` (el valor por defecto) para mantener un chat accesible solo vía enlace directo, sin que aparezca en el índice público.
 
 ## Cómo Funciona
 
