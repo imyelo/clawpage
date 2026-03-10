@@ -1,0 +1,124 @@
+title: How to protect sensitive info when you share?
+date: 2026-03-10
+channel: Direct
+sessionId: sess_redacted_demo
+model: claude-sonnet-4-6
+totalMessages: 8
+visibility: public
+defaultShowProcess: true
+description: When you share a conversation, the /chats-share skill attempts to redact sensitive information, but you should always manually review and use [REDACTED] for certainty. This demo shows how the redacted content is rendered.
+participants:
+  Dev:
+    role: human
+  Claude:
+    role: agent
+    model: claude-sonnet-4-6
+timeline:
+  - type: session
+    role: agent
+    speaker: Claude
+    timestamp: 2026-03-10T09:00:00.000Z
+    title: "Session Started"
+    content: |-
+      Welcome to the [REDACTED] demo session.
+      This conversation demonstrates how sensitive information is displayed when you share a session via Chats Share.
+      Model: `claude-sonnet-4-6`
+
+  - type: message
+    role: human
+    speaker: Dev
+    timestamp: 2026-03-10T09:00:12.000Z
+    content: |-
+      How does the redaction work? Does /chats-share handle it automatically?
+
+  - type: message
+    role: agent
+    speaker: Claude
+    timestamp: 2026-03-10T09:00:28.000Z
+    model: claude-sonnet-4-6
+    content: |-
+      **The /chats-share skill attempts to redact automatically.** When you run `/chats-share`, it will:
+
+      - Replace detected API keys, tokens, and passwords with `[REDACTED]`
+      - Replace detected hostnames, IPs, and URLs with `[REDACTED]`
+      - Replace detected credentials in connection strings with `[REDACTED]`
+
+      However, **AI-powered redaction is not 100% reliable.** The skill might:
+      - Miss unusual variable names or context-specific values
+      - Misjudge something as non-sensitive when it's actually sensitive
+      - Fail to detect information in comments or error messages
+
+      **Always manually review before publishing.**
+
+  - type: message
+    role: human
+    speaker: Dev
+    timestamp: 2026-03-10T09:01:15.000Z
+    content: |-
+      So how can I ensure sensitive data is properly redacted?
+
+  - type: message
+    role: agent
+    speaker: Claude
+    timestamp: 2026-03-10T09:01:32.000Z
+    model: claude-sonnet-4-6
+    content: |-
+      **Manual review + manual `[REDACTED]` marking is the safest approach.**
+
+      1. **After running `/chats-share`**, open the generated YAML file
+      2. **Search for anything sensitive:** API keys, passwords, tokens, internal URLs, IPs, customer data
+      3. **Manually replace** any questionable content with `[REDACTED]`
+      4. **Use `[REDACTED]` consistently** — the UI specifically recognizes this marker and applies special styling
+
+      When the UI sees `[REDACTED]` (the word REDACTED inside square brackets), it renders with distinct styling. Anything else won't get the special treatment.
+
+      *(Note: this page auto-renders [REDACTED] to the styled version — in your YAML file, literally type the characters: left bracket, R-E-D-A-C-T-E-D, right bracket)*
+
+  - type: message
+    role: human
+    speaker: Dev
+    timestamp: 2026-03-10T09:03:00.000Z
+    content: |-
+      What about the GitHub workflow? How do I review before publishing?
+
+  - type: message
+    role: agent
+    speaker: Claude
+    timestamp: 2026-03-10T09:03:18.000Z
+    model: claude-sonnet-4-6
+    content: |-
+      Here's the typical flow:
+
+      1. **Run `/chats-share`** in your conversation — the skill exports and attempts to redact
+      2. **Create a PR** to your Chats Share repository — this lets you review changes before merging
+      3. **Manually review** the YAML file in the PR — check for anything missed
+      4. **Manually add `[REDACTED]`** to anything that looks sensitive
+      5. **Merge the PR** — the site auto-deploys and your chat is live
+
+      **Critical:** Make sure your repository is **private**. If it's public, anyone can view the raw YAML file at your GitHub repository history and see the original unredacted data.
+
+      The rendered page (`/share/your-session`) is safe — only the YAML source contains the original values.
+
+  - type: message
+    role: human
+    speaker: Dev
+    timestamp: 2026-03-10T09:04:00.000Z
+    content: |-
+      So I need to: run /chats-share, manually review the YAML, add [REDACTED] where needed, and keep my repo private. Got it!
+
+  - type: message
+    role: agent
+    speaker: Claude
+    timestamp: 2026-03-10T09:04:18.000Z
+    model: claude-sonnet-4-6
+    content: |-
+      Exactly. To summarize:
+
+      - ⚠️ **AI redaction isn't perfect** — always verify what /chats-share produces
+      - ✅ **Manual [REDACTED] marking** — the UI specifically recognizes `[REDACTED]` in brackets
+      - ✅ **Visual distinction** — `[REDACTED]` gets a red background, border, and glowing label
+      - ✅ **Review before merging** — use GitHub PR workflow to check YAML first
+      - ⚠️ **Keep YAML sources private** — the rendered page is safe, but raw YAML contains original data
+      - ⚠️ **Use a private GitHub repo** — otherwise anyone can access the unredacted YAML directly
+
+      This demo session uses `[REDACTED]` placeholders, so you can see the effect. Try viewing the page — the redactions will be clearly styled!
