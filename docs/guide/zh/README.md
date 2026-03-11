@@ -2,6 +2,8 @@
 
 > 📤 在任何 Openclaw 聊天中输入 `/chats-share`。你的对话将变成一个永久的、可共享的页面 — 自动构建并部署到 GitHub Pages。
 
+[English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
+
 无需手动导出，无需复制粘贴。一个 skill 命令即可导出会话、创建 PR，并将你的聊天发布到自己的 GitHub Pages 站点。
 
 ## 快速开始
@@ -15,11 +17,11 @@
 
 ## Agent 在设置期间做什么
 
-Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../../skills/chats-share/references/setup.md)。
+Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md)。
 
 ## 实时演示
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## 分享聊天
 
@@ -191,31 +193,18 @@ subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### 自定义域名（GitHub Pages）
+部署到 Netlify、Vercel、Cloudflare Pages 或自定义域名时，将 `site` 设置为完整 URL 并省略 `base`。
 
-如果想用自定义域名而非 `your-username.github.io` 来托管你的站点：
+### 部署
 
-1. 在 `public/` 目录中添加包含你域名的 `CNAME` 文件：
+脚手架已包含以下平台的配置文件
 
-   ```
-   chats-share.example.com
-   ```
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages。
 
-2. 在 `chats-share.toml` 中将 `site` 设置为你的自定义域名：
-
-   ```toml
-   site = "https://chats-share.example.com"
-   ```
-
-3. 在 DNS 提供商处配置域名指向 GitHub Pages：
-   - 对于根域名 (`example.com`): 添加指向 GitHub IP 的 A 记录
-   - 对于子域名 (`chats-share.example.com`): 添加指向 `your-username.github.io` 的 CNAME 记录
-
-4. DNS 生效后在 GitHub 仓库的 **Settings → Pages** 中启用 HTTPS。
-
-> 使用自定义域名时，从 `chats-share.toml` 中省略 `base`（或设置为 `"/"`），因为站点从域名根目录提供服务。
-
-另请参阅 [Managing a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) 了解详细的 GitHub Pages 自定义域名设置说明。
+各平台的逐步说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
 
 ## 开发
 
@@ -285,7 +274,8 @@ skills/    - OpenClaw Skill 定义
 
 ## 更多资源
 
-- 完整的前matter 字段和内容格式请参阅 [docs/chats-share-data-format.md](/docs/chats-share-data-format.md)。
+- 各平台的部署说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
+- 完整的 frontmatter 字段和内容格式请参阅 [docs/chats-share-data-format.md](/docs/chats-share-data-format.md)。
 
 ## 许可证
 

@@ -2,6 +2,8 @@
 
 > 📤 Tapez `/chats-share` dans n'importe quel chat Openclaw. Votre conversation devient une page permanente et partageable — construite et déployée sur GitHub Pages automatiquement.
 
+[English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
+
 Pas d'export manuel, pas de copier-coller. Une commande skill exporte la session, ouvre une PR, et publie votre chat sur votre propre site GitHub Pages.
 
 ## Démarrage Rapide
@@ -15,11 +17,11 @@ puis lancez la configuration initiale pour moi.
 
 ## Ce Que Fait l'Agent Pendant la Configuration
 
-L'agent va échafauder un dépôt GitHub privé, configurer `chats-share.toml` avec votre URL Pages, pousser le commit initial, activer GitHub Actions comme source Pages, et enregistrer le projet pour que `/chats-share` fonctionne immédiatement. Pour le étape par étape complet, voir [skills/chats-share/references/setup.md](../../skills/chats-share/references/setup.md).
+L'agent va échafauder un dépôt GitHub privé, configurer `chats-share.toml` avec votre URL Pages, pousser le commit initial, activer GitHub Actions comme source Pages, et enregistrer le projet pour que `/chats-share` fonctionne immédiatement. Pour le étape par étape complet, voir [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md).
 
 ## Démo en Direct
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## Partager un Chat
 
@@ -67,7 +69,7 @@ Les chats sont poussés vers une nouvelle branche (`chat/{slug}`) au lieu de mai
 
 Ce dépôt est un **modèle public**. Vos données de chat réelles vivent dans un **dépôt de travail privé** séparé — cela garde le modèle propre et forkable sans contamination de données.
 
-| Dépôt | Visibilité | Purpose |
+| Dépôt | Visibilité | Objectif |
 |-------|------------|---------|
 | `openclaw-chats-share` | Public | Modèle, paquets et Skill |
 | `your-chats-share` | Privé | Vos données de chat réelles |
@@ -82,7 +84,7 @@ Analyse les fichiers JSONL bruts de sessions OpenClaw `sessions/{uuid}.jsonl` et
 npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-### `openclaw-chats-share-web**
+### `openclaw-chats-share-web`
 
 Générateur de site statique basé sur Astro. Rend les fichiers YAML de chat en pages partageables.
 
@@ -92,7 +94,7 @@ npx openclaw-chats-share-web build   # construire le site statique
 npx openclaw-chats-share-web preview # prévisualiser le site construit localement
 ```
 
-### `create-openclaw-chats-share**
+### `create-openclaw-chats-share`
 
 Outil d'échafaudage pour initialiser un nouveau dépôt de travail à partir de ce modèle.
 
@@ -191,31 +193,18 @@ subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### Domaine Personnalisé (GitHub Pages)
+Lors du déploiement sur Netlify, Vercel, Cloudflare Pages ou un domaine personnalisé, définissez `site` avec votre URL complète et omettez `base`.
 
-Pour servir votre site depuis un domaine personnalisé au lieu de `votre-utilisateur.github.io` :
+### Déploiement
 
-1. Ajoutez un fichier `CNAME` à votre répertoire `public/` contenant votre domaine :
+Le scaffold inclut des fichiers de configuration pour
 
-   ```
-   chats-share.exemple.com
-   ```
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages.
 
-2. Configurez `site` dans `chats-share.toml` vers votre domaine personnalisé :
-
-   ```toml
-   site = "https://chats-share.exemple.com"
-   ```
-
-3. Configurez votre fournisseur DNS pour pointer le domaine vers GitHub Pages :
-   - Pour un domaine apex (`exemple.com`) : ajoutez des enregistrements A pointant vers les IPs de GitHub
-   - Pour un sous-domaine (`chats-share.exemple.com`) : ajoutez un enregistrement CNAME pointant vers `votre-utilisateur.github.io`
-
-4. Activez HTTPS dans **Settings → Pages** de votre dépôt GitHub après la propagation DNS.
-
-> Lors de l'utilisation d'un domaine personnalisé, omettez `base` de `chats-share.toml` (ou définissez-le à `"/"`), car le site est servi depuis la racine du domaine.
-
-Consultez également [Managing a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) pour les instructions détaillées de configuration de domaine personnalisé GitHub Pages.
+Pour les instructions étape par étape, la configuration de domaine personnalisé et les limites des niveaux gratuits de chaque plateforme, voir [docs/guide/fr/deployment.md](/docs/guide/fr/deployment.md).
 
 ## Développement
 
@@ -285,6 +274,7 @@ Sites construits avec cet outil :
 
 ## Ressources Supplémentaires
 
+- Voir [docs/guide/fr/deployment.md](/docs/guide/fr/deployment.md) pour les instructions de déploiement, la configuration de domaine personnalisé et les limites des niveaux gratuits de chaque plateforme.
 - Voir [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) pour les champs frontmatter complets et le format du contenu.
 
 ## Licence

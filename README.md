@@ -2,7 +2,7 @@
 
 > Type `/chats-share` in any Openclaw chat. Your conversation becomes a permanent, shareable page — built and deployed to GitHub Pages automatically.
 
-[Español](/docs/README.es.md) · [Français](/docs/fr/README.md) · [中文](/docs/zh/README.md) · [日本語](/docs/ja/README.md) · [한국어](/docs/ko/README.md)
+[Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
 No manual exports, no copy-pasting. One skill command exports the session, opens a PR, and publishes your chat to your own GitHub Pages site.
 

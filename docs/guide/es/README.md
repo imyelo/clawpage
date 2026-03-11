@@ -2,6 +2,8 @@
 
 > 📤 Escribe `/chats-share` en cualquier chat de Openclaw. Tu conversación se convierte en una página permanente y compartible — construida y desplegada en GitHub Pages automáticamente.
 
+[English](/docs/guide/en/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
+
 Sin exportaciones manuales, sin copy-paste. Un comando skill exporta la sesión, abre un PR, y publica tu chat en tu propio sitio de GitHub Pages.
 
 ## Inicio Rápido
@@ -15,11 +17,11 @@ luego ejecuta la configuración inicial para mí.
 
 ## Lo Que Hace el Agent Durante la Configuración
 
-El agent creará un repositorio privado de GitHub, configurará `chats-share.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/chats-share` funcione inmediatamente. Para el paso a paso completo, ver [skills/chats-share/references/setup.md](../../skills/chats-share/references/setup.md).
+El agent creará un repositorio privado de GitHub, configurará `chats-share.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/chats-share` funcione inmediatamente. Para el paso a paso completo, ver [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md).
 
 ## Demo en Vivo
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## Compartir un Chat
 
@@ -32,7 +34,7 @@ Una vez completada la configuración, usa el comando skill `/chats-share` en cua
 El agent va a:
 
 1. Identificar la sesión actual a exportar
-2. Pedirte queconfirmes el título, descripción y visibilidad (`public` / `private`)
+2. Pedirte que confirmes el título, descripción y visibilidad (`public` / `private`)
 3. Redactar los datos sensibles que indiques
 4. Escribir el archivo YAML a tu repo de trabajo en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
 5. Pedirte que abras un Pull Request — hacer merge a `main` dispara el build de GitHub Pages
@@ -191,31 +193,18 @@ subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### Dominio Personalizado (GitHub Pages)
+Al desplegar en Netlify, Vercel, Cloudflare Pages o un dominio personalizado, establece `site` con tu URL completa y omite `base`.
 
-Para servir tu sitio desde un dominio personalizado en lugar de `tu-usuario.github.io`:
+### Despliegue
 
-1. Agrega un archivo `CNAME` a tu directorio `public/` con tu dominio:
+El scaffold incluye archivos de configuración para
 
-   ```
-   chats-share.ejemplo.com
-   ```
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages.
 
-2. Configura `site` en `chats-share.toml` a tu dominio personalizado:
-
-   ```toml
-   site = "https://chats-share.ejemplo.com"
-   ```
-
-3. Configura tu proveedor DNS para apuntar el dominio a GitHub Pages:
-   - Para un dominio apex (`ejemplo.com`): agrega registros A apuntando a las IPs de GitHub
-   - Para un subdominio (`chats-share.ejemplo.com`): agrega un registro CNAME apuntando a `tu-usuario.github.io`
-
-4. Habilita HTTPS en **Settings → Pages** de tu repositorio de GitHub después de que el DNS se propague.
-
-> Al usar un dominio personalizado, omite `base` de `chats-share.toml` (o configúralo como `"/"`), ya que el sitio se sirve desde la raíz del dominio.
-
-También consulta [Managing a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) para instrucciones detalladas de configuración de dominio personalizado en GitHub Pages.
+Para instrucciones paso a paso, configuración de dominio personalizado y límites del nivel gratuito de cada plataforma, ver [docs/guide/es/deployment.md](/docs/guide/es/deployment.md).
 
 ## Desarrollo
 
@@ -224,7 +213,7 @@ También consulta [Managing a custom domain for your GitHub Pages site](https://
 bun install
 
 # Iniciar servidor de desarrollo demo
-bun run demo
+bun run dev
 
 # Construir sitio estático demo
 bun run build
@@ -258,7 +247,7 @@ bun run version
 3. Escribe una descripción de los cambios
 4. Haz commit del archivo de changeset con tu PR
 5. Después de fusionar, la acción de changesets crea un PR de "Version Packages"
-6. Fusionar el PR de versión trigger npm publish
+6. Fusionar el PR de versión desencadena npm publish
 
 ## Estructura del Proyecto
 
@@ -285,6 +274,7 @@ Sitios construidos con esta herramienta:
 
 ## Recursos Adicionales
 
+- Ver [docs/guide/es/deployment.md](/docs/guide/es/deployment.md) para instrucciones de despliegue, configuración de dominio personalizado y límites del nivel gratuito de cada plataforma.
 - Ver [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) para campos frontmatter completos y formato de contenido.
 
 ## Licencia
