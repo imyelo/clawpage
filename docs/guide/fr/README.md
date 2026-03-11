@@ -1,10 +1,10 @@
-# openclaw-chats-share
+# OpenClaw Chats Share
 
-> 📤 Tapez `/chats-share` dans n'importe quel chat Openclaw. Votre conversation devient une page permanente et partageable — construite et déployée sur GitHub Pages automatiquement.
+> 📤 Tapez `/chats-share` dans n'importe quel chat Openclaw. Votre conversation devient une page permanente à votre propre URL. Déployé sur GitHub Pages, Vercel, Netlify ou Cloudflare Pages.
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-Pas d'export manuel, pas de copier-coller. Une commande skill exporte la session, ouvre une PR, et publie votre chat sur votre propre site GitHub Pages.
+Pas d'export manuel, pas de copier-coller. Une commande et votre chat est en direct à votre propre URL — titre, description et données sensibles gérés pour vous.
 
 ## Démarrage Rapide
 

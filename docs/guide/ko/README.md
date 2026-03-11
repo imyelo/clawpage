@@ -1,10 +1,10 @@
-# openclaw-chats-share
+# OpenClaw Chats Share
 
-> 📤 Openclaw 채팅에서 `/chats-share`를 입력하세요. 대화가 영구적인 공유 가능한 페이지가 됩니다 — GitHub Pages에 자동으로 구축 및 배포됩니다.
+> 📤 모든 Openclaw 채팅에서 `/chats-share`를 입력하세요. 대화가 자신의 URL에 영구적인 페이지가 됩니다. GitHub Pages, Vercel, Netlify 또는 Cloudflare Pages에 배포됩니다.
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md)
 
-수동 내보내기 없음, 복사붙여넣기 없음. 하나의 skill 명령으로 세션을 내보내고, PR을 열고, 자신의 GitHub Pages 사이트에 채팅을 게시합니다.
+수동 내보내기 필요 없음, 복사-붙여넣기 필요 없음. 하나의 명령어로 채팅이 내 URL에서 즉시 라이브됩니다 — 제목, 설명, 민감한 데이터는 대신 처리해 드립니다.
 
 ## 빠른 시작
 

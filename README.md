@@ -1,10 +1,14 @@
-# openclaw-chats-share
+# OpenClaw Chats Share
 
-> Type `/chats-share` in any Openclaw chat. Your conversation becomes a permanent, shareable page — built and deployed to GitHub Pages automatically.
+> 📤 Type /chats-share in any Openclaw chat. Your conversation becomes a permanent page at your own URL. Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.
 
 [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-No manual exports, no copy-pasting. One skill command exports the session, opens a PR, and publishes your chat to your own GitHub Pages site.
+No manual exports, no copy-pasting. One command and your chat is live at your own URL — title, description, and sensitive data handled for you.
+
+## Live Demo
+
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## Quick Start
 
@@ -18,10 +22,6 @@ then run first-time setup for me.
 ### What the Agent Does During Setup
 
 The agent will scaffold a private GitHub repo, configure `chats-share.toml` with your Pages URL, push the initial commit, enable GitHub Actions as the Pages source, and register the project so `/chats-share` works immediately. For the full step-by-step, see [skills/chats-share/references/setup.md](skills/chats-share/references/setup.md).
-
-## Live Demo
-
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## Share a Chat
 
@@ -74,35 +74,46 @@ This repo is a **public template**. Your actual chat data lives in a separate **
 | `openclaw-chats-share` | Public | Template, packages, and Skill |
 | `your-chats-share` | Private | Your actual chat data |
 
-## Packages
+## Configuration
 
-### `openclaw-chats-share` (CLI)
+The web package is configured via `chats-share.toml` in your working repo root.
 
-Parses OpenClaw `sessions/{uuid}.jsonl` raw JSONL files and generates YAML output.
+| Key | Type | Description | Example |
+|-----|------|-------------|---------|
+| `site` | string (URL) | Full URL of your deployed site | `"https://you.github.io"` |
+| `base` | string | Base path when the site is not served from the domain root | `"/my-repo"` |
+| `public_dir` | string | Static assets directory (relative to config file) | `"public"` |
+| `out_dir` | string | Build output directory (relative to config file) | `"dist"` |
+| `chats_dir` | string | Custom chats directory path (absolute or relative to config file) | `"../my-chats"` |
+| `template.options.title` | string | Homepage title | `"chats-share"` |
+| `template.options.subtitle` | string | Homepage subtitle | `"// conversation archive"` |
+| `template.options.description` | string | Meta description for the site | `"My conversation archive"` |
+| `template.options.footer` | string | Footer text (Markdown supported) | `` |
 
-```bash
-npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+**Example `chats-share.toml` (GitHub Pages project site):**
+
+```toml
+site = "https://your-username.github.io"
+base = "/your-repo-name"
+
+[template.options]
+title = "chats-share"
+subtitle = "// conversation archive"
+footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### `openclaw-chats-share-web`
+When deploying to Netlify, Vercel, Cloudflare Pages, or a custom domain, set `site` to your full URL and omit `base`.
 
-Astro-based static site generator. Renders chat YAML files into shareable pages.
+### Deployment
 
-```bash
-npx openclaw-chats-share-web dev     # local dev server
-npx openclaw-chats-share-web build   # build static site
-npx openclaw-chats-share-web preview # preview built site locally
-```
+The scaffold includes configuration files for
 
-### `create-openclaw-chats-share`
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages.
 
-Scaffolding tool to initialize a new working repo from this template.
-
-The generated project includes deployment configuration for GitHub Pages, Netlify, Vercel, and Cloudflare Pages — pick whichever platform you use.
-
-```bash
-npx create-openclaw-chats-share <project-name>
-```
+For step-by-step instructions, custom domain setup, and free tier limits for each platform, see [docs/guide/en/deployment.md](/docs/guide/en/deployment.md).
 
 ## Data Format
 
@@ -167,46 +178,35 @@ timeline:
       Response content...
 ```
 
-## Configuration
+## Packages
 
-The web package is configured via `chats-share.toml` in your working repo root.
+### `openclaw-chats-share` (CLI)
 
-| Key | Type | Description | Example |
-|-----|------|-------------|---------|
-| `site` | string (URL) | Full URL of your deployed site | `"https://you.github.io"` |
-| `base` | string | Base path when the site is not served from the domain root | `"/my-repo"` |
-| `public_dir` | string | Static assets directory (relative to config file) | `"public"` |
-| `out_dir` | string | Build output directory (relative to config file) | `"dist"` |
-| `chats_dir` | string | Custom chats directory path (absolute or relative to config file) | `"../my-chats"` |
-| `template.options.title` | string | Homepage title | `"chats-share"` |
-| `template.options.subtitle` | string | Homepage subtitle | `"// conversation archive"` |
-| `template.options.description` | string | Meta description for the site | `"My conversation archive"` |
-| `template.options.footer` | string | Footer text (Markdown supported) | `` |
+Parses OpenClaw `sessions/{uuid}.jsonl` raw JSONL files and generates YAML output.
 
-**Example `chats-share.toml` (GitHub Pages project site):**
-
-```toml
-site = "https://your-username.github.io"
-base = "/your-repo-name"
-
-[template.options]
-title = "chats-share"
-subtitle = "// conversation archive"
-footer = "powered by [@imyelo](https://github.com/imyelo)"
+```bash
+npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-When deploying to Netlify, Vercel, Cloudflare Pages, or a custom domain, set `site` to your full URL and omit `base`.
+### `openclaw-chats-share-web`
 
-### Deployment
+Astro-based static site generator. Renders chat YAML files into shareable pages.
 
-The scaffold includes configuration files for
+```bash
+npx openclaw-chats-share-web dev     # local dev server
+npx openclaw-chats-share-web build   # build static site
+npx openclaw-chats-share-web preview # preview built site locally
+```
 
-- ✅ GitHub Pages
-- ✅ Netlify
-- ✅ Vercel
-- ✅ Cloudflare Pages.
+### `create-openclaw-chats-share`
 
-For step-by-step instructions, custom domain setup, and free tier limits for each platform, see [docs/guide/en/deployment.md](/docs/guide/en/deployment.md).
+Scaffolding tool to initialize a new working repo from this template.
+
+The generated project includes deployment configuration for GitHub Pages, Netlify, Vercel, and Cloudflare Pages — pick whichever platform you use.
+
+```bash
+npx create-openclaw-chats-share <project-name>
+```
 
 ## Development
 

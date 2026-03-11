@@ -1,10 +1,10 @@
-# openclaw-chats-share
+# OpenClaw Chats Share
 
-> 📤 Openclawのチャットで `/chats-share` と入力してください。会話が永続的な共有可能なページに変換されます — GitHub Pagesに自動構築・デプロイされます。
+> 📤 Openclaw チャットで `/chats-share` と入力してください。会話は自分の URL の恒久的なページになります。GitHub Pages、Vercel、Netlify、または Cloudflare Pages にデプロイされます。
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [한국어](/docs/guide/ko/README.md)
 
-手動エクスポート不要、コピペ不要。1つのskillコマンドでセッションをエクスポートし、PRを開き、自身のGitHub Pagesサイトにチャットを公開します。
+手動エクスポート不要、コピペ不要。1つのコマンドでチャットが自分の URL でライブになります — タイトル、説明、機密データはあなたが代わりに処理されます。
 
 ## クイックスタート
 

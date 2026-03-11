@@ -1,10 +1,10 @@
-# openclaw-chats-share
+# OpenClaw Chats Share
 
-> 📤 在任何 Openclaw 聊天中输入 `/chats-share`。你的对话将变成一个永久的、可共享的页面 — 自动构建并部署到 GitHub Pages。
+> 📤 在任何 Openclaw 聊天中输入 `/chats-share`。你的对话将变成你专属 URL 上的永久页面。部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages。
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-无需手动导出，无需复制粘贴。一个 skill 命令即可导出会话、创建 PR，并将你的聊天发布到自己的 GitHub Pages 站点。
+无需手动导出，无需复制粘贴。一个命令即可让你的聊天在你自己的 URL 上上线——标题、描述和敏感数据都会为你处理。
 
 ## 快速开始
 
