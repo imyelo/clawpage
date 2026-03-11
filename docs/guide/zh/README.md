@@ -4,7 +4,11 @@
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-无需手动导出，无需复制粘贴。一个命令即可让你的聊天在你自己的 URL 上上线——标题、描述和敏感数据都会为你处理。
+无需手动导出，无需复制粘贴。一个命令即可让你的聊天在你自己的 URL 上线——标题、描述和敏感数据都会为你处理。
+
+## 实时演示
+
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## 快速开始
 
@@ -18,10 +22,6 @@
 ## Agent 在设置期间做什么
 
 Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md)。
-
-## 实时演示
-
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## 分享聊天
 
@@ -74,33 +74,46 @@ GitHub Pages
 | `openclaw-chats-share` | 公共 | 模板、packages 和 Skill |
 | `your-chats-share` | 私有 | 你实际的聊天数据 |
 
-## Packages
+## 配置
 
-### `openclaw-chats-share` (CLI)
+Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
 
-解析 OpenClaw `sessions/{uuid}.jsonl` 原始 JSONL 文件并生成 YAML 输出。
+| 键 | 类型 | 描述 | 示例 |
+|-----|------|------|------|
+| `site` | string (URL) | 部署站点的完整 URL | `"https://you.github.io"` |
+| `base` | string | GitHub Pages 项目站点的基础路径 | `"/my-repo"` |
+| `public_dir` | string | 静态资源目录（相对于配置文件） | `"public"` |
+| `out_dir` | string | 构建输出目录（相对于配置文件） | `"dist"` |
+| `chats_dir` | string | 自定义聊天目录路径（绝对或相对于配置文件） | `"../my-chats"` |
+| `template.options.title` | string | 首页标题 | `"chats-share"` |
+| `template.options.subtitle` | string | 首页副标题 | `"// conversation archive"` |
+| `template.options.description` | string | 站点 meta 描述 | `"My conversation archive"` |
+| `template.options.footer` | string | 页脚文本（支持 Markdown） | `` |
 
-```bash
-npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+**示例 `chats-share.toml`：**
+
+```toml
+site = "https://your-username.github.io"
+base = "/your-repo-name"
+
+[template.options]
+title = "chats-share"
+subtitle = "// conversation archive"
+footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### `openclaw-chats-share-web`
+部署到 Netlify、Vercel、Cloudflare Pages 或自定义域名时，将 `site` 设置为完整 URL 并省略 `base`。
 
-基于 Astro 的静态网站生成器。将聊天 YAML 文件渲染为可分享的页面。
+### 部署
 
-```bash
-npx openclaw-chats-share-web dev     # 本地开发服务器
-npx openclaw-chats-share-web build   # 构建静态网站
-npx openclaw-chats-share-web preview # 本地预览构建结果
-```
+脚手架已包含以下平台的配置文件
 
-### `create-openclaw-chats-share`
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages。
 
-脚手架工具从此模板初始化新的工作仓库。
-
-```bash
-npx create-openclaw-chats-share <project-name>
-```
+各平台的逐步说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
 
 ## 数据格式
 
@@ -123,7 +136,7 @@ npx create-openclaw-chats-share <project-name>
 | `visibility` | 否 | 索引可见性 | `private`（默认） |
 | `description` | 否 | 索引简短描述 | `Debugging a tricky async issue` |
 | `defaultShowProcess` | 否 | 默认显示过程（思考、工具调用） | `false` |
-| `participants` | 否 | 参与者名称映射到 `{ role: "human" \| "agent" }` | 见示例 |
+| `participants` | 否 | 参与者名称映射到 `{ role: "human" | "agent" }` | 见示例 |
 
 **可见性：**
 - `public` — 出现在首页索引中
@@ -165,46 +178,33 @@ timeline:
       Response content...
 ```
 
-## 配置
+## Packages
 
-Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
+### `openclaw-chats-share` (CLI)
 
-| 键 | 类型 | 描述 | 示例 |
-|-----|------|------|------|
-| `site` | string (URL) | 部署站点的完整 URL | `"https://you.github.io"` |
-| `base` | string | GitHub Pages 项目站点的基础路径 | `"/my-repo"` |
-| `public_dir` | string | 静态资源目录（相对于配置文件） | `"public"` |
-| `out_dir` | string | 构建输出目录（相对于配置文件） | `"dist"` |
-| `chats_dir` | string | 自定义聊天目录路径（绝对或相对于配置文件） | `"../my-chats"` |
-| `template.options.title` | string | 首页标题 | `"chats-share"` |
-| `template.options.subtitle` | string | 首页副标题 | `"// conversation archive"` |
-| `template.options.description` | string | 站点 meta 描述 | `"My conversation archive"` |
-| `template.options.footer` | string | 页脚文本（支持 Markdown） | `` |
+解析 OpenClaw `sessions/{uuid}.jsonl` 原始 JSONL 文件并生成 YAML 输出。
 
-**示例 `chats-share.toml`：**
-
-```toml
-site = "https://your-username.github.io"
-base = "/your-repo-name"
-
-[template.options]
-title = "chats-share"
-subtitle = "// conversation archive"
-footer = "powered by [@imyelo](https://github.com/imyelo)"
+```bash
+npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-部署到 Netlify、Vercel、Cloudflare Pages 或自定义域名时，将 `site` 设置为完整 URL 并省略 `base`。
+### `openclaw-chats-share-web`
 
-### 部署
+基于 Astro 的静态网站生成器。将聊天 YAML 文件渲染为可分享的页面。
 
-脚手架已包含以下平台的配置文件
+```bash
+npx openclaw-chats-share-web dev     # 本地开发服务器
+npx openclaw-chats-share-web build   # 构建静态网站
+npx openclaw-chats-share-web preview # 本地预览构建结果
+```
 
-- ✅ GitHub Pages
-- ✅ Netlify
-- ✅ Vercel
-- ✅ Cloudflare Pages。
+### `create-openclaw-chats-share`
 
-各平台的逐步说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
+脚手架工具从此模板初始化新的工作仓库。
+
+```bash
+npx create-openclaw-chats-share <project-name>
+```
 
 ## 开发
 

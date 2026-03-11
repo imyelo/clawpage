@@ -6,6 +6,10 @@
 
 Pas d'export manuel, pas de copier-coller. Une commande et votre chat est en direct à votre propre URL — titre, description et données sensibles gérés pour vous.
 
+## Démo en Direct
+
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
 ## Démarrage Rapide
 
 Copiez et collez ceci dans votre chat d'agent :
@@ -18,10 +22,6 @@ puis lancez la configuration initiale pour moi.
 ## Ce Que Fait l'Agent Pendant la Configuration
 
 L'agent va échafauder un dépôt GitHub privé, configurer `chats-share.toml` avec votre URL Pages, pousser le commit initial, activer GitHub Actions comme source Pages, et enregistrer le projet pour que `/chats-share` fonctionne immédiatement. Pour le étape par étape complet, voir [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md).
-
-## Démo en Direct
-
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## Partager un Chat
 
@@ -74,33 +74,46 @@ Ce dépôt est un **modèle public**. Vos données de chat réelles vivent dans 
 | `openclaw-chats-share` | Public | Modèle, paquets et Skill |
 | `your-chats-share` | Privé | Vos données de chat réelles |
 
-## Paquets
+## Configuration
 
-### `openclaw-chats-share` (CLI)
+Le paquet web est configuré via `chats-share.toml` à la racine de votre dépôt de travail.
 
-Analyse les fichiers JSONL bruts de sessions OpenClaw `sessions/{uuid}.jsonl` et génère une sortie YAML.
+| Clé | Type | Description | Exemple |
+|-----|------|-------------|---------|
+| `site` | string (URL) | URL complète de votre site déployé | `"https://vous.github.io"` |
+| `base` | string | Chemin de base pour les sites de projet GitHub Pages | `"/mon-repo"` |
+| `public_dir` | string | Répertoire des assets statiques (relatif au fichier de config) | `"public"` |
+| `out_dir` | string | Répertoire de sortie de build (relatif au fichier de config) | `"dist"` |
+| `chats_dir` | string | Chemin personnalisé du répertoire de chats (absolu ou relatif au config) | `"../mes-chats"` |
+| `template.options.title` | string | Titre de la page d'accueil | `"chats-share"` |
+| `template.options.subtitle` | string | Sous-titre de la page d'accueil | `"// conversation archive"` |
+| `template.options.description` | string | Meta description du site | `"Mon archive de conversations"` |
+| `template.options.footer` | string | Texte du pied de page (Markdown supporté) | `` |
 
-```bash
-npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+**Exemple `chats-share.toml` :**
+
+```toml
+site = "https://votre-utilisateur.github.io"
+base = "/votre-nom-de-repo"
+
+[template.options]
+title = "chats-share"
+subtitle = "// conversation archive"
+footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### `openclaw-chats-share-web`
+Lors du déploiement sur Netlify, Vercel, Cloudflare Pages ou un domaine personnalisé, définissez `site` avec votre URL complète et omettez `base`.
 
-Générateur de site statique basé sur Astro. Rend les fichiers YAML de chat en pages partageables.
+### Déploiement
 
-```bash
-npx openclaw-chats-share-web dev     # serveur de développement local
-npx openclaw-chats-share-web build   # construire le site statique
-npx openclaw-chats-share-web preview # prévisualiser le site construit localement
-```
+Le scaffold inclut des fichiers de configuration pour
 
-### `create-openclaw-chats-share`
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages.
 
-Outil d'échafaudage pour initialiser un nouveau dépôt de travail à partir de ce modèle.
-
-```bash
-npx create-openclaw-chats-share <project-name>
-```
+Pour les instructions étape par étape, la configuration de domaine personnalisé et les limites des niveaux gratuits de chaque plateforme, voir [docs/guide/fr/deployment.md](/docs/guide/fr/deployment.md).
 
 ## Format des Données
 
@@ -123,7 +136,7 @@ Les fichiers de chat sont stockés en YAML sous `chats/` dans votre dépôt de t
 | `visibility` | Non | Visibilité de l'index | `private` (par défaut) |
 | `description` | Non | Brève description pour l'index | `Debugging a tricky async issue` |
 | `defaultShowProcess` | Non | Afficher le processus (pensée, appels d'outils) par défaut | `false` |
-| `participants` | Non | Map les noms des participants à `{ role: "human" \| "agent" }` | voir exemple |
+| `participants` | Non | Map les noms des participants à `{ role: "human" | "agent" }` | voir exemple |
 
 **Visibilité :**
 - `public` — apparaît sur l'index de la page d'accueil
@@ -165,46 +178,33 @@ timeline:
       Response content...
 ```
 
-## Configuration
+## Paquets
 
-Le paquet web est configuré via `chats-share.toml` à la racine de votre dépôt de travail.
+### `openclaw-chats-share` (CLI)
 
-| Clé | Type | Description | Exemple |
-|-----|------|-------------|---------|
-| `site` | string (URL) | URL complète de votre site déployé | `"https://vous.github.io"` |
-| `base` | string | Chemin de base pour les sites de projet GitHub Pages | `"/mon-repo"` |
-| `public_dir` | string | Répertoire des assets statiques (relatif au fichier de config) | `"public"` |
-| `out_dir` | string | Répertoire de sortie de build (relatif au fichier de config) | `"dist"` |
-| `chats_dir` | string | Chemin personnalisé du répertoire de chats (absolu ou relatif au config) | `"../mes-chats"` |
-| `template.options.title` | string | Titre de la page d'accueil | `"chats-share"` |
-| `template.options.subtitle` | string | Sous-titre de la page d'accueil | `"// conversation archive"` |
-| `template.options.description` | string | Meta description du site | `"Mon archive de conversations"` |
-| `template.options.footer` | string | Texte du pied de page (Markdown supporté) | `` |
+Analyse les fichiers JSONL bruts de sessions OpenClaw `sessions/{uuid}.jsonl` et génère une sortie YAML.
 
-**Exemple `chats-share.toml` :**
-
-```toml
-site = "https://votre-utilisateur.github.io"
-base = "/votre-nom-de-repo"
-
-[template.options]
-title = "chats-share"
-subtitle = "// conversation archive"
-footer = "powered by [@imyelo](https://github.com/imyelo)"
+```bash
+npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-Lors du déploiement sur Netlify, Vercel, Cloudflare Pages ou un domaine personnalisé, définissez `site` avec votre URL complète et omettez `base`.
+### `openclaw-chats-share-web`
 
-### Déploiement
+Générateur de site statique basé sur Astro. Rend les fichiers YAML de chat en pages partageables.
 
-Le scaffold inclut des fichiers de configuration pour
+```bash
+npx openclaw-chats-share-web dev     # serveur de développement local
+npx openclaw-chats-share-web build   # construire le site statique
+npx openclaw-chats-share-web preview # prévisualiser le site construit localement
+```
 
-- ✅ GitHub Pages
-- ✅ Netlify
-- ✅ Vercel
-- ✅ Cloudflare Pages.
+### `create-openclaw-chats-share`
 
-Pour les instructions étape par étape, la configuration de domaine personnalisé et les limites des niveaux gratuits de chaque plateforme, voir [docs/guide/fr/deployment.md](/docs/guide/fr/deployment.md).
+Outil d'échafaudage pour initialiser un nouveau dépôt de travail à partir de ce modèle.
+
+```bash
+npx create-openclaw-chats-share <project-name>
+```
 
 ## Développement
 
