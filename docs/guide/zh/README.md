@@ -15,11 +15,11 @@
 
 ## Agent 在设置期间做什么
 
-Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../skills/chats-share/references/setup.md)。
+Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../../skills/chats-share/references/setup.md)。
 
 ## 实时演示
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## 分享聊天
 
@@ -74,7 +74,7 @@ GitHub Pages
 
 ## Packages
 
-### `openclaw-chats-share` (../CLI)
+### `openclaw-chats-share` (CLI)
 
 解析 OpenClaw `sessions/{uuid}.jsonl` 原始 JSONL 文件并生成 YAML 输出。
 

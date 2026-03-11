@@ -15,11 +15,11 @@ puis lancez la configuration initiale pour moi.
 
 ## Ce Que Fait l'Agent Pendant la Configuration
 
-L'agent va échafauder un dépôt GitHub privé, configurer `chats-share.toml` avec votre URL Pages, pousser le commit initial, activer GitHub Actions comme source Pages, et enregistrer le projet pour que `/chats-share` fonctionne immédiatement. Pour le étape par étape complet, voir [skills/chats-share/references/setup.md](../skills/chats-share/references/setup.md).
+L'agent va échafauder un dépôt GitHub privé, configurer `chats-share.toml` avec votre URL Pages, pousser le commit initial, activer GitHub Actions comme source Pages, et enregistrer le projet pour que `/chats-share` fonctionne immédiatement. Pour le étape par étape complet, voir [skills/chats-share/references/setup.md](../../skills/chats-share/references/setup.md).
 
 ## Démo en Direct
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
 ## Partager un Chat
 

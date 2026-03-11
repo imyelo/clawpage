@@ -2,7 +2,7 @@
 
 > Type `/chats-share` in any Openclaw chat. Your conversation becomes a permanent, shareable page — built and deployed to GitHub Pages automatically.
 
-[Español](/docs/README.es.md) · [Français](/docs/README.fr.md) · [中文](/docs/README.zh.md) · [日本語](/docs/README.ja.md) · [한국어](/docs/README.ko.md)
+[Español](/docs/README.es.md) · [Français](/docs/fr/README.md) · [中文](/docs/zh/README.md) · [日本語](/docs/ja/README.md) · [한국어](/docs/ko/README.md)
 
 No manual exports, no copy-pasting. One skill command exports the session, opens a PR, and publishes your chat to your own GitHub Pages site.
 
@@ -206,7 +206,7 @@ The scaffold includes configuration files for
 - ✅ Vercel
 - ✅ Cloudflare Pages.
 
-For step-by-step instructions, custom domain setup, and free tier limits for each platform, see [docs/deployment.md](/docs/deployment.md).
+For step-by-step instructions, custom domain setup, and free tier limits for each platform, see [docs/guide/en/deployment.md](/docs/guide/en/deployment.md).
 
 ## Development
 
@@ -276,7 +276,7 @@ Sites built with this tool:
 
 ## Additional Resources
 
-- See [docs/deployment.md](/docs/deployment.md) for deployment instructions, custom domain setup, and platform free tier limits.
+- See [docs/guide/en/deployment.md](/docs/guide/en/deployment.md) for deployment instructions, custom domain setup, and platform free tier limits.
 - See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for complete frontmatter fields and content format.
 
 ## License
