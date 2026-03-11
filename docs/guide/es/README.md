@@ -4,13 +4,13 @@
 
 [English](/docs/guide/en/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-Sin exportaciones manuales, sin copy-paste. Un comando y tu chat está en vivo en tu propia URL — título, descripción y datos sensibles gestionados para ti.
+✨ Sin exportaciones manuales, sin copy-paste. Un comando y tu chat está en vivo en tu propia URL — título, descripción y datos sensibles gestionados para ti.
 
-## Demo en Vivo
+## Demo en Vivo 🚀
 
 <a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
-## Inicio Rápido
+## ⚡ Inicio Rápido
 
 Copia y pega esto en tu chat de agente:
 
@@ -19,11 +19,11 @@ Lee https://clawhub.ai/imyelo/chats-share e instala la habilidad chats-share,
 luego ejecuta la configuración inicial para mí.
 ```
 
-## Lo Que Hace el Agent Durante la Configuración
+## 🤖 Lo Que Hace el Agent Durante la Configuración
 
 El agent creará un repositorio privado de GitHub, configurará `chats-share.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/chats-share` funcione inmediatamente. Para el paso a paso completo, ver [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md).
 
-## Compartir un Chat
+## 📤 Compartir un Chat
 
 Una vez completada la configuración, usa el comando skill `/chats-share` en cualquier chat de Openclaw para exportarlo:
 
@@ -33,39 +33,39 @@ Una vez completada la configuración, usa el comando skill `/chats-share` en cua
 
 El agent va a:
 
-1. Identificar la sesión actual a exportar
-2. Pedirte que confirmes el título, descripción y visibilidad (`public` / `private`)
-3. Redactar los datos sensibles que indiques
-4. Escribir el archivo YAML a tu repo de trabajo en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
-5. Pedirte que abras un Pull Request — hacer merge a `main` dispara el build de GitHub Pages
+1. 🔍 Identificar la sesión actual a exportar
+2. ✅ Pedirte que confirmes el título, descripción y visibilidad (`public` / `private`)
+3. 🔒 Redactar los datos sensibles que indiques
+4. 📝 Escribir el archivo YAML a tu repo de trabajo en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
+5. 🔀 Pedirte que abras un Pull Request — hacer merge a `main` dispara el build de GitHub Pages
 
 Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/share/{slug}`.
 
-> **Consejo:** Establece `visibility: private` (el valor por defecto) para mantener un chat accesible solo vía enlace directo, sin que aparezca en el índice público.
+> **💡 Consejo:** Establece `visibility: private` (el valor por defecto) para mantener un chat accesible solo vía enlace directo, sin que aparezca en el índice público.
 
-## Cómo Funciona
+## ⚙️ Cómo Funciona
 
 ```
 /chats-share
     │
     ▼
-OpenClaw Skill
-    │  1. Localizar y confirmar la sesión a exportar
-    │  2. Extraer el historial de mensajes
-    │  3. Poblar metadatos (título, participantes, descripción)
-    │  4. Redactar datos sensibles
-    │  5. Escribir YAML en tu repo de datos
-    │  6. Push a nueva rama → crear PR
+🤖 OpenClaw Skill
+    │  1. 🔍 Localizar y confirmar la sesión a exportar
+    │  2. 💬 Extraer el historial de mensajes
+    │  3. 📝 Poblar metadatos (título, participantes, descripción)
+    │  4. 🔒 Redactar datos sensibles
+    │  5. 📄 Escribir YAML en tu repo de datos
+    │  6. 🔀 Push a nueva rama → crear PR
     ▼
-GitHub Pages
+🚀 GitHub Pages
     └── https://tu-dominio/share/{slug}
 ```
 
-### Flujo Basado en Ramas
+### 🌿 Flujo Basado en Ramas
 
 Los chats se push a una nueva rama (`chat/{slug}`) en lugar de main, con guía para crear un PR para revisión antes de fusionar.
 
-## Arquitectura del Repositorio
+## 🏗️ Arquitectura del Repositorio
 
 Este repo es una **plantilla pública**. Tus datos reales de chat viven en un **repo de trabajo privado** separado — esto mantiene la plantilla limpia y forkable sin contaminación de datos.
 
@@ -74,7 +74,7 @@ Este repo es una **plantilla pública**. Tus datos reales de chat viven en un **
 | `openclaw-chats-share` | Público | Plantilla, paquetes y Skill |
 | `your-chats-share` | Privado | Tus datos reales de chat |
 
-## Configuración
+## ⚡ Configuración
 
 El paquete web se configura vía `chats-share.toml` en la raíz de tu repo de trabajo.
 
@@ -104,7 +104,7 @@ footer = "powered by [@imyelo](https://github.com/imyelo)"
 
 Al desplegar en Netlify, Vercel, Cloudflare Pages o un dominio personalizado, establece `site` con tu URL completa y omite `base`.
 
-### Despliegue
+### 🚢 Despliegue
 
 El scaffold incluye archivos de configuración para
 
@@ -115,7 +115,7 @@ El scaffold incluye archivos de configuración para
 
 Para instrucciones paso a paso, configuración de dominio personalizado y límites del nivel gratuito de cada plataforma, ver [docs/guide/es/deployment.md](/docs/guide/es/deployment.md).
 
-## Formato de Datos
+## 📋 Formato de Datos
 
 Los archivos de chat se almacenan como YAML bajo `chats/` en tu repo de trabajo. Generados por la CLI desde archivos JSONL de sesión de OpenClaw (`{id}.jsonl`).
 
@@ -178,9 +178,9 @@ timeline:
       Response content...
 ```
 
-## Paquetes
+## 📦 Paquetes
 
-### `openclaw-chats-share` (CLI)
+### 📄 `openclaw-chats-share` (CLI)
 
 Analiza archivos JSONL crudos de OpenClaw `sessions/{uuid}.jsonl` y genera salida YAML.
 
@@ -188,7 +188,7 @@ Analiza archivos JSONL crudos de OpenClaw `sessions/{uuid}.jsonl` y genera salid
 npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-### `openclaw-chats-share-web`
+### 🌐 `openclaw-chats-share-web`
 
 Generador de sitios estáticos basado en Astro. Renderiza archivos YAML de chat en páginas compartibles.
 
@@ -198,7 +198,7 @@ npx openclaw-chats-share-web build   # construir sitio estático
 npx openclaw-chats-share-web preview # previsualizar sitio construido localmente
 ```
 
-### `create-openclaw-chats-share`
+### 🛠️ `create-openclaw-chats-share`
 
 Herramienta de andamiaje para inicializar un nuevo repo de trabajo desde esta plantilla.
 
@@ -206,7 +206,7 @@ Herramienta de andamiaje para inicializar un nuevo repo de trabajo desde esta pl
 npx create-openclaw-chats-share <project-name>
 ```
 
-## Desarrollo
+## 🧑‍💻 Desarrollo
 
 ```bash
 # Instalar dependencias
@@ -222,7 +222,7 @@ bun run build
 bun run deploy
 ```
 
-## Release
+## 📜 Release
 
 Este proyecto usa [changesets](https://github.com/changesets/changesets) para versionado y gestión de changelog.
 
@@ -249,7 +249,7 @@ bun run version
 5. Después de fusionar, la acción de changesets crea un PR de "Version Packages"
 6. Fusionar el PR de versión desencadena npm publish
 
-## Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
 ```
 packages/
@@ -265,14 +265,14 @@ docs/      - Documentación del proyecto
 skills/    - Definiciones de Skills de OpenClaw
 ```
 
-## Sitios Usando openclaw-chats-share
+## 🌟 Sitios Usando openclaw-chats-share
 
 Sitios construidos con esta herramienta:
 
 - [Yelo](https://vibe.yelo.cc)
 - Tu sitio aquí — Agrega el tuyo [enviando un PR](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md)!
 
-## Recursos Adicionales
+## 📚 Recursos Adicionales
 
 - Ver [docs/guide/es/deployment.md](/docs/guide/es/deployment.md) para instrucciones de despliegue, configuración de dominio personalizado y límites del nivel gratuito de cada plataforma.
 - Ver [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) para campos frontmatter completos y formato de contenido.

@@ -6,11 +6,11 @@
 
 无需手动导出，无需复制粘贴。一个命令即可让你的聊天在你自己的 URL 上线——标题、描述和敏感数据都会为你处理。
 
-## 实时演示
+## 实时演示 🚀
 
 <a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
 
-## 快速开始
+## ⚡ 快速开始
 
 复制粘贴到你的 agent 对话中：
 
@@ -19,11 +19,11 @@
 然后帮我运行首次设置。
 ```
 
-## Agent 在设置期间做什么
+## 🤖 Agent 在设置期间做什么
 
 Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md)。
 
-## 分享聊天
+## 📤 分享聊天
 
 设置完成后，在任何 Openclaw 聊天中使用 `/chats-share` skill 命令来导出：
 
@@ -33,39 +33,39 @@ Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-sh
 
 Agent 将：
 
-1. 识别要导出的当前会话
-2. 请你确认标题、描述和可见性（`public` / `private`）
-3. 脱敏你标记的敏感数据
-4. 将 YAML 文件写入工作仓库的新分支（`chat/{YYYYMMDD}-{slug}`）
-5. 提示你创建 Pull Request — 合并到 `main` 会触发 GitHub Pages 构建
+1. 🔍 识别要导出的当前会话
+2. ✅ 请你确认标题、描述和可见性（`public` / `private`）
+3. 🔒 脱敏你标记的敏感数据
+4. 📝 将 YAML 文件写入工作仓库的新分支（`chat/{YYYYMMDD}-{slug}`）
+5. 🔀 提示你创建 Pull Request — 合并到 `main` 会触发 GitHub Pages 构建
 
 PR 合并后，你的聊天将在 `https://your-domain/share/{slug}` 上线。
 
-> **提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
+> **💡 提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
 
-## 工作原理
+## ⚙️ 工作原理
 
 ```
 /chats-share
     │
     ▼
-OpenClaw Skill
-    │  1. 定位并确认要导出的会话
-    │  2. 提取消息历史
-    │  3. 填充元数据（标题、参与者、描述）
-    │  4. 脱敏敏感数据
-    │  5. 写入 YAML 到你的数据仓库
-    │  6. 推送到新分支 → 创建 PR
+🤖 OpenClaw Skill
+    │  1. 🔍 定位并确认要导出的会话
+    │  2. 💬 提取消息历史
+    │  3. 📝 填充元数据（标题、参与者、描述）
+    │  4. 🔒 脱敏敏感数据
+    │  5. 📄 写入 YAML 到你的数据仓库
+    │  6. 🔀 推送到新分支 → 创建 PR
     ▼
-GitHub Pages
+🚀 GitHub Pages
     └── https://your-domain/share/{slug}
 ```
 
-### 基于分支的工作流
+### 🌿 基于分支的工作流
 
 对话被推送到新分支（`chat/{slug}`）而非 main，并提供指导在合并前创建 PR 进行审查。
 
-## 仓库架构
+## 🏗️ 仓库架构
 
 此仓库是一个**公共模板**。你实际的聊天数据存放在另一个**私有工作仓库**中 — 这样可以保持模板干净、可fork而不会污染数据。
 
@@ -74,7 +74,7 @@ GitHub Pages
 | `openclaw-chats-share` | 公共 | 模板、packages 和 Skill |
 | `your-chats-share` | 私有 | 你实际的聊天数据 |
 
-## 配置
+## ⚡ 配置
 
 Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
 
@@ -104,7 +104,7 @@ footer = "powered by [@imyelo](https://github.com/imyelo)"
 
 部署到 Netlify、Vercel、Cloudflare Pages 或自定义域名时，将 `site` 设置为完整 URL 并省略 `base`。
 
-### 部署
+### 🚢 部署
 
 脚手架已包含以下平台的配置文件
 
@@ -115,7 +115,7 @@ footer = "powered by [@imyelo](https://github.com/imyelo)"
 
 各平台的逐步说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
 
-## 数据格式
+## 📋 数据格式
 
 聊天文件以 YAML 格式存储在工作仓库的 `chats/` 目录下。由 CLI 从 OpenClaw 会话 JSONL 文件（`{id}.jsonl`）生成。
 
@@ -178,9 +178,9 @@ timeline:
       Response content...
 ```
 
-## Packages
+## 📦 Packages
 
-### `openclaw-chats-share` (CLI)
+### 📄 `openclaw-chats-share` (CLI)
 
 解析 OpenClaw `sessions/{uuid}.jsonl` 原始 JSONL 文件并生成 YAML 输出。
 
@@ -188,7 +188,7 @@ timeline:
 npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-### `openclaw-chats-share-web`
+### 🌐 `openclaw-chats-share-web`
 
 基于 Astro 的静态网站生成器。将聊天 YAML 文件渲染为可分享的页面。
 
@@ -198,7 +198,7 @@ npx openclaw-chats-share-web build   # 构建静态网站
 npx openclaw-chats-share-web preview # 本地预览构建结果
 ```
 
-### `create-openclaw-chats-share`
+### 🛠️ `create-openclaw-chats-share`
 
 脚手架工具从此模板初始化新的工作仓库。
 
@@ -206,7 +206,7 @@ npx openclaw-chats-share-web preview # 本地预览构建结果
 npx create-openclaw-chats-share <project-name>
 ```
 
-## 开发
+## 🧑‍💻 开发
 
 ```bash
 # 安装依赖
@@ -222,7 +222,7 @@ bun run build
 bun run deploy
 ```
 
-## 发布
+## 📜 发布
 
 本项目使用 [changesets](https://github.com/changesets/changesets) 进行版本管理和变更日志管理。
 
@@ -249,7 +249,7 @@ bun run version
 5. 合并后，changesets action 会创建一个 "Version Packages" PR
 6. 合并版本 PR 触发 npm 发布
 
-## 项目结构
+## 📁 项目结构
 
 ```
 packages/
@@ -265,14 +265,14 @@ docs/      - 项目文档
 skills/    - OpenClaw Skill 定义
 ```
 
-## 使用 openclaw-chats-share 的站点
+## 🌟 使用 openclaw-chats-share 的站点
 
 使用此工具构建的站点：
 
 - [Yelo](https://vibe.yelo.cc)
 - 你的站点 — 通过 [提交 PR](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md) 添加！
 
-## 更多资源
+## 📚 更多资源
 
 - 各平台的部署说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
 - 完整的 frontmatter 字段和内容格式请参阅 [docs/chats-share-data-format.md](/docs/chats-share-data-format.md)。
