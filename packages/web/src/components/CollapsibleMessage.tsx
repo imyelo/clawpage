@@ -56,7 +56,9 @@ function MessageHeader({
   const [displayTime, setDisplayTime] = useState(utcTime)
   const [displayTitle, setDisplayTitle] = useState(utcTitle)
   useEffect(() => {
-    if (!timestamp) { return }
+    if (!timestamp) {
+      return
+    }
     setDisplayTime(dayjs.utc(timestamp).local().format('HH:mm'))
     setDisplayTitle(dayjs.utc(timestamp).local().format('YYYY-MM-DD HH:mm'))
   }, [timestamp])

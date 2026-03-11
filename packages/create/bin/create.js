@@ -18,7 +18,9 @@ const { dir } = values
 // --dir overrides the output location; it may be absolute or relative to cwd.
 // When omitted, fall back to <cwd>/<projectName|my-chats-project>.
 const targetDir = dir
-  ? (isAbsolute(dir) ? dir : join(process.cwd(), dir))
+  ? isAbsolute(dir)
+    ? dir
+    : join(process.cwd(), dir)
   : join(process.cwd(), projectName || 'my-chats-project')
 
 // Human-readable label used in the commit message and the cd hint.
