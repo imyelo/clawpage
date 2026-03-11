@@ -98,6 +98,8 @@ npx openclaw-chats-share-web preview # preview built site locally
 
 Scaffolding tool to initialize a new working repo from this template.
 
+The generated project includes deployment configuration for GitHub Pages, Netlify, Vercel, and Cloudflare Pages — pick whichever platform you use.
+
 ```bash
 npx create-openclaw-chats-share <project-name>
 ```
@@ -172,7 +174,7 @@ The web package is configured via `chats-share.toml` in your working repo root.
 | Key | Type | Description | Example |
 |-----|------|-------------|---------|
 | `site` | string (URL) | Full URL of your deployed site | `"https://you.github.io"` |
-| `base` | string | Base path for GitHub Pages project sites | `"/my-repo"` |
+| `base` | string | Base path when the site is not served from the domain root | `"/my-repo"` |
 | `public_dir` | string | Static assets directory (relative to config file) | `"public"` |
 | `out_dir` | string | Build output directory (relative to config file) | `"dist"` |
 | `chats_dir` | string | Custom chats directory path (absolute or relative to config file) | `"../my-chats"` |
@@ -181,7 +183,7 @@ The web package is configured via `chats-share.toml` in your working repo root.
 | `template.options.description` | string | Meta description for the site | `"My conversation archive"` |
 | `template.options.footer` | string | Footer text (Markdown supported) | `` |
 
-**Example `chats-share.toml`:**
+**Example `chats-share.toml` (GitHub Pages project site):**
 
 ```toml
 site = "https://your-username.github.io"
@@ -193,31 +195,18 @@ subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 ```
 
-### Custom Domain (GitHub Pages)
+When deploying to Netlify, Vercel, Cloudflare Pages, or a custom domain, set `site` to your full URL and omit `base`.
 
-To serve your site from a custom domain instead of `your-username.github.io`:
+### Deployment
 
-1. Add a `CNAME` file to your `public/` directory containing your domain:
+The scaffold includes configuration files for
 
-   ```
-   chats-share.example.com
-   ```
+- ✅ GitHub Pages
+- ✅ Netlify
+- ✅ Vercel
+- ✅ Cloudflare Pages.
 
-2. Set `site` in `chats-share.toml` to your custom domain:
-
-   ```toml
-   site = "https://chats-share.example.com"
-   ```
-
-3. Configure your DNS provider to point the domain to GitHub Pages:
-   - For an apex domain (`example.com`): add `A` records pointing to GitHub's IPs
-   - For a subdomain (`chats-share.example.com`): add a `CNAME` record pointing to `your-username.github.io`
-
-4. Enable HTTPS in your GitHub repository's **Settings → Pages** after DNS propagates.
-
-> When using a custom domain, omit `base` from `chats-share.toml` (or set it to `"/"`), since the site serves from the domain root.
-
-Also check [Managing a custom domain for your GitHub Pages site](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) for detailed GitHub Pages custom domain setup instructions.
+For step-by-step instructions, custom domain setup, and free tier limits for each platform, see [docs/deployment.md](/docs/deployment.md).
 
 ## Development
 
@@ -287,6 +276,7 @@ Sites built with this tool:
 
 ## Additional Resources
 
+- See [docs/deployment.md](/docs/deployment.md) for deployment instructions, custom domain setup, and platform free tier limits.
 - See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for complete frontmatter fields and content format.
 
 ## License
