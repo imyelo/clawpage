@@ -11,7 +11,10 @@ const TemplateSchema = z.object({
   options: TemplateOptionsSchema.optional(),
 })
 
+const PlatformSchema = z.enum(['github-pages', 'netlify', 'vercel', 'cloudflare-pages'])
+
 export const ChatsShareConfigSchema = z.object({
+  platform: PlatformSchema.optional(),
   site: z.string().url().optional(),
   base: z.string().optional(),
   public_dir: z.string().optional(),

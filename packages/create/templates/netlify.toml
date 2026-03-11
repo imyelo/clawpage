@@ -1,0 +1,12 @@
+[build]
+  command = "bun run build:pages"
+  publish = "dist"
+
+[build.environment]
+  BUN_VERSION = "latest"
+
+# Netlify-specific redirects (optional)
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200

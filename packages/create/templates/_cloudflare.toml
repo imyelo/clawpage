@@ -1,0 +1,10 @@
+name = "chats-share"
+compatibility_date = "2024-01-01"
+
+[build]
+  command = "bun run build:pages"
+  cwd = "."
+
+[site]
+  # Your Cloudflare Pages site name
+  # bucket = "./dist"

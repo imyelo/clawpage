@@ -5,6 +5,9 @@
 # For JS/TS-based config (e.g. to add Astro integrations), you can use
 # chats-share.ts instead of this file.
 
+# Deployment platform: "github-pages", "netlify", "vercel", or "cloudflare-pages"
+# platform = "github-pages"
+
 # Full URL of your deployed site (used for canonical URLs, sitemaps, etc.)
 # site = "https://your-username.github.io"
 

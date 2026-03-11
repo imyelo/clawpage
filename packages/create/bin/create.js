@@ -8,12 +8,20 @@ import { parseArgs } from 'node:util'
 const { values, positionals } = parseArgs({
   options: {
     dir: { type: 'string', short: 'd' },
+    platform: { type: 'string', short: 'p', default: 'github-pages' },
   },
   allowPositionals: true,
 })
 
 const [projectName] = positionals
-const { dir } = values
+const { dir, platform } = values
+
+const SUPPORTED_PLATFORMS = ['github-pages', 'netlify', 'vercel', 'cloudflare-pages']
+if (!SUPPORTED_PLATFORMS.includes(platform)) {
+  console.error(`Error: Platform "${platform}" is not supported.`)
+  console.error(`Supported platforms: ${SUPPORTED_PLATFORMS.join(', ')}`)
+  process.exit(1)
+}
 
 // --dir overrides the output location; it may be absolute or relative to cwd.
 // When omitted, fall back to <cwd>/<projectName|my-chats-project>.
@@ -52,10 +60,25 @@ cpSync(tpl('.vscode/extensions.json'), out('.vscode/extensions.json'))
 // Docs
 cpSync(tpl('README.md'), out('README.md'))
 
-// GitHub workflow
-const ghWorkflowDir = out('.github/workflows')
-mkdirSync(ghWorkflowDir, { recursive: true })
-cpSync(tpl('.github/workflows/deploy.yml'), out('.github/workflows/deploy.yml'))
+// Platform-specific deployment config
+switch (platform) {
+  case 'netlify':
+    cpSync(tpl('netlify.toml'), out('netlify.toml'))
+    break
+  case 'vercel':
+    cpSync(tpl('vercel.json'), out('vercel.json'))
+    break
+  case 'cloudflare-pages':
+    cpSync(tpl('_cloudflare.toml'), out('cloudflare.toml'))
+    break
+  case 'github-pages':
+  default:
+    // GitHub workflow
+    const ghWorkflowDir = out('.github/workflows')
+    mkdirSync(ghWorkflowDir, { recursive: true })
+    cpSync(tpl('.github/workflows/deploy.yml'), out('.github/workflows/deploy.yml'))
+    break
+}
 
 // Initialize a fresh git repo so the project is not nested under any parent .git
 try {
@@ -76,3 +99,4 @@ console.log('Project created!')
 console.log(`cd ${targetDir}`)
 console.log('bun install')
 console.log('bun run dev')
+console.log(`\nPlatform: ${platform}`)
