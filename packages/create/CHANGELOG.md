@@ -1,5 +1,12 @@
 # create-openclaw-chats-share
 
+## 0.5.0
+
+### Minor Changes
+
+- Multi-platform deployment support (Vercel, Netlify, Cloudflare, Docker)
+- Updated deployment configs in scaffolding tool
+
 ## 0.4.0
 
 ### Minor Changes
