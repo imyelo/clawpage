@@ -53,12 +53,16 @@ This entry is what Config Lookup reads (see above).
 
 ### Step 1 — Choose content filtering
 
-Ask the user what to include in the export:
+**Default: Everything** (no flags needed). Only deviate if the user explicitly requests otherwise.
 
-1. **Everything** — include all process content (thinking, tool calls, events)
+Ask the user whether they want to change the default, offering these options:
+
+1. **Everything** _(default)_ — include all process content (thinking, tool calls, events)
 2. **Messages only** — exclude all process content (`--exclude-process=all`)
 3. **Messages + specific process types** — include only chosen types (`--include-process=<types>`)
 4. **Custom** — let the user specify flags directly
+
+If the user does not express a preference, proceed with option 1 (no filter flag).
 
 Available process types for `--include-process` / `--exclude-process`:
 

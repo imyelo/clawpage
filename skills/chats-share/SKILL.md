@@ -44,7 +44,7 @@ The CLI auto-fills structural fields. The Skill's job is to fill in the human-fa
 |-------|-------------|--------|
 | `date`, `sessionId`, `model`, `totalMessages`, `totalTokens`, `defaultShowProcess` | Auto-filled | Review only |
 | `visibility` | `private` | Update to `public` |
-| `participants` | Generic role names (`user`, `assistant`) | Ask user for display names → rename keys |
+| `participants` | Generic role names (`user`, `assistant`) | Ask user for display names → rename keys; if no name is provided, use `Human` / `Agent` for single-speaker or `Human 1` / `Human 2` … for multi-speaker |
 | `title` | `'Session Export'` (generic) | Skim generated YAML → suggest → confirm |
 | `description` | _(absent)_ | Write one-sentence summary → confirm |
 | `channel` | _(absent)_ | Ask user — set to platform name (e.g. `discord`) if applicable; omit otherwise |
@@ -53,11 +53,13 @@ The CLI auto-fills structural fields. The Skill's job is to fill in the human-fa
 
 ### 5. Redact
 
-Review and remove sensitive information:
-- API keys, tokens, passwords
+Review the generated YAML and replace sensitive information with `[REDACTED]`:
+- API keys, tokens, passwords → `[REDACTED]`
 - File paths with usernames (`/Users/xxx` → `~`)
-- Email addresses, phone numbers
-- Internal URLs and private IPs
+- Email addresses, phone numbers → `[REDACTED]`
+- Internal URLs and private IPs → `[REDACTED]`
+
+Do **not** silently remove content — always substitute `[REDACTED]` so the reader can see that content was present but withheld.
 
 ### 6. Confirm & Save
 
