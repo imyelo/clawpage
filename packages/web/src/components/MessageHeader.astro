@@ -33,7 +33,7 @@ if (avatarColorIndex !== undefined) {
     </div>
     <span class="author-name">{author}</span>
     <span class="author-timestamp" title={timestamp}>
-      {dayjs(timestamp).format('HH:mm')}
+      {dayjs.utc(timestamp).tz('Asia/Hong_Kong').format('HH:mm')}
     </span>
   </div>
 )}

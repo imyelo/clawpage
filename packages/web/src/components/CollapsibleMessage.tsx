@@ -1,4 +1,9 @@
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 import { memo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -68,7 +73,7 @@ function MessageHeader({
         className={styles.authorTimestamp}
         title={timestamp}
       >
-        {dayjs(timestamp).format('HH:mm')}
+        {dayjs.utc(timestamp).tz('Asia/Hong_Kong').format('HH:mm')}
       </span>
     </div>
   )
