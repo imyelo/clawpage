@@ -1,6 +1,6 @@
 ---
 import { AVATAR_COLORS, CSS_CLASSES } from '../constants/index.js'
-import dayjs from 'dayjs'
+import dayjs from '../lib/dayjs.js'
 
 interface Props {
   author?: string
@@ -32,8 +32,8 @@ if (avatarColorIndex !== undefined) {
       {author.charAt(0).toUpperCase()}
     </div>
     <span class="author-name">{author}</span>
-    <span class="author-timestamp" title={timestamp}>
-      {dayjs.utc(timestamp).tz('Asia/Hong_Kong').format('HH:mm')}
+    <span class="author-timestamp" data-ts={timestamp} title={dayjs.utc(timestamp).format('YYYY-MM-DD HH:mm [UTC]')}>
+      {dayjs.utc(timestamp).format('HH:mm')}
     </span>
   </div>
 )}
@@ -89,3 +89,14 @@ if (avatarColorIndex !== undefined) {
     letter-spacing: -0.025em;
   }
 </style>
+
+<script>
+  // Reformat server-rendered UTC timestamps to the viewer's local timezone.
+  for (const el of document.querySelectorAll<HTMLSpanElement>('.author-timestamp[data-ts]')) {
+    const raw = el.dataset.ts
+    if (!raw) continue
+    const d = new Date(raw)
+    el.textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+    el.title = d.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
+  }
+</script>

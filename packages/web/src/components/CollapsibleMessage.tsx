@@ -1,14 +1,8 @@
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-
 import { AVATAR_COLORS } from '../constants/index.js'
+import dayjs from '../lib/dayjs.js'
 import styles from './CollapsibleMessage.module.css'
 import '../styles/prose.css'
 
@@ -19,11 +13,20 @@ function RedactedInline() {
   return (
     <span
       className="redacted-inline"
+      role="img"
       aria-label="Redacted content"
       title="This content has been redacted"
     >
-      <span className="redacted-noise" aria-hidden="true" />
-      <span className="redacted-label" aria-hidden="true">REDACTED</span>
+      <span
+        className="redacted-noise"
+        aria-hidden="true"
+      />
+      <span
+        className="redacted-label"
+        aria-hidden="true"
+      >
+        REDACTED
+      </span>
     </span>
   )
 }
@@ -45,6 +48,19 @@ function MessageHeader({
   isFirstInGroup?: boolean
   avatarColorIndex?: number
 }) {
+  // Render UTC on initial pass (matches SSG build output) to avoid hydration mismatch.
+  // useEffect runs only in the browser, updating to the viewer's local timezone after mount.
+  // Hooks must be called before the early return to satisfy rules-of-hooks.
+  const utcTime = timestamp ? dayjs.utc(timestamp).format('HH:mm') : ''
+  const utcTitle = timestamp ? dayjs.utc(timestamp).format('YYYY-MM-DD HH:mm [UTC]') : ''
+  const [displayTime, setDisplayTime] = useState(utcTime)
+  const [displayTitle, setDisplayTitle] = useState(utcTitle)
+  useEffect(() => {
+    if (!timestamp) { return }
+    setDisplayTime(dayjs.utc(timestamp).local().format('HH:mm'))
+    setDisplayTitle(dayjs.utc(timestamp).local().format('YYYY-MM-DD HH:mm'))
+  }, [timestamp])
+
   if (!author || !timestamp) {
     return null
   }
@@ -71,9 +87,9 @@ function MessageHeader({
       <span className={styles.authorName}>{author}</span>
       <span
         className={styles.authorTimestamp}
-        title={timestamp}
+        title={displayTitle}
       >
-        {dayjs.utc(timestamp).tz('Asia/Hong_Kong').format('HH:mm')}
+        {displayTime}
       </span>
     </div>
   )
@@ -180,7 +196,14 @@ export const CollapsibleMessage = memo(function CollapsibleMessage({
                       if (!className && String(children) === REDACTED_SENTINEL) {
                         return <RedactedInline />
                       }
-                      return <code className={className} {...props}>{children}</code>
+                      return (
+                        <code
+                          className={className}
+                          {...props}
+                        >
+                          {children}
+                        </code>
+                      )
                     },
                   }}
                 >
