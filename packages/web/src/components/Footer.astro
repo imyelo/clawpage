@@ -1,23 +1,14 @@
 ---
 import { getProjectConfig } from '../lib/config.js'
-import { marked } from 'marked'
 import { version } from '../../package.json'
+import { parseInlineUiMarkdown } from '../lib/ui-markdown.js'
 
 const config = await getProjectConfig()
 let footerMarkdown = config.template?.options?.footer
 
-marked.use({
-  renderer: {
-    link(opt) {
-      const titleAttr = opt.title ? ` title="${opt.title}"` : ''
-      return `<a href="${opt.href}"${titleAttr} class="layout-footer-link" target="_blank" rel="noopener noreferrer">${opt.text}</a>`
-    }
-  }
-})
-
 let customFooter = ''
 if (typeof footerMarkdown === 'string' && footerMarkdown.trim()) {
-  customFooter = marked.parseInline(footerMarkdown, { async: false }) as string
+  customFooter = parseInlineUiMarkdown(footerMarkdown)
 }
 ---
 
