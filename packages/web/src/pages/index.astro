@@ -4,6 +4,7 @@ import { getProjectConfig } from '../lib/config.js'
 import Footer from '../components/Footer.astro';
 import MemoryBackground from '../components/MemoryBackground.astro';
 import DecorativeCorners from '../components/DecorativeCorners.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import '../styles/global.css';
 
 const chats = getChatsSortedByDate(await getPublicChats())
@@ -12,6 +13,7 @@ const siteTitle = config.template?.options?.title || 'chats-share'
 const siteSubtitle = config.template?.options?.subtitle || '// openclaw conversation archive'
 const siteDescription = config.template?.options?.description || 'OpenClaw Chats Share - A place for sharing and exploring AI chat conversations.'
 const siteUrl = config.site?.replace(/\/$/, '') ?? ''
+const gaId = config.template?.options?.analytics?.google_analytics_id
 ---
 
 <html lang="en">
@@ -29,6 +31,7 @@ const siteUrl = config.site?.replace(/\/$/, '') ?? ''
     <meta name="twitter:card" content="summary_large_image" />
     {siteUrl && <meta name="twitter:image" content={`${siteUrl}/cover.svg`} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {gaId && <GoogleAnalytics measurementId={gaId} />}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">

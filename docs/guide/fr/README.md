@@ -89,6 +89,7 @@ Le paquet web est configuré via `chats-share.toml` à la racine de votre dépô
 | `template.options.subtitle` | string | Sous-titre de la page d'accueil | `"// conversation archive"` |
 | `template.options.description` | string | Meta description du site | `"Mon archive de conversations"` |
 | `template.options.footer` | string | Texte du pied de page (Markdown supporté) | `` |
+| `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
 
 **Exemple `chats-share.toml` :**
 

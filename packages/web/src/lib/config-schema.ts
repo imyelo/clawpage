@@ -5,6 +5,9 @@ const TemplateOptionsSchema = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
   description: z.string().optional(),
+  analytics: z.object({
+    google_analytics_id: z.string().optional(),
+  }).optional(),
 })
 
 const TemplateSchema = z.object({

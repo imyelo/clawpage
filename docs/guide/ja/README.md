@@ -89,6 +89,7 @@ webパッケージはワークリポジトリルートにある`chats-share.toml
 | `template.options.subtitle` | string | ホームページサブタイトル | `"// conversation archive"` |
 | `template.options.description` | string | サイトのmeta description | `"My conversation archive"` |
 | `template.options.footer` | string | フッターテキスト（Markdownサポート） | `` |
+| `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
 
 **例 `chats-share.toml`：**
 

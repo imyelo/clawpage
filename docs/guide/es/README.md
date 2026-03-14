@@ -89,6 +89,7 @@ El paquete web se configura vía `chats-share.toml` en la raíz de tu repo de tr
 | `template.options.subtitle` | string | Subtítulo de la página principal | `"// conversation archive"` |
 | `template.options.description` | string | Meta descripción del sitio | `"Mi archivo de conversaciones"` |
 | `template.options.footer` | string | Texto del pie de página (Markdown soportado) | `` |
+| `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
 
 **Ejemplo `chats-share.toml`:**
 

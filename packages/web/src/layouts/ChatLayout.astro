@@ -2,6 +2,7 @@
 import Footer from '../components/Footer.astro';
 import MemoryBackground from '../components/MemoryBackground.astro';
 import DecorativeCorners from '../components/DecorativeCorners.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import { getProjectConfig } from '../lib/config.js';
 import '../styles/global.css';
 
@@ -19,6 +20,7 @@ interface Props {
 
 const { title, description, channel, model, date, messageCount, regularMessageCount, showProcessByDefault = false, ogImageUrl } = Astro.props;
 const config = await getProjectConfig();
+const gaId = config.template?.options?.analytics?.google_analytics_id;
 const siteTitle = config.template?.options?.title || 'chats-share';
 const siteSubtitle = config.template?.options?.subtitle || '';
 const siteSuffix = siteSubtitle ? `${siteTitle} - ${siteSubtitle}` : siteTitle;
@@ -41,6 +43,7 @@ const pageDescription = description || config.template?.options?.description || 
     <meta name="twitter:card" content="summary_large_image" />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {gaId && <GoogleAnalytics measurementId={gaId} />}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">

@@ -89,6 +89,7 @@ The web package is configured via `chats-share.toml` in your working repo root.
 | `template.options.subtitle` | string | Homepage subtitle | `"// conversation archive"` |
 | `template.options.description` | string | Meta description for the site | `"My conversation archive"` |
 | `template.options.footer` | string | Footer text (Markdown supported) | `` |
+| `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
 
 **Example `chats-share.toml` (GitHub Pages project site):**
 

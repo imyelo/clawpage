@@ -89,6 +89,7 @@ Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
 | `template.options.subtitle` | string | 首页副标题 | `"// conversation archive"` |
 | `template.options.description` | string | 站点 meta 描述 | `"My conversation archive"` |
 | `template.options.footer` | string | 页脚文本（支持 Markdown） | `` |
+| `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
 
 **示例 `chats-share.toml`：**
 

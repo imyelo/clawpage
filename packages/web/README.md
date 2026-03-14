@@ -35,6 +35,7 @@ footer = "powered by [@you](https://github.com/you)"
 | `template.options.subtitle` | string | Homepage subtitle |
 | `template.options.description` | string | Meta description for the site |
 | `template.options.footer` | string | Footer text (Markdown supported) |
+| `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
 
 ## Chat Files
 
