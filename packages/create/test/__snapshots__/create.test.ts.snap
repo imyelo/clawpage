@@ -192,6 +192,10 @@ export default defineConfig({
 # subtitle = "// conversation archive"
 # description = "My conversation archive"
 # footer = "powered by [@imyelo](https://github.com/imyelo) &times; [@lambda610](https://github.com/lambda610)"
+
+# Google Analytics 4 (optional).
+# [template.options.analytics]
+# google_analytics_id = "G-XXXXXXXXXX"
 "
 ,
   "chats/.gitkeep": "",
@@ -439,6 +443,10 @@ export default defineConfig({
 # subtitle = "// conversation archive"
 # description = "My conversation archive"
 # footer = "powered by [@imyelo](https://github.com/imyelo) &times; [@lambda610](https://github.com/lambda610)"
+
+# Google Analytics 4 (optional).
+# [template.options.analytics]
+# google_analytics_id = "G-XXXXXXXXXX"
 "
 ,
   "chats/.gitkeep": "",
@@ -686,6 +694,10 @@ export default defineConfig({
 # subtitle = "// conversation archive"
 # description = "My conversation archive"
 # footer = "powered by [@imyelo](https://github.com/imyelo) &times; [@lambda610](https://github.com/lambda610)"
+
+# Google Analytics 4 (optional).
+# [template.options.analytics]
+# google_analytics_id = "G-XXXXXXXXXX"
 "
 ,
   "chats/.gitkeep": "",
@@ -933,6 +945,10 @@ export default defineConfig({
 # subtitle = "// conversation archive"
 # description = "My conversation archive"
 # footer = "powered by [@imyelo](https://github.com/imyelo) &times; [@lambda610](https://github.com/lambda610)"
+
+# Google Analytics 4 (optional).
+# [template.options.analytics]
+# google_analytics_id = "G-XXXXXXXXXX"
 "
 ,
   "chats/.gitkeep": "",
