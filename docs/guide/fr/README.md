@@ -90,6 +90,7 @@ Le paquet web est configuré via `chats-share.toml` à la racine de votre dépô
 | `template.options.description` | string | Meta description du site | `"Mon archive de conversations"` |
 | `template.options.footer` | string | Texte du pied de page (Markdown supporté) | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
+| `template.options.promo.enabled` | boolean | Afficher un bloc promotionnel sur la page d'accueil pour faire connaître openclaw-chats-share | `false` |
 
 **Exemple `chats-share.toml` :**
 
@@ -101,6 +102,9 @@ base = "/votre-nom-de-repo"
 title = "chats-share"
 subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
+
+[template.options.promo]
+enabled = true
 ```
 
 Lors du déploiement sur Netlify, Vercel, Cloudflare Pages ou un domaine personnalisé, définissez `site` avec votre URL complète et omettez `base`.

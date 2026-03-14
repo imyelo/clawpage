@@ -90,17 +90,21 @@ The web package is configured via `chats-share.toml` in your working repo root.
 | `template.options.description` | string | Meta description for the site | `"My conversation archive"` |
 | `template.options.footer` | string | Footer text (Markdown supported) | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
+| `template.options.promo.enabled` | boolean | Show a promo block on the homepage to help spread openclaw-chats-share | `false` |
 
 **Example `chats-share.toml` (GitHub Pages project site):**
 
 ```toml
-site = "https://your-username.github.io"
-base = "/your-repo-name"
+site = “https://your-username.github.io”
+base = “/your-repo-name”
 
 [template.options]
-title = "chats-share"
-subtitle = "// conversation archive"
-footer = "powered by [@imyelo](https://github.com/imyelo)"
+title = “chats-share”
+subtitle = “// conversation archive”
+footer = “powered by [@imyelo](https://github.com/imyelo)”
+
+[template.options.promo]
+enabled = true
 ```
 
 When deploying to Netlify, Vercel, Cloudflare Pages, or a custom domain, set `site` to your full URL and omit `base`.

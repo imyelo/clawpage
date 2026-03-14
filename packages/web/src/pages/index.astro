@@ -2,6 +2,7 @@
 import { getPublicChats, getChatsSortedByDate } from '../lib/chats.js'
 import { getProjectConfig } from '../lib/config.js'
 import Footer from '../components/Footer.astro';
+import Promo from '../components/Promo.astro';
 import MemoryBackground from '../components/MemoryBackground.astro';
 import DecorativeCorners from '../components/DecorativeCorners.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
@@ -14,6 +15,7 @@ const siteSubtitle = config.template?.options?.subtitle || '// openclaw conversa
 const siteDescription = config.template?.options?.description || 'OpenClaw Chats Share - A place for sharing and exploring AI chat conversations.'
 const siteUrl = config.site?.replace(/\/$/, '') ?? ''
 const gaId = config.template?.options?.analytics?.google_analytics_id
+const promoEnabled = config.template?.options?.promo?.enabled ?? false
 ---
 
 <html lang="en">
@@ -49,6 +51,10 @@ const gaId = config.template?.options?.analytics?.google_analytics_id
         border-bottom: 1px solid var(--border);
       }
 
+      .header-with-promo {
+        margin-bottom: 2rem;
+      }
+
       .title {
         font-family: var(--font-mono);
         font-size: 1rem;
@@ -66,6 +72,14 @@ const gaId = config.template?.options?.analytics?.google_analytics_id
       }
 
       /* Chats list */
+      .section-label {
+        margin: 0 0 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 0.6875rem;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+      }
+
       .chats-list {
         display: flex;
         flex-direction: column;
@@ -149,40 +163,45 @@ const gaId = config.template?.options?.analytics?.google_analytics_id
     <DecorativeCorners />
 
     <div class="container">
-      <header class="header">
+      <header class:list={['header', promoEnabled && 'header-with-promo']}>
         <h1 class="title">{siteTitle}</h1>
         {siteSubtitle && <p class="subtitle">// {siteSubtitle}</p>}
       </header>
+
+      {promoEnabled && <Promo />}
 
       {chats.length === 0 ? (
         <div class="empty-state">
           <p>// no conversations yet</p>
         </div>
       ) : (
-        <div class="chats-list">
-          {chats.map(chat => (
-            <a href={`/chats/${chat.slug}`} class="chat-item">
-              <h2 class="chat-topic">{chat.title}</h2>
-              <div class="chat-meta">
-                {chat.channel && (
-                  <>
-                    <span class="platform-badge">{chat.channel}</span>
-                    <span class="meta-separator">◆</span>
-                  </>
-                )}
-                {chat.model && (
-                  <>
-                    <span class="chat-meta-item">{chat.model}</span>
-                    <span class="meta-separator">◆</span>
-                  </>
-                )}
-                <span class="chat-meta-item">{chat.date}</span>
-                <span class="meta-separator">◆</span>
-                <span class="chat-meta-item">{chat.totalMessages} msgs</span>
-              </div>
-            </a>
-          ))}
-        </div>
+        <>
+          <p class="section-label">// chats</p>
+          <div class="chats-list">
+            {chats.map(chat => (
+              <a href={`/chats/${chat.slug}`} class="chat-item">
+                <h2 class="chat-topic">{chat.title}</h2>
+                <div class="chat-meta">
+                  {chat.channel && (
+                    <>
+                      <span class="platform-badge">{chat.channel}</span>
+                      <span class="meta-separator">◆</span>
+                    </>
+                  )}
+                  {chat.model && (
+                    <>
+                      <span class="chat-meta-item">{chat.model}</span>
+                      <span class="meta-separator">◆</span>
+                    </>
+                  )}
+                  <span class="chat-meta-item">{chat.date}</span>
+                  <span class="meta-separator">◆</span>
+                  <span class="chat-meta-item">{chat.totalMessages} msgs</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </>
       )}
 
       <Footer />

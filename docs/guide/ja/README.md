@@ -90,6 +90,7 @@ webパッケージはワークリポジトリルートにある`chats-share.toml
 | `template.options.description` | string | サイトのmeta description | `"My conversation archive"` |
 | `template.options.footer` | string | フッターテキスト（Markdownサポート） | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
+| `template.options.promo.enabled` | boolean | ホームページにプロモーションブロックを表示して openclaw-chats-share を広める | `false` |
 
 **例 `chats-share.toml`：**
 
@@ -101,6 +102,9 @@ base = "/your-repo-name"
 title = "chats-share"
 subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
+
+[template.options.promo]
+enabled = true
 ```
 
 Netlify、Vercel、Cloudflare Pages、またはカスタムドメインにデプロイする場合は、`site` に完全なURLを設定し、`base` を省略してください。

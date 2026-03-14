@@ -90,6 +90,7 @@ Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
 | `template.options.description` | string | 站点 meta 描述 | `"My conversation archive"` |
 | `template.options.footer` | string | 页脚文本（支持 Markdown） | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
+| `template.options.promo.enabled` | boolean | 在首页显示推广区块，帮助传播 openclaw-chats-share | `false` |
 
 **示例 `chats-share.toml`：**
 
@@ -101,6 +102,9 @@ base = "/your-repo-name"
 title = "chats-share"
 subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
+
+[template.options.promo]
+enabled = true
 ```
 
 部署到 Netlify、Vercel、Cloudflare Pages 或自定义域名时，将 `site` 设置为完整 URL 并省略 `base`。

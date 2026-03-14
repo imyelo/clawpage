@@ -1,0 +1,210 @@
+---
+const DELAY_MS = 650
+---
+
+<section class="promo" aria-label="Getting started">
+  <ul class="value-props">
+    <li class="value-prop">Export chats with one command</li>
+    <li class="value-prop-sep" aria-hidden="true">◆</li>
+    <li class="value-prop">Pure Static site</li>
+    <li class="value-prop-sep" aria-hidden="true">◆</li>
+    <li class="value-prop">with tool calls + thinking traces</li>
+  </ul>
+
+  <div
+    class="entry-reveal entry-reveal-enabled"
+    style={`--entry-reveal-delay: ${DELAY_MS}ms;`}
+    data-entry-reveal="on_visible"
+    id="promo-reveal"
+  >
+    <div class="entry-card">
+      <p class="entry-title">
+        <span class="entry-title-prefix">//</span> getting started
+      </p>
+      <p class="entry-label">// copy &amp; paste into an Openclaw chat</p>
+      <pre class="entry-code"><code>Read https://clawhub.ai/imyelo/chats-share and install the chats-share skill, then run first-time setup for me.</code></pre>
+      <p class="entry-links">
+        <span class="entry-label">// links</span>
+        <a class="layout-footer-link" href="https://github.com/imyelo/openclaw-chats-share#-quick-start" target="_blank" rel="noopener noreferrer">Quick start</a>
+        <span class="entry-link-sep" aria-hidden="true">◆</span>
+        <a class="layout-footer-link" href="https://github.com/imyelo/openclaw-chats-share#-configuration" target="_blank" rel="noopener noreferrer">Configuration</a>
+        <span class="entry-link-sep" aria-hidden="true">◆</span>
+        <a class="layout-footer-link" href="https://github.com/imyelo/openclaw-chats-share/blob/main/docs/guide/en/deployment.md" target="_blank" rel="noopener noreferrer">Deployment</a>
+        <span class="entry-link-sep" aria-hidden="true">◆</span>
+        <a class="layout-footer-link" href="https://vibe.yelo.cc/">See another site</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo {
+    margin: 2rem 0 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .value-props {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .value-prop {
+    margin: 0;
+  }
+
+  .value-prop-sep {
+    color: var(--border);
+    font-size: 0.625rem;
+  }
+
+  .entry-card {
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent-dim);
+    background: color-mix(in srgb, var(--bg-secondary) 65%, transparent);
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  .entry-reveal {
+    display: block;
+  }
+
+  .entry-reveal-enabled {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition-property: grid-template-rows, opacity, transform;
+    transition-duration: 700ms, 260ms, 260ms;
+    transition-timing-function: ease, ease, ease;
+    transition-delay: calc(var(--entry-reveal-delay, 650ms) + 120ms), var(--entry-reveal-delay, 650ms), var(--entry-reveal-delay, 650ms);
+  }
+
+  .entry-reveal-enabled .entry-card {
+    min-height: 0;
+  }
+
+  .entry-reveal-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entry-reveal-enabled {
+      transition: none;
+      grid-template-rows: 1fr;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .entry-title {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+
+  .entry-title-prefix {
+    color: var(--text-muted);
+    margin-right: 0.5rem;
+  }
+
+  .entry-label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .entry-code {
+    margin: 0 0 1rem;
+    padding: 0.85rem 0.9rem;
+    border: 1px solid var(--border);
+    background: var(--bg-tertiary);
+    overflow-x: auto;
+  }
+
+  .entry-code code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .entry-links {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .entry-links .entry-label {
+    margin: 0;
+  }
+
+  .entry-link-sep {
+    color: var(--border);
+    font-size: 0.625rem;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const root = document.getElementById('promo-reveal');
+    if (!root) return;
+
+    const cleanup = () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('pageshow', onPageShow);
+    }
+
+    const open = () => {
+      if (root.classList.contains('entry-reveal-open')) return;
+      root.classList.add('entry-reveal-open');
+      cleanup();
+    }
+
+    const scheduleOpen = () => {
+      // Ensure at least one paint of the "collapsed" state so transitions can run.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(open);
+      });
+    };
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') scheduleOpen();
+    };
+
+    const onPageShow = (e) => {
+      if (e.persisted && document.visibilityState === 'visible') scheduleOpen();
+    };
+
+    if (document.visibilityState === 'visible') {
+      scheduleOpen();
+    } else {
+      document.addEventListener('visibilitychange', onVisibilityChange, { passive: true });
+      window.addEventListener('pageshow', onPageShow, { passive: true });
+    }
+  })();
+</script>

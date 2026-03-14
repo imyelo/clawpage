@@ -22,6 +22,9 @@ base = "/your-repo-name"
 title = "My Chats"
 subtitle = "// conversation archive"
 footer = "powered by [@you](https://github.com/you)"
+
+[template.options.promo]
+enabled = true
 ```
 
 | Key | Type | Description |
@@ -36,6 +39,7 @@ footer = "powered by [@you](https://github.com/you)"
 | `template.options.description` | string | Meta description for the site |
 | `template.options.footer` | string | Footer text (Markdown supported) |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
+| `template.options.promo.enabled` | boolean | Show a promotional block on the homepage to help spread openclaw-chats-share |
 
 ## Chat Files
 
