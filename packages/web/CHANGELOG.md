@@ -1,5 +1,13 @@
 # openclaw-chats-share-web
 
+## 0.8.0
+
+### Minor Changes
+
+- Add optional promo component for homepage
+- Refactor footer to use parseInlineUiMarkdown
+- Add Google Analytics 4 support
+
 ## 0.7.3
 
 ### Patch Changes
