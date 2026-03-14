@@ -50,7 +50,9 @@ El agent va a:
 4. 📝 Escribir el archivo YAML a tu repo de trabajo en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
 5. 🔀 Pedirte que abras un Pull Request — hacer merge a `main` dispara el build de GitHub Pages
 
-Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/share/{slug}`.
+Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/chats/{slug}`.
+
+> **⚠️ Antes de hacer merge:** La redacción automática con IA no es 100% fiable. Abre el YAML generado en el PR y reemplaza manualmente cualquier contenido sensible omitido con `[REDACTED]`. Consulta [Cómo proteger información sensible](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info) para más detalles.
 
 > **💡 Consejo:** Establece `visibility: private` (el valor por defecto) para mantener un chat accesible solo vía enlace directo, sin que aparezca en el índice público.
 
@@ -69,7 +71,7 @@ Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/sha
     │  6. 🔀 Push a nueva rama → crear PR
     ▼
 🚀 GitHub Pages
-    └── https://tu-dominio/share/{slug}
+    └── https://tu-dominio/chats/{slug}
 ```
 
 ### 🌿 Flujo Basado en Ramas

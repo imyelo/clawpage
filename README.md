@@ -50,7 +50,9 @@ The agent will:
 4. 📝 Write the YAML file to your working repo on a new branch (`chat/{YYYYMMDD}-{slug}`)
 5. 🔀 Prompt you to open a Pull Request — merging to `main` triggers the GitHub Pages build
 
-After the PR merges, your chat is live at `https://your-domain/share/{slug}`.
+After the PR merges, your chat is live at `https://your-domain/chats/{slug}`.
+
+> **⚠️ Before merging:** AI-powered redaction is not 100% reliable. Always open the generated YAML in the PR and manually replace any missed sensitive content with `[REDACTED]`. See [How to protect sensitive info](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info) for details.
 
 > **💡 Tip:** Set `visibility: private` (the default) to keep a chat accessible via direct link only, without it appearing on the public index page.
 
@@ -69,7 +71,7 @@ After the PR merges, your chat is live at `https://your-domain/share/{slug}`.
     │  6. 🔀 Push to new branch → create PR
     ▼
 🚀 GitHub Pages
-    └── https://your-domain/share/{slug}
+    └── https://your-domain/chats/{slug}
 ```
 
 ### 🌿 Branch-Based Workflow

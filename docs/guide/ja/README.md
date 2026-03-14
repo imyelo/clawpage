@@ -50,7 +50,9 @@ agentは以下を行います：
 4. 📝 新しいブランチ（`chat/{YYYYMMDD}-{slug}`）にYAMLファイルをワークリポジトリに書き込み
 5. 🔀 Pull Requestを開くよう促す — `main`にマージするとGitHub Pagesビルドがトリガー
 
-PRをマージすると、チャットは `https://your-domain/share/{slug}` で公開されます。
+PRをマージすると、チャットは `https://your-domain/chats/{slug}` で公開されます。
+
+> **⚠️ マージ前に確認：** AI による自動編集は100%確実ではありません。PR内の生成されたYAMLファイルを開き、見落とされた機密情報を手動で `[REDACTED]` に置き換えてください。詳細は [機密情報の保護方法](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info) をご覧ください。
 
 > **💡 ヒント:** `visibility: private`（デフォルト）を設定すると、チャットは公開インデックスには表示されず、直接URLからのみアクセスできます。
 
@@ -69,7 +71,7 @@ PRをマージすると、チャットは `https://your-domain/share/{slug}` で
     │  6. 🔀 新しいブランチにプッシュ → PRを作成
     ▼
 🚀 GitHub Pages
-    └── https://your-domain/share/{slug}
+    └── https://your-domain/chats/{slug}
 ```
 
 ### 🌿 ブランチベースワークフロー

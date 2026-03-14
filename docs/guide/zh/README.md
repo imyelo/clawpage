@@ -50,7 +50,9 @@ Agent 将：
 4. 📝 将 YAML 文件写入工作仓库的新分支（`chat/{YYYYMMDD}-{slug}`）
 5. 🔀 提示你创建 Pull Request — 合并到 `main` 会触发 GitHub Pages 构建
 
-PR 合并后，你的聊天将在 `https://your-domain/share/{slug}` 上线。
+PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
+
+> **⚠️ 合并前请注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中打开生成的 YAML 文件，手动将任何遗漏的敏感内容替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info)。
 
 > **💡 提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
 
@@ -69,7 +71,7 @@ PR 合并后，你的聊天将在 `https://your-domain/share/{slug}` 上线。
     │  6. 🔀 推送到新分支 → 创建 PR
     ▼
 🚀 GitHub Pages
-    └── https://your-domain/share/{slug}
+    └── https://your-domain/chats/{slug}
 ```
 
 ### 🌿 基于分支的工作流

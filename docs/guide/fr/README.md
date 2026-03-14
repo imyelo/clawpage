@@ -50,7 +50,9 @@ L'agent va :
 4. 📝 Écrire le fichier YAML dans votre repo de travail sur une nouvelle branche (`chat/{YYYYMMDD}-{slug}`)
 5. 🔀 Vous proposer d'ouvrir une Pull Request — la fusion vers `main` déclenche le build GitHub Pages
 
-Après la fusion de la PR, votre chat est en ligne à `https://votre-domaine/share/{slug}`.
+Après la fusion de la PR, votre chat est en ligne à `https://votre-domaine/chats/{slug}`.
+
+> **⚠️ Avant de fusionner :** La rédaction automatique par IA n'est pas fiable à 100 %. Ouvrez le YAML généré dans la PR et remplacez manuellement tout contenu sensible manqué par `[REDACTED]`. Voir [Comment protéger les informations sensibles](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info) pour plus de détails.
 
 > **💡 Astuce :** Définissez `visibility: private` (la valeur par défaut) pour garder un chat accessible uniquement via un lien direct, sans qu'il n'apparaisse sur la page d'index publique.
 
@@ -69,7 +71,7 @@ Après la fusion de la PR, votre chat est en ligne à `https://votre-domaine/sha
     │  6. 🔀 Pousser vers une nouvelle branche → créer PR
     ▼
 🚀 GitHub Pages
-    └── https://votre-domaine/share/{slug}
+    └── https://votre-domaine/chats/{slug}
 ```
 
 ### 🌿 Flux Basé sur les Branches
