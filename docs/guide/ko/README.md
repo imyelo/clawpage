@@ -6,9 +6,20 @@
 
 수동 내보내기 필요 없음, 복사-붙여넣기 필요 없음. 하나의 명령어로 채팅이 내 URL에서 즉시 라이브됩니다 — 제목, 설명, 민감한 데이터는 대신 처리해 드립니다.
 
+## 📌 무엇을 얻을 수 있나요
+
+- ⚡ 모든 채팅에서 `/chats-share` → 몇 분 만에 내 URL에 라이브 페이지 생성
+- 🚀 관리할 인프라 없음 — 순수 정적, GitHub Pages, Vercel, Netlify 또는 Cloudflare Pages에 무료 배포
+- 🔀 게시 전 검토 — 각 채팅마다 PR이 생성되어 무엇을 공개할지 제어 가능
+- 🔒 비공개 공유 — 직접 링크는 작동하지만 채팅은 기본적으로 공개 인덱스에 표시되지 않음
+- 🛡️ 안전한 공유 — 민감한 문자열을 표시하면 내보내기 전에 `[REDACTED]`로 교체
+- 🧠 완전한 충실도 — 도구 호출 및 사고 추적이 타임라인에 보존되며 제거되지 않음
+
 ## 라이브 데모 🚀
 
 <a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
+또는 몇 주째 성장하고 있는 사이트를 확인해 보세요 — 저희도 직접 사용하고 있습니다: [vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ 빠른 시작
 

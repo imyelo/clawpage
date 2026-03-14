@@ -6,9 +6,20 @@
 
 手動エクスポート不要、コピペ不要。1つのコマンドでチャットが自分の URL でライブになります — タイトル、説明、機密データはあなたが代わりに処理されます。
 
+## 📌 できること
+
+- ⚡ 任意のチャットで `/chats-share` → 数分であなたの URL にライブページが公開
+- 🚀 インフラ管理不要 — 純粋な静的サイト、GitHub Pages・Vercel・Netlify・Cloudflare Pages に無料デプロイ
+- 🔀 公開前にレビュー — チャットごとに PR が作成され、何を公開するかをコントロール
+- 🔒 プライベート共有 — 直接リンクで共有可能、公開インデックスにはデフォルトで表示されない
+- 🛡️ 安全に共有 — 機密文字列をフラグすれば、エクスポート前に `[REDACTED]` に置き換えられる
+- 🧠 完全な忠実性 — ツール呼び出しと思考トレースはタイムラインに保存され、削除されない
+
 ## ライブデモ 🚀
 
 <a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
+または、数週間運営中のサイトを確認してください — 私たちも自分たちで使っています：[vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ クイックスタート
 

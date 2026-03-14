@@ -6,9 +6,20 @@
 
 ✨ No manual exports, no copy-pasting. One command and your chat is live at your own URL — title, description, and sensitive data handled for you.
 
-## Live Demo 🚀
+## 📌 What You Get
+
+- ⚡ `/chats-share` in any chat → live page at your URL in minutes
+- 🚀 No infrastructure to manage — pure static, deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages for free
+- 🔀 Review before you publish — each chat opens a PR so you control what goes live
+- 🔒 Share privately — direct link works, but chats stay off the public index by default
+- 🛡️ Safe to share — flag sensitive strings and they're replaced with `[REDACTED]` before export
+- 🧠 Full fidelity — tool calls and thinking traces are preserved in the timeline, not stripped out
+
+## 🚀 Live Demo
 
 <a href="https://chats-share.yelo.ooo" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+
+Or see a site that's been growing for weeks — we dogfood this: [vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ Quick Start
 
