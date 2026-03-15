@@ -108,13 +108,13 @@ The web package is configured via `clawpage.toml` in your working repo root.
 **Example `clawpage.toml` (GitHub Pages project site):**
 
 ```toml
-site = “https://your-username.github.io”
-base = “/your-repo-name”
+site = "https://your-username.github.io"
+base = "/your-repo-name"
 
 [template.options]
-title = “clawpage”
-subtitle = “// conversation archive”
-footer = “powered by [@imyelo](https://github.com/imyelo)”
+title = "clawpage"
+subtitle = "// conversation archive"
+footer = "powered by [@imyelo](https://github.com/imyelo)"
 
 [template.options.promo]
 enabled = true
