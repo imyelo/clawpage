@@ -1,6 +1,7 @@
 ---
 name: chats-share
 description: "Legacy alias for /clawpage. Redirects users to the new canonical command."
+license: Apache-2.0
 metadata: {"openclaw":{"emoji":"💬","homepage":"https://github.com/imyelo/clawpage"}}
 ---
 

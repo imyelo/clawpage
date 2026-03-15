@@ -1,6 +1,7 @@
 ---
 name: clawpage
 description: "Share AI agent conversations as public web pages. Use when the user wants to share a conversation externally, export conversation history for documentation, or publish a chat session to a public URL."
+license: Apache-2.0
 metadata: {"openclaw":{"emoji":"💬","homepage":"https://github.com/imyelo/clawpage"}}
 ---
 
