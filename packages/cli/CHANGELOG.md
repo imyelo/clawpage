@@ -1,5 +1,11 @@
 # clawpage
 
+## 1.0.1
+
+### Patch Changes
+
+- add Apache-2.0 license
+
 ## 1.0.0
 
 ### Major Changes
