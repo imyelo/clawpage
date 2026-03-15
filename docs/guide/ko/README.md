@@ -1,4 +1,4 @@
-# OpenClaw Chats Share
+# Clawpage
 
 > 📤 모든 Openclaw 채팅에서 `/clawpage`를 입력하세요. 대화가 자신의 URL에 영구적인 페이지가 됩니다. GitHub Pages, Vercel, Netlify 또는 Cloudflare Pages에 배포됩니다.
 
@@ -6,24 +6,24 @@
 
 수동 내보내기 필요 없음, 복사-붙여넣기 필요 없음. 하나의 명령어로 채팅이 내 URL에서 즉시 라이브됩니다 — 제목, 설명, 민감한 데이터는 대신 처리해 드립니다.
 
-## 📌 무엇을 얻을 수 있나요
+## 📌 기능
 
 - ⚡ 모든 채팅에서 `/clawpage` → 몇 분 만에 내 URL에 라이브 페이지 생성
 - 🚀 관리할 인프라 없음 — 순수 정적, GitHub Pages, Vercel, Netlify 또는 Cloudflare Pages에 무료 배포
 - 🔀 게시 전 검토 — 각 채팅마다 PR이 생성되어 무엇을 공개할지 제어 가능
 - 🔒 비공개 공유 — 직접 링크는 작동하지만 채팅은 기본적으로 공개 인덱스에 표시되지 않음
-- 🛡️ 안전한 공유 — 민감한 문자열을 표시하면 내보내기 전에 `[REDACTED]`로 교체
+- 🛡️ 안전한 공유 — AI 지원 편집이 내보내기 전에 민감한 데이터를 `[REDACTED]`로 교체
 - 🧠 완전한 충실도 — 도구 호출 및 사고 추적이 타임라인에 보존되며 제거되지 않음
 
 ## 라이브 데모 🚀
 
 <a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
-또는 몇 주째 성장하고 있는 사이트를 확인해 보세요 — 저희도 직접 사용하고 있습니다: [vibe.yelo.cc](https://vibe.yelo.cc)
+또는 저희가 직접 사용하고 있는 사이트를 확인해 보세요: [vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ 빠른 시작
 
-agent 채팅에 이것을 복사하여 붙여넣으세요:
+agent 채팅에 복사하여 붙여넣으세요:
 
 ```
 https://clawhub.ai/imyelo/clawpage를 읽고 clawpage skill을 설치한 후,
@@ -288,7 +288,7 @@ skills/    - OpenClaw Skill 정의
 이 도구로 구축된 사이트:
 
 - [Yelo](https://vibe.yelo.cc)
-- 여러분의 사이트 — [PR을 제출](https://github.com/imyelo/clawpage/edit/main/README.md)하여 추가하세요!
+- 여러분의 사이트 — [PR을 제출](https://github.com/imyelo/clawpage/edit/main/README.md)하여 추가하세요
 
 ## 📚 추가 리소스
 

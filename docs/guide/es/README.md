@@ -1,4 +1,4 @@
-# OpenClaw Chats Share
+# Clawpage
 
 > 📤 Escribe `/clawpage` en cualquier chat de Openclaw. Tu conversación se convierte en una página permanente en tu propia URL. Se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages.
 
@@ -6,24 +6,24 @@
 
 ✨ Sin exportaciones manuales, sin copy-paste. Un comando y tu chat está en vivo en tu propia URL — título, descripción y datos sensibles gestionados para ti.
 
-## 📌 Qué Obtienes
+## 📌 Funcionalidades
 
 - ⚡ `/clawpage` en cualquier chat → página en vivo en tu URL en minutos
 - 🚀 Sin infraestructura que gestionar — puramente estático, se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages gratis
 - 🔀 Revisa antes de publicar — cada chat abre un PR para que controles qué sale a producción
 - 🔒 Comparte de forma privada — el enlace directo funciona, pero los chats no aparecen en el índice público por defecto
-- 🛡️ Seguro para compartir — marca cadenas sensibles y se reemplazan por `[REDACTED]` antes de exportar
+- 🛡️ Seguro para compartir — la redacción asistida por IA reemplaza los datos sensibles con `[REDACTED]` antes de exportar
 - 🧠 Fidelidad total — las llamadas a herramientas y los rastros de pensamiento se preservan en la línea de tiempo, no se eliminan
 
 ## Demo en Vivo 🚀
 
 <a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
-O consulta un sitio que lleva semanas creciendo — nosotros mismos lo usamos: [vibe.yelo.cc](https://vibe.yelo.cc)
+O consulta un sitio que usamos nosotros mismos: [vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ Inicio Rápido
 
-Copia y pega esto en tu chat de agente:
+Copia y pega en tu chat de agente:
 
 ```
 Lee https://clawhub.ai/imyelo/clawpage e instala la habilidad clawpage,
@@ -288,7 +288,7 @@ skills/    - Definiciones de Skills de OpenClaw
 Sitios construidos con esta herramienta:
 
 - [Yelo](https://vibe.yelo.cc)
-- Tu sitio aquí — Agrega el tuyo [enviando un PR](https://github.com/imyelo/clawpage/edit/main/README.md)!
+- Tu sitio aquí — Agrega el tuyo [enviando un PR](https://github.com/imyelo/clawpage/edit/main/README.md)
 
 ## 📚 Recursos Adicionales
 

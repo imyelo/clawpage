@@ -1,4 +1,4 @@
-# OpenClaw Chats Share
+# Clawpage
 
 > 📤 Type /clawpage in any Openclaw chat. Your conversation becomes a permanent page at your own URL. Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.
 
@@ -6,24 +6,24 @@
 
 ✨ No manual exports, no copy-pasting. One command and your chat is live at your own URL — title, description, and sensitive data handled for you.
 
-## 📌 What You Get
+## 📌 Features
 
 - ⚡ `/clawpage` in any chat → live page at your URL in minutes
 - 🚀 No infrastructure to manage — pure static, deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages for free
 - 🔀 Review before you publish — each chat opens a PR so you control what goes live
 - 🔒 Share privately — direct link works, but chats stay off the public index by default
-- 🛡️ Safe to share — flag sensitive strings and they're replaced with `[REDACTED]` before export
+- 🛡️ Safe to share — AI-assisted redaction replaces sensitive data with `[REDACTED]` before export
 - 🧠 Full fidelity — tool calls and thinking traces are preserved in the timeline, not stripped out
 
 ## 🚀 Live Demo
 
 <a href="https://clawpage.yelo.ooo" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
-Or see a site that's been growing for weeks — we dogfood this: [vibe.yelo.cc](https://vibe.yelo.cc)
+Or see a site we use it ourselves: [vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ Quick Start
 
-Copy and Paste this into your agent chat:
+Copy and Paste into your agent chat:
 
 ```
 Read https://clawhub.ai/imyelo/clawpage and install the clawpage skill,
@@ -290,7 +290,7 @@ skills/    - OpenClaw Skill definitions
 Sites built with this tool:
 
 - [Yelo](https://vibe.yelo.cc)
-- Your site here — Add yours by [submitting a PR](https://github.com/imyelo/clawpage/edit/main/README.md)!
+- Your site here — Add yours by [submitting a PR](https://github.com/imyelo/clawpage/edit/main/README.md)
 
 ## 📚 Additional Resources
 

@@ -1,4 +1,4 @@
-# OpenClaw Chats Share
+# Clawpage
 
 > 📤 在任何 Openclaw 聊天中输入 `/clawpage`。你的对话将变成你专属 URL 上的永久页面。部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages。
 
@@ -6,20 +6,20 @@
 
 无需手动导出，无需复制粘贴。一个命令即可让你的聊天在你自己的 URL 上线——标题、描述和敏感数据都会为你处理。
 
-## 📌 你将获得什么
+## 📌 功能特性
 
 - ⚡ 在任何聊天中输入 `/clawpage` → 几分钟内在你的 URL 上线
 - 🚀 无需管理基础设施 — 纯静态，免费部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages
 - 🔀 发布前先审查 — 每次聊天会开启一个 PR，让你掌控什么内容上线
 - 🔒 私密分享 — 直接链接可用，但聊天默认不出现在公开索引中
-- 🛡️ 安全分享 — 标记敏感字符串，导出前会替换为 `[REDACTED]`
+- 🛡️ 安全分享 — AI 辅助编辑在导出前将敏感数据替换为 `[REDACTED]`
 - 🧠 完整保真 — 工具调用和思考轨迹都保留在时间线中，不会被删除
 
 ## 实时演示 🚀
 
 <a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
-或者查看一个已经运行数周的站点 — 我们自己在用它：[vibe.yelo.cc](https://vibe.yelo.cc)
+或者查看我们自己在用的站点：[vibe.yelo.cc](https://vibe.yelo.cc)
 
 ## ⚡ 快速开始
 
@@ -288,7 +288,7 @@ skills/    - OpenClaw Skill 定义
 使用此工具构建的站点：
 
 - [Yelo](https://vibe.yelo.cc)
-- 你的站点 — 通过 [提交 PR](https://github.com/imyelo/clawpage/edit/main/README.md) 添加！
+- 你的站点 — 通过 [提交 PR](https://github.com/imyelo/clawpage/edit/main/README.md) 添加
 
 ## 📚 更多资源
 
