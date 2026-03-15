@@ -125,7 +125,7 @@ bun run build
 wrangler pages deploy ./dist --project-name=clawpage
 ```
 
-En el primer run, Wrangler crea el proyecto de Pages automáticamente. Los runs posteriores lo actualizan.
+En la primera ejecución, Wrangler crea el proyecto de Pages automáticamente. Las ejecuciones posteriores lo actualizan.
 
 ### Dominio personalizado
 

@@ -4,7 +4,7 @@
 
 [English](/docs/guide/en/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-✨ Sin exportaciones manuales, sin copy-paste. Un comando y tu chat está en vivo en tu propia URL — título, descripción y datos sensibles gestionados para ti.
+✨ Sin exportaciones manuales, sin copy-paste. Un comando y tu chat está en línea en tu propia URL — título, descripción y datos sensibles gestionados para ti.
 
 ## 📌 Funcionalidades
 
@@ -30,7 +30,7 @@ Lee https://clawhub.ai/imyelo/clawpage e instala la habilidad clawpage,
 luego ejecuta la configuración inicial para mí.
 ```
 
-## 🤖 Lo Que Hace el Agent Durante la Configuración
+### 🤖 Lo Que Hace el Agent Durante la Configuración
 
 El agent creará un repositorio privado de GitHub, configurará `clawpage.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/clawpage` funcione inmediatamente. Para el paso a paso completo, ver [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md).
 
@@ -47,10 +47,10 @@ El agent va a:
 1. 🔍 Identificar la sesión actual a exportar
 2. ✅ Pedirte que confirmes el título, descripción y visibilidad (`public` / `private`)
 3. 🔒 Redactar los datos sensibles que indiques
-4. 📝 Escribir el archivo YAML a tu repo de trabajo en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
+4. 📝 Escribir el archivo YAML en tu repo de trabajo, en una nueva rama (`chat/{YYYYMMDD}-{slug}`)
 5. 🔀 Pedirte que abras un Pull Request — hacer merge a `main` dispara el build de GitHub Pages
 
-Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/chats/{slug}`.
+Después de hacer merge del PR, tu chat está en línea en `https://tu-dominio/chats/{slug}`.
 
 > **⚠️ Antes de hacer merge:** La redacción automática con IA no es 100% fiable. Abre el YAML generado en el PR y reemplaza manualmente cualquier contenido sensible omitido con `[REDACTED]`. Consulta [Cómo proteger información sensible](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info) para más detalles.
 
@@ -65,7 +65,7 @@ Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/cha
 🤖 OpenClaw Skill
     │  1. 🔍 Localizar y confirmar la sesión a exportar
     │  2. 💬 Extraer el historial de mensajes
-    │  3. 📝 Poblar metadatos (título, participantes, descripción)
+    │  3. 📝 Completar metadatos (título, participantes, descripción)
     │  4. 🔒 Redactar datos sensibles
     │  5. 📄 Escribir YAML en tu repo de datos
     │  6. 🔀 Push a nueva rama → crear PR
@@ -76,11 +76,11 @@ Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/cha
 
 ### 🌿 Flujo Basado en Ramas
 
-Los chats se push a una nueva rama (`chat/{slug}`) en lugar de main, con guía para crear un PR para revisión antes de fusionar.
+Los chats se envían a una nueva rama (`chat/{slug}`) en lugar de main, con indicaciones para crear un PR y revisarlo antes de fusionar.
 
 ## 🏗️ Arquitectura del Repositorio
 
-Este repo es una **plantilla pública**. Tus datos reales de chat viven en un **repo de trabajo privado** separado — esto mantiene la plantilla limpia y forkable sin contaminación de datos.
+Este repo es una **plantilla pública**. Tus datos reales de chat se alojan en un **repo de trabajo privado** separado — esto mantiene la plantilla limpia y forkable sin contaminación de datos.
 
 | Repo | Visibilidad | Propósito |
 |------|-------------|-----------|
@@ -94,7 +94,7 @@ El paquete web se configura vía `clawpage.toml` en la raíz de tu repo de traba
 | Clave | Tipo | Descripción | Ejemplo |
 |-------|------|-------------|---------|
 | `site` | string (URL) | URL completa de tu sitio desplegado | `"https://tu-usuario.github.io"` |
-| `base` | string | Ruta base para sitios de proyecto GitHub Pages | `"/mi-repo"` |
+| `base` | string | Ruta base cuando el sitio no se sirve desde la raíz del dominio | `"/mi-repo"` |
 | `public_dir` | string | Directorio de assets estáticos (relativo al archivo de config) | `"public"` |
 | `out_dir` | string | Directorio de salida de build (relativo al archivo de config) | `"dist"` |
 | `chats_dir` | string | Ruta personalizada del directorio de chats (absoluto o relativo al config) | `"../mis-chats"` |
@@ -124,7 +124,7 @@ Al desplegar en Netlify, Vercel, Cloudflare Pages o un dominio personalizado, es
 
 ### 🚢 Despliegue
 
-El scaffold incluye archivos de configuración para
+El andamiaje incluye archivos de configuración para
 
 - ✅ GitHub Pages
 - ✅ Netlify
@@ -220,6 +220,8 @@ npx clawpage-web preview # previsualizar sitio construido localmente
 
 Herramienta de andamiaje para inicializar un nuevo repo de trabajo desde esta plantilla.
 
+El proyecto generado incluye archivos de configuración para GitHub Pages, Netlify, Vercel y Cloudflare Pages — elige la plataforma que uses.
+
 ```bash
 npx create-clawpage <project-name>
 ```
@@ -240,7 +242,7 @@ bun run build
 bun run deploy
 ```
 
-## 📜 Release
+## 📜 Publicación
 
 Este proyecto usa [changesets](https://github.com/changesets/changesets) para versionado y gestión de changelog.
 
@@ -258,7 +260,7 @@ bunx changeset version --dry-run
 bun run version
 ```
 
-### Flujo de Release
+### Flujo de publicación
 
 1. Crea un changeset antes de fusionar un PR: `bun run changeset`
 2. Selecciona paquetes afectados y tipo de bump (patch/minor/major)

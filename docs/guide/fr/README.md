@@ -4,7 +4,7 @@
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-Pas d'export manuel, pas de copier-coller. Une commande et votre chat est en direct à votre propre URL — titre, description et données sensibles gérés pour vous.
+✨ Pas d'export manuel, pas de copier-coller. Une commande et votre chat est en ligne à votre propre URL — titre, description et données sensibles gérés pour vous.
 
 ## 📌 Fonctionnalités
 
@@ -30,7 +30,7 @@ Lisez https://clawhub.ai/imyelo/clawpage et installez la skill clawpage,
 puis lancez la configuration initiale pour moi.
 ```
 
-## 🤖 Ce Que Fait l'Agent Pendant la Configuration
+### 🤖 Ce Que Fait l'Agent Pendant la Configuration
 
 L'agent va échafauder un dépôt GitHub privé, configurer `clawpage.toml` avec votre URL Pages, pousser le commit initial, activer GitHub Actions comme source Pages, et enregistrer le projet pour que `/clawpage` fonctionne immédiatement. Pour le étape par étape complet, voir [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md).
 
@@ -80,7 +80,7 @@ Les chats sont poussés vers une nouvelle branche (`chat/{slug}`) au lieu de mai
 
 ## 🏗️ Architecture du Dépôt
 
-Ce dépôt est un **modèle public**. Vos données de chat réelles vivent dans un **dépôt de travail privé** séparé — cela garde le modèle propre et forkable sans contamination de données.
+Ce dépôt est un **modèle public**. Vos données de chat réelles se trouvent dans un **dépôt de travail privé** séparé — cela garde le modèle propre et forkable sans contamination de données.
 
 | Dépôt | Visibilité | Objectif |
 |-------|------------|---------|
@@ -94,7 +94,7 @@ Le paquet web est configuré via `clawpage.toml` à la racine de votre dépôt d
 | Clé | Type | Description | Exemple |
 |-----|------|-------------|---------|
 | `site` | string (URL) | URL complète de votre site déployé | `"https://vous.github.io"` |
-| `base` | string | Chemin de base pour les sites de projet GitHub Pages | `"/mon-repo"` |
+| `base` | string | Chemin de base si le site n'est pas servi depuis la racine du domaine | `"/mon-repo"` |
 | `public_dir` | string | Répertoire des assets statiques (relatif au fichier de config) | `"public"` |
 | `out_dir` | string | Répertoire de sortie de build (relatif au fichier de config) | `"dist"` |
 | `chats_dir` | string | Chemin personnalisé du répertoire de chats (absolu ou relatif au config) | `"../mes-chats"` |
@@ -124,7 +124,7 @@ Lors du déploiement sur Netlify, Vercel, Cloudflare Pages ou un domaine personn
 
 ### 🚢 Déploiement
 
-Le scaffold inclut des fichiers de configuration pour
+Le projet de base inclut des fichiers de configuration pour
 
 - ✅ GitHub Pages
 - ✅ Netlify
@@ -220,6 +220,8 @@ npx clawpage-web preview # prévisualiser le site construit localement
 
 Outil d'échafaudage pour initialiser un nouveau dépôt de travail à partir de ce modèle.
 
+Le projet généré inclut des fichiers de configuration pour GitHub Pages, Netlify, Vercel et Cloudflare Pages — choisissez la plateforme que vous utilisez.
+
 ```bash
 npx create-clawpage <project-name>
 ```
@@ -240,7 +242,7 @@ bun run build
 bun run deploy
 ```
 
-## 📜 Release
+## 📜 Publication
 
 Ce projet utilise [changesets](https://github.com/changesets/changesets) pour la gestion des versions et du changelog.
 
@@ -258,7 +260,7 @@ bunx changeset version --dry-run
 bun run version
 ```
 
-### Flux de Release
+### Flux de publication
 
 1. Créez un changeset avant de fusionner une PR : `bun run changeset`
 2. Sélectionnez les paquets affectés et le type de bump (patch/minor/major)

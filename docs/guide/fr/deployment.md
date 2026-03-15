@@ -30,7 +30,7 @@ Pour un site utilisateur/organisation (`<utilisateur>.github.io`) ou lors de l'u
 
 **Domaine personnalisé :**
 
-1. Ajoutez un fichier `CNAME` à votre répertoire `public/` contenant votre domaine (ex. `chats.exemple.com`).
+1. Ajoutez un fichier `CNAME` à votre répertoire `public/` contenant votre domaine (ex. `chats.example.com`).
 2. Chez votre fournisseur DNS, ajoutez un enregistrement `CNAME` pointant votre sous-domaine vers `<utilisateur>.github.io`.
 3. Dans **Settings → Pages**, entrez votre domaine personnalisé et activez **Enforce HTTPS** une fois le certificat provisionné.
 4. Supprimez `base` de `clawpage.toml` et mettez à jour `site` avec votre domaine personnalisé.

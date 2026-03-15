@@ -4,7 +4,7 @@
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-无需手动导出，无需复制粘贴。一个命令即可让你的聊天在你自己的 URL 上线——标题、描述和敏感数据都会为你处理。
+✨ 不用手动导出，不用复制粘贴。一条命令，你的聊天就在你自己的 URL 上线了——标题、描述、敏感数据，统统帮你搞定。
 
 ## 📌 功能特性
 
@@ -30,7 +30,7 @@
 然后帮我运行首次设置。
 ```
 
-## 🤖 Agent 在设置期间做什么
+### 🤖 Agent 在设置期间做什么
 
 Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `clawpage.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/clawpage` 立即可用。完整步骤详见 [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md)。
 
@@ -42,11 +42,11 @@ Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `clawpage
 /clawpage
 ```
 
-Agent 将：
+Agent 会：
 
 1. 🔍 识别要导出的当前会话
 2. ✅ 请你确认标题、描述和可见性（`public` / `private`）
-3. 🔒 脱敏你标记的敏感数据
+3. 🔒 将你标记的敏感数据脱敏
 4. 📝 将 YAML 文件写入工作仓库的新分支（`chat/{YYYYMMDD}-{slug}`）
 5. 🔀 提示你创建 Pull Request — 合并到 `main` 会触发 GitHub Pages 构建
 
@@ -76,11 +76,11 @@ PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
 
 ### 🌿 基于分支的工作流
 
-对话被推送到新分支（`chat/{slug}`）而非 main，并提供指导在合并前创建 PR 进行审查。
+对话会推送到新分支（`chat/{slug}`）而不是 main，合并前你可以先创建 PR 进行审查。
 
 ## 🏗️ 仓库架构
 
-此仓库是一个**公共模板**。你实际的聊天数据存放在另一个**私有工作仓库**中 — 这样可以保持模板干净、可fork而不会污染数据。
+此仓库是一个**公共模板**。你实际的聊天数据存放在另一个**私有工作仓库**中 — 这样可以保持模板整洁、便于 fork，同时避免数据污染。
 
 | 仓库 | 可见性 | 用途 |
 |------|--------|------|
@@ -94,7 +94,7 @@ Web 包通过工作仓库根目录的 `clawpage.toml` 进行配置。
 | 键 | 类型 | 描述 | 示例 |
 |-----|------|------|------|
 | `site` | string (URL) | 部署站点的完整 URL | `"https://you.github.io"` |
-| `base` | string | GitHub Pages 项目站点的基础路径 | `"/my-repo"` |
+| `base` | string | 站点不在域名根路径下时使用的基础路径 | `"/my-repo"` |
 | `public_dir` | string | 静态资源目录（相对于配置文件） | `"public"` |
 | `out_dir` | string | 构建输出目录（相对于配置文件） | `"dist"` |
 | `chats_dir` | string | 自定义聊天目录路径（绝对或相对于配置文件） | `"../my-chats"` |
@@ -220,6 +220,8 @@ npx clawpage-web preview # 本地预览构建结果
 
 脚手架工具从此模板初始化新的工作仓库。
 
+生成的项目已包含 GitHub Pages、Netlify、Vercel 和 Cloudflare Pages 的部署配置——选择你使用的平台即可。
+
 ```bash
 npx create-clawpage <project-name>
 ```
@@ -242,7 +244,7 @@ bun run deploy
 
 ## 📜 发布
 
-本项目使用 [changesets](https://github.com/changesets/changesets) 进行版本管理和变更日志管理。
+本项目使用 [changesets](https://github.com/changesets/changesets) 来管理版本和变更日志。
 
 ```bash
 # 创建新的 changeset
@@ -251,7 +253,7 @@ bun run changeset
 # 检查 changeset 状态
 bunx changeset status
 
-# 预览版本升级（干跑）
+# 预览版本变动（模拟运行）
 bunx changeset version --dry-run
 
 # 应用版本升级并更新变更日志
