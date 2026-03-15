@@ -2,7 +2,7 @@
 
 El scaffold incluye archivos de configuración para todas las plataformas compatibles. Elige la que corresponda a tu hosting y sigue los pasos a continuación.
 
-> **Nota sobre repositorios privados:** Recomendamos mantener tu repositorio como **privado** como buena práctica para proteger información sensible en tus chats — ver [cómo proteger información sensible](https://chats-share.yelo.ooo/chats/how-to-protect-sensitive-info/). Sin embargo, GitHub Pages requiere un **plan Pro o superior** para desplegar desde un repositorio privado. Si tu repositorio es privado y estás en el plan gratuito de GitHub, usa Netlify, Vercel o Cloudflare Pages en su lugar — los tres admiten repositorios privados en sus niveles gratuitos.
+> **Nota sobre repositorios privados:** Recomendamos mantener tu repositorio como **privado** como buena práctica para proteger información sensible en tus chats — ver [cómo proteger información sensible](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/). Sin embargo, GitHub Pages requiere un **plan Pro o superior** para desplegar desde un repositorio privado. Si tu repositorio es privado y estás en el plan gratuito de GitHub, usa Netlify, Vercel o Cloudflare Pages en su lugar — los tres admiten repositorios privados en sus niveles gratuitos.
 
 ---
 
@@ -19,7 +19,7 @@ Usa el archivo `.github/workflows/deploy.yml` incluido, que construye el sitio e
 3. Establece **Source** en `Deploy from a branch`, rama `gh-pages`, carpeta `/ (root)`.
 4. Haz push de un commit a `main` — el workflow se ejecuta automáticamente y tu sitio estará en `https://<usuario>.github.io/<repo>/`.
 
-**Configuración:** Establece `site` y `base` en `chats-share.toml` para que coincidan con tu URL de GitHub Pages:
+**Configuración:** Establece `site` y `base` en `clawpage.toml` para que coincidan con tu URL de GitHub Pages:
 
 ```toml
 site = "https://tu-usuario.github.io"
@@ -33,7 +33,7 @@ Para un sitio de usuario/organización (`<usuario>.github.io`) o al usar un domi
 1. Agrega un archivo `CNAME` a tu directorio `public/` con tu dominio (p.ej. `chats.ejemplo.com`).
 2. En tu proveedor de DNS, agrega un registro `CNAME` apuntando tu subdominio a `<usuario>.github.io`.
 3. En **Settings → Pages**, ingresa tu dominio personalizado y habilita **Enforce HTTPS** una vez que el certificado esté aprovisionado.
-4. Elimina `base` de `chats-share.toml` y actualiza `site` a tu dominio personalizado.
+4. Elimina `base` de `clawpage.toml` y actualiza `site` a tu dominio personalizado.
 
 ---
 
@@ -57,7 +57,7 @@ Tu sitio estará en `https://<nombre-del-sitio>.netlify.app`.
 1. En **Site settings → Domain management**, haz clic en **Add a domain** e ingresa tu dominio.
 2. Sigue las instrucciones de Netlify para actualizar tus registros DNS (apunta tus nameservers a Netlify, o agrega los registros `A`/`CNAME` proporcionados en tu proveedor de DNS).
 3. Netlify aprovisiona un certificado TLS gratuito automáticamente.
-4. Actualiza `site` en `chats-share.toml` a tu dominio personalizado y elimina `base` si está configurado.
+4. Actualiza `site` en `clawpage.toml` a tu dominio personalizado y elimina `base` si está configurado.
 
 ---
 
@@ -87,7 +87,7 @@ npx vercel --prod
 1. En **Project settings → Domains**, haz clic en **Add** e ingresa tu dominio.
 2. Sigue las instrucciones de Vercel para agregar el registro `A` o `CNAME` proporcionado en tu proveedor de DNS.
 3. Vercel aprovisiona un certificado TLS gratuito automáticamente.
-4. Actualiza `site` en `chats-share.toml` a tu dominio personalizado y elimina `base` si está configurado.
+4. Actualiza `site` en `clawpage.toml` a tu dominio personalizado y elimina `base` si está configurado.
 
 ---
 
@@ -122,7 +122,7 @@ wrangler login
 
 # Construir y desplegar
 bun run build
-wrangler pages deploy ./dist --project-name=chats-share
+wrangler pages deploy ./dist --project-name=clawpage
 ```
 
 En el primer run, Wrangler crea el proyecto de Pages automáticamente. Los runs posteriores lo actualizan.
@@ -132,4 +132,4 @@ En el primer run, Wrangler crea el proyecto de Pages automáticamente. Los runs 
 1. En tu proyecto de Pages, ve a **Custom domains → Set up a custom domain** e ingresa tu dominio.
 2. Si tu dominio ya está en Cloudflare, el registro DNS se agrega automáticamente. De lo contrario, agrega el registro `CNAME` proporcionado en tu proveedor de DNS.
 3. Cloudflare aprovisiona un certificado TLS gratuito automáticamente.
-4. Actualiza `site` en `chats-share.toml` a tu dominio personalizado y elimina `base` si está configurado.
+4. Actualiza `site` en `clawpage.toml` a tu dominio personalizado y elimina `base` si está configurado.

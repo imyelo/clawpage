@@ -1,13 +1,13 @@
 {
-  "name": "openclaw-chats-share-demo",
+  "name": "clawpage-demo",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "dev": "openclaw-chats-share-web dev",
-    "build:pages": "rimraf ./dist && openclaw-chats-share-web build",
-    "build": "bun --filter openclaw-chats-share build && bun --filter openclaw-chats-share-web build",
+    "dev": "clawpage-web dev",
+    "build:pages": "rimraf ./dist && clawpage-web build",
+    "build": "bun --filter clawpage build && bun --filter clawpage-web build",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
     "lint": "biome lint .",
@@ -17,10 +17,10 @@
     "prepublish": "bun run build",
     "changeset": "changeset",
     "version": "bunx changeset version",
-    "skill:publish": "clawhub publish ./skills/chats-share --slug chats-share --name \"Chats Share\""
+    "skill:publish": "clawhub publish ./skills/clawpage --slug clawpage --name \"Chats Share\""
   },
   "dependencies": {
-    "openclaw-chats-share-web": "workspace:*"
+    "clawpage-web": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.4",

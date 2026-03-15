@@ -6,7 +6,7 @@ model: claude-sonnet-4-6
 totalMessages: 8
 visibility: public
 defaultShowProcess: true
-description: When you share a conversation, the /chats-share skill attempts to redact sensitive information, but you should always manually review and use [REDACTED] for certainty. This demo shows how the redacted content is rendered.
+description: When you share a conversation, the /clawpage skill attempts to redact sensitive information, but you should always manually review and use [REDACTED] for certainty. This demo shows how the redacted content is rendered.
 participants:
   Dev:
     role: human
@@ -29,7 +29,7 @@ timeline:
     speaker: Dev
     timestamp: 2026-03-10T09:00:12.000Z
     content: |-
-      How does the redaction work? Does /chats-share handle it automatically?
+      How does the redaction work? Does /clawpage handle it automatically?
 
   - type: message
     role: agent
@@ -37,7 +37,7 @@ timeline:
     timestamp: 2026-03-10T09:00:28.000Z
     model: claude-sonnet-4-6
     content: |-
-      **The /chats-share skill attempts to redact automatically.** When you run `/chats-share`, it will:
+      **The /clawpage skill attempts to redact automatically.** When you run `/clawpage`, it will:
 
       - Replace detected API keys, tokens, and passwords with `[REDACTED]`
       - Replace detected hostnames, IPs, and URLs with `[REDACTED]`
@@ -65,7 +65,7 @@ timeline:
     content: |-
       **Manual review + manual `[REDACTED]` marking is the safest approach.**
 
-      1. **After running `/chats-share`**, open the generated YAML file
+      1. **After running `/clawpage`**, open the generated YAML file
       2. **Search for anything sensitive:** API keys, passwords, tokens, internal URLs, IPs, customer data
       3. **Manually replace** any questionable content with `[REDACTED]`
       4. **Use `[REDACTED]` consistently** — the UI specifically recognizes this marker and applies special styling
@@ -89,7 +89,7 @@ timeline:
     content: |-
       Here's the typical flow:
 
-      1. **Run `/chats-share`** in your conversation — the skill exports and attempts to redact
+      1. **Run `/clawpage`** in your conversation — the skill exports and attempts to redact
       2. **Create a PR** to your Chats Share repository — this lets you review changes before merging
       3. **Manually review** the YAML file in the PR — check for anything missed
       4. **Manually add `[REDACTED]`** to anything that looks sensitive
@@ -104,7 +104,7 @@ timeline:
     speaker: Dev
     timestamp: 2026-03-10T09:04:00.000Z
     content: |-
-      So I need to: run /chats-share, manually review the YAML, add [REDACTED] where needed, and keep my repo private. Got it!
+      So I need to: run /clawpage, manually review the YAML, add [REDACTED] where needed, and keep my repo private. Got it!
 
   - type: message
     role: agent
@@ -114,7 +114,7 @@ timeline:
     content: |-
       Exactly. To summarize:
 
-      - ⚠️ **AI redaction isn't perfect** — always verify what /chats-share produces
+      - ⚠️ **AI redaction isn't perfect** — always verify what /clawpage produces
       - ✅ **Manual [REDACTED] marking** — the UI specifically recognizes `[REDACTED]` in brackets
       - ✅ **Visual distinction** — `[REDACTED]` gets a red background, border, and glowing label
       - ✅ **Review before merging** — use GitHub PR workflow to check YAML first

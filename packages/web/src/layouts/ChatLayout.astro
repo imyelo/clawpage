@@ -21,7 +21,7 @@ interface Props {
 const { title, description, channel, model, date, messageCount, regularMessageCount, showProcessByDefault = false, ogImageUrl } = Astro.props;
 const config = await getProjectConfig();
 const gaId = config.template?.options?.analytics?.google_analytics_id;
-const siteTitle = config.template?.options?.title || 'chats-share';
+const siteTitle = config.template?.options?.title || 'clawpage';
 const siteSubtitle = config.template?.options?.subtitle || '';
 const siteSuffix = siteSubtitle ? `${siteTitle} - ${siteSubtitle}` : siteTitle;
 const pageDescription = description || config.template?.options?.description || undefined;

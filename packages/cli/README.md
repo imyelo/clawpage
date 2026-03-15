@@ -1,11 +1,11 @@
-# openclaw-chats-share
+# clawpage
 
-CLI for parsing Openclaw session JSONL files and generating chat YAML files for [openclaw-chats-share-web](https://github.com/imyelo/openclaw-chats-share/tree/main/packages/web/).
+CLI for parsing Openclaw session JSONL files and generating chat YAML files for [clawpage-web](https://github.com/imyelo/clawpage/tree/main/packages/web/).
 
 ## Usage
 
 ```bash
-npx openclaw-chats-share parse <session.jsonl> [-o output.yaml]
+npx clawpage parse <session.jsonl> [-o output.yaml]
 ```
 
 ### Process Content Filtering
@@ -14,10 +14,10 @@ By default the output includes everything (thinking blocks, tool calls, events).
 
 ```bash
 # Messages only — strip all process content
-npx openclaw-chats-share parse session.jsonl -o out.yaml --exclude-process=all
+npx clawpage parse session.jsonl -o out.yaml --exclude-process=all
 
 # Messages + specific types
-npx openclaw-chats-share parse session.jsonl -o out.yaml --include-process=thinking,toolcalls
+npx clawpage parse session.jsonl -o out.yaml --include-process=thinking,toolcalls
 ```
 
 `--include-process` and `--exclude-process` are mutually exclusive.
@@ -39,13 +39,13 @@ npx openclaw-chats-share parse session.jsonl -o out.yaml --include-process=think
 The `--platform` flag selects the session format parser. Currently only `openclaw` is supported (the default).
 
 ```bash
-npx openclaw-chats-share parse session.jsonl --platform openclaw
+npx clawpage parse session.jsonl --platform openclaw
 ```
 
 ## Programmatic API
 
 ```ts
-import { parseSession, generateYAML, DEFAULT_CONSTRAINT } from 'openclaw-chats-share'
+import { parseSession, generateYAML, DEFAULT_CONSTRAINT } from 'clawpage'
 
 const session = await parseSession(filePath)
 const yaml = await generateYAML(session, DEFAULT_CONSTRAINT, { name: 'My Session' })
@@ -62,4 +62,4 @@ Key exports:
 | `createConstraint` | Build a custom `FormatConstraint` |
 | `Platform` | Interface for adding new platform parsers |
 
-See [Chats-share's docs/cli-platform-extension.md](https://github.com/imyelo/openclaw-chats-share/blob/main/docs/cli-platform-extension.md) for how to implement a custom platform parser.
+See [Clawpage's docs/cli-platform-extension.md](https://github.com/imyelo/clawpage/blob/main/docs/cli-platform-extension.md) for how to implement a custom platform parser.

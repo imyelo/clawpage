@@ -39,7 +39,7 @@ const out = (...parts) => join(targetDir, ...parts)
 // Core config
 cpSync(tpl('package.json'), out('package.json'))
 cpSync(tpl('astro.config.mjs'), out('astro.config.mjs'))
-cpSync(tpl('chats-share.toml'), out('chats-share.toml'))
+cpSync(tpl('clawpage.toml'), out('clawpage.toml'))
 cpSync(tpl('chats/.gitkeep'), out('chats/.gitkeep'))
 cpSync(tpl('public/.nojekyll'), out('public/.nojekyll'))
 

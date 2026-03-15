@@ -1,5 +1,5 @@
 /**
- * Shared constants for chats-share
+ * Shared constants for clawpage
  */
 
 // ============================================================================

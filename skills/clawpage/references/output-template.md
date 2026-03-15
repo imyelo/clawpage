@@ -1,7 +1,7 @@
-# Output Template: chats-share YAML
+# Output Template: clawpage YAML
 
-Use this when converting any session to chats-share format.
-Full field reference: `docs/chats-share-data-format.md` in the project root.
+Use this when converting any session to clawpage format.
+Full field reference: `docs/clawpage-data-format.md` in the project root.
 
 > **Content fidelity rule**: Copy all message text, tool arguments, and tool results verbatim from the session data. Do NOT paraphrase, summarize, translate, or reword any content. Format conversion only.
 

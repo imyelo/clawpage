@@ -1,4 +1,4 @@
-# openclaw-chats-share
+# clawpage
 
 ## 0.4.0
 
@@ -44,7 +44,7 @@
 
 ### Minor Changes
 
-- 86144f9: Initial release of openclaw-chats-share monorepo
+- 86144f9: Initial release of clawpage monorepo
 
   - CLI tool for parsing Openclaw session logs to markdown
   - Astro-based web package for sharing conversations

@@ -1,6 +1,6 @@
 # OpenClaw Chats Share
 
-> 📤 Escribe `/chats-share` en cualquier chat de Openclaw. Tu conversación se convierte en una página permanente en tu propia URL. Se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages.
+> 📤 Escribe `/clawpage` en cualquier chat de Openclaw. Tu conversación se convierte en una página permanente en tu propia URL. Se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages.
 
 [English](/docs/guide/en/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
@@ -8,7 +8,7 @@
 
 ## 📌 Qué Obtienes
 
-- ⚡ `/chats-share` en cualquier chat → página en vivo en tu URL en minutos
+- ⚡ `/clawpage` en cualquier chat → página en vivo en tu URL en minutos
 - 🚀 Sin infraestructura que gestionar — puramente estático, se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages gratis
 - 🔀 Revisa antes de publicar — cada chat abre un PR para que controles qué sale a producción
 - 🔒 Comparte de forma privada — el enlace directo funciona, pero los chats no aparecen en el índice público por defecto
@@ -17,7 +17,7 @@
 
 ## Demo en Vivo 🚀
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 O consulta un sitio que lleva semanas creciendo — nosotros mismos lo usamos: [vibe.yelo.cc](https://vibe.yelo.cc)
 
@@ -26,20 +26,20 @@ O consulta un sitio que lleva semanas creciendo — nosotros mismos lo usamos: [
 Copia y pega esto en tu chat de agente:
 
 ```
-Lee https://clawhub.ai/imyelo/chats-share e instala la habilidad chats-share,
+Lee https://clawhub.ai/imyelo/clawpage e instala la habilidad clawpage,
 luego ejecuta la configuración inicial para mí.
 ```
 
 ## 🤖 Lo Que Hace el Agent Durante la Configuración
 
-El agent creará un repositorio privado de GitHub, configurará `chats-share.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/chats-share` funcione inmediatamente. Para el paso a paso completo, ver [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md).
+El agent creará un repositorio privado de GitHub, configurará `clawpage.toml` con tu URL de Pages, hará el commit inicial, habilitará GitHub Actions como la fuente de Pages, y registrará el proyecto para que `/clawpage` funcione inmediatamente. Para el paso a paso completo, ver [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md).
 
 ## 📤 Compartir un Chat
 
-Una vez completada la configuración, usa el comando skill `/chats-share` en cualquier chat de Openclaw para exportarlo:
+Una vez completada la configuración, usa el comando skill `/clawpage` en cualquier chat de Openclaw para exportarlo:
 
 ```
-/chats-share
+/clawpage
 ```
 
 El agent va a:
@@ -52,14 +52,14 @@ El agent va a:
 
 Después de hacer merge del PR, tu chat está en vivo en `https://tu-dominio/chats/{slug}`.
 
-> **⚠️ Antes de hacer merge:** La redacción automática con IA no es 100% fiable. Abre el YAML generado en el PR y reemplaza manualmente cualquier contenido sensible omitido con `[REDACTED]`. Consulta [Cómo proteger información sensible](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info) para más detalles.
+> **⚠️ Antes de hacer merge:** La redacción automática con IA no es 100% fiable. Abre el YAML generado en el PR y reemplaza manualmente cualquier contenido sensible omitido con `[REDACTED]`. Consulta [Cómo proteger información sensible](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info) para más detalles.
 
 > **💡 Consejo:** Establece `visibility: private` (el valor por defecto) para mantener un chat accesible solo vía enlace directo, sin que aparezca en el índice público.
 
 ## ⚙️ Cómo Funciona
 
 ```
-/chats-share
+/clawpage
     │
     ▼
 🤖 OpenClaw Skill
@@ -84,12 +84,12 @@ Este repo es una **plantilla pública**. Tus datos reales de chat viven en un **
 
 | Repo | Visibilidad | Propósito |
 |------|-------------|-----------|
-| `openclaw-chats-share` | Público | Plantilla, paquetes y Skill |
-| `your-chats-share` | Privado | Tus datos reales de chat |
+| `clawpage` | Público | Plantilla, paquetes y Skill |
+| `your-clawpage` | Privado | Tus datos reales de chat |
 
 ## ⚡ Configuración
 
-El paquete web se configura vía `chats-share.toml` en la raíz de tu repo de trabajo.
+El paquete web se configura vía `clawpage.toml` en la raíz de tu repo de trabajo.
 
 | Clave | Tipo | Descripción | Ejemplo |
 |-------|------|-------------|---------|
@@ -98,21 +98,21 @@ El paquete web se configura vía `chats-share.toml` en la raíz de tu repo de tr
 | `public_dir` | string | Directorio de assets estáticos (relativo al archivo de config) | `"public"` |
 | `out_dir` | string | Directorio de salida de build (relativo al archivo de config) | `"dist"` |
 | `chats_dir` | string | Ruta personalizada del directorio de chats (absoluto o relativo al config) | `"../mis-chats"` |
-| `template.options.title` | string | Título de la página principal | `"chats-share"` |
+| `template.options.title` | string | Título de la página principal | `"clawpage"` |
 | `template.options.subtitle` | string | Subtítulo de la página principal | `"// conversation archive"` |
 | `template.options.description` | string | Meta descripción del sitio | `"Mi archivo de conversaciones"` |
 | `template.options.footer` | string | Texto del pie de página (Markdown soportado) | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
-| `template.options.promo.enabled` | boolean | Mostrar un bloque promocional en la página principal para difundir openclaw-chats-share | `false` |
+| `template.options.promo.enabled` | boolean | Mostrar un bloque promocional en la página principal para difundir clawpage | `false` |
 
-**Ejemplo `chats-share.toml`:**
+**Ejemplo `clawpage.toml`:**
 
 ```toml
 site = "https://tu-usuario.github.io"
 base = "/tu-nombre-de-repo"
 
 [template.options]
-title = "chats-share"
+title = "clawpage"
 subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 
@@ -160,7 +160,7 @@ Los archivos de chat se almacenan como YAML bajo `chats/` en tu repo de trabajo.
 - `public` — aparece en el índice de la página principal
 - `private` (por defecto) — accesible solo vía URL directa, oculto del índice
 
-La clave `timeline:` contiene una lista ordenada de objetos de mensaje y eventos. Ver el schema completo en [docs/chats-share-data-format.md](/docs/chats-share-data-format.md).
+La clave `timeline:` contiene una lista ordenada de objetos de mensaje y eventos. Ver el schema completo en [docs/clawpage-data-format.md](/docs/clawpage-data-format.md).
 
 **Archivo de ejemplo:**
 
@@ -198,30 +198,30 @@ timeline:
 
 ## 📦 Paquetes
 
-### 📄 `openclaw-chats-share` (CLI)
+### 📄 `clawpage` (CLI)
 
 Analiza archivos JSONL crudos de OpenClaw `sessions/{uuid}.jsonl` y genera salida YAML.
 
 ```bash
-npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+npx clawpage parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-### 🌐 `openclaw-chats-share-web`
+### 🌐 `clawpage-web`
 
 Generador de sitios estáticos basado en Astro. Renderiza archivos YAML de chat en páginas compartibles.
 
 ```bash
-npx openclaw-chats-share-web dev     # servidor de desarrollo local
-npx openclaw-chats-share-web build   # construir sitio estático
-npx openclaw-chats-share-web preview # previsualizar sitio construido localmente
+npx clawpage-web dev     # servidor de desarrollo local
+npx clawpage-web build   # construir sitio estático
+npx clawpage-web preview # previsualizar sitio construido localmente
 ```
 
-### 🛠️ `create-openclaw-chats-share`
+### 🛠️ `create-clawpage`
 
 Herramienta de andamiaje para inicializar un nuevo repo de trabajo desde esta plantilla.
 
 ```bash
-npx create-openclaw-chats-share <project-name>
+npx create-clawpage <project-name>
 ```
 
 ## 🧑‍💻 Desarrollo
@@ -271,29 +271,29 @@ bun run version
 
 ```
 packages/
-  cli/     - CLI de openclaw-chats-share (parser de logs de sesión + generador YAML)
-  web/     - openclaw-chats-share-web (sitio estático Astro)
+  cli/     - CLI de clawpage (parser de logs de sesión + generador YAML)
+  web/     - clawpage-web (sitio estático Astro)
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
       pages/       - index.astro, share/[slug].astro
-  create/  - Herramienta de andamiaje create-openclaw-chats-share
+  create/  - Herramienta de andamiaje create-clawpage
 chats/     - Archivos YAML de chat de demostración
 docs/      - Documentación del proyecto
 skills/    - Definiciones de Skills de OpenClaw
 ```
 
-## 🌟 Sitios Usando openclaw-chats-share
+## 🌟 Sitios Usando clawpage
 
 Sitios construidos con esta herramienta:
 
 - [Yelo](https://vibe.yelo.cc)
-- Tu sitio aquí — Agrega el tuyo [enviando un PR](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md)!
+- Tu sitio aquí — Agrega el tuyo [enviando un PR](https://github.com/imyelo/clawpage/edit/main/README.md)!
 
 ## 📚 Recursos Adicionales
 
 - Ver [docs/guide/es/deployment.md](/docs/guide/es/deployment.md) para instrucciones de despliegue, configuración de dominio personalizado y límites del nivel gratuito de cada plataforma.
-- Ver [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) para campos frontmatter completos y formato de contenido.
+- Ver [docs/clawpage-data-format.md](/docs/clawpage-data-format.md) para campos frontmatter completos y formato de contenido.
 
 ## Licencia
 

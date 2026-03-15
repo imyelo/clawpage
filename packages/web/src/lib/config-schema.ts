@@ -21,7 +21,7 @@ const TemplateSchema = z.object({
   options: TemplateOptionsSchema.optional(),
 })
 
-export const ChatsShareConfigSchema = z.object({
+export const ClawpageConfigSchema = z.object({
   site: z.string().url().optional(),
   base: z.string().optional(),
   public_dir: z.string().optional(),
@@ -30,4 +30,4 @@ export const ChatsShareConfigSchema = z.object({
   template: TemplateSchema.optional(),
 })
 
-export type ChatsShareConfig = z.infer<typeof ChatsShareConfigSchema>
+export type ClawpageConfig = z.infer<typeof ClawpageConfigSchema>

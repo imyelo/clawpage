@@ -1,9 +1,9 @@
-# chats-share.toml
-# Configuration for openclaw-chats-share-web.
+# clawpage.toml
+# Configuration for clawpage-web.
 # Uncomment and edit the values below to customise the Astro build.
 #
 # For JS/TS-based config (e.g. to add Astro integrations), you can use
-# chats-share.ts instead of this file.
+# clawpage.ts instead of this file.
 
 # Full URL of your deployed site (used for canonical URLs, sitemaps, etc.)
 # site = "https://your-username.github.io"
@@ -26,7 +26,7 @@
 
 # Customize homepage and layout appearance.
 # [template.options]
-# title = "chats-share"
+# title = "clawpage"
 # subtitle = "// conversation archive"
 # description = "My conversation archive"
 # footer = "powered by [@imyelo](https://github.com/imyelo) &times; [@lambda610](https://github.com/lambda610)"

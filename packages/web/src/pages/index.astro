@@ -10,7 +10,7 @@ import '../styles/global.css';
 
 const chats = getChatsSortedByDate(await getPublicChats())
 const config = await getProjectConfig()
-const siteTitle = config.template?.options?.title || 'chats-share'
+const siteTitle = config.template?.options?.title || 'clawpage'
 const siteSubtitle = config.template?.options?.subtitle || '// openclaw conversation archive'
 const siteDescription = config.template?.options?.description || 'OpenClaw Chats Share - A place for sharing and exploring AI chat conversations.'
 const siteUrl = config.site?.replace(/\/$/, '') ?? ''

@@ -10,11 +10,11 @@
 
 ## First-Time Setup
 
-Run once to create a brand-new chats-share project.
+Run once to create a brand-new clawpage project.
 
 ### 1. Ask for a Repository Name
 
-Ask the user what to name their chats-share repository (e.g. `my-chats`). Use this name as `{repoName}` throughout the steps below.
+Ask the user what to name their clawpage repository (e.g. `my-chats`). Use this name as `{repoName}` throughout the steps below.
 
 ### 2. Create a Private GitHub Repository
 
@@ -31,10 +31,10 @@ Ask the user where they want the project stored locally. Use this as `{localDir}
 ### 4. Scaffold the Project
 
 ```bash
-npx create-openclaw-chats-share {repoName} --dir {localDir}
+npx create-clawpage {repoName} --dir {localDir}
 ```
 
-This scaffolds `chats-share.toml`, a `chats/` directory, deployment configuration for GitHub Pages, Netlify, Vercel, and Cloudflare Pages, and initializes a git repository with an initial commit.
+This scaffolds `clawpage.toml`, a `chats/` directory, deployment configuration for GitHub Pages, Netlify, Vercel, and Cloudflare Pages, and initializes a git repository with an initial commit.
 `{repoName}` is used as the project label in the initial commit message; `--dir` sets the exact output path regardless of whether it matches the repo name.
 
 ### 5. Choose a Deployment Platform
@@ -48,13 +48,13 @@ Ask the user which platform they want to deploy to:
 | **Vercel** | Yes | Hobby plan: personal non-commercial use only |
 | **Cloudflare Pages** | Yes | 500 builds/month |
 
-> If the user is on the free GitHub plan and their repo is private, GitHub Pages is not available. Recommend Netlify, Vercel, or Cloudflare Pages instead. Keeping the repo private is recommended best practice — see [how to protect sensitive info](https://chats-share.yelo.ooo/chats/how-to-protect-sensitive-info/).
+> If the user is on the free GitHub plan and their repo is private, GitHub Pages is not available. Recommend Netlify, Vercel, or Cloudflare Pages instead. Keeping the repo private is recommended best practice — see [how to protect sensitive info](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/).
 
 Use `{platform}` for the chosen value in the steps below.
 
 ### 6. Configure the Site URL
 
-Edit `{localDir}/chats-share.toml`.
+Edit `{localDir}/clawpage.toml`.
 
 **GitHub Pages:**
 
@@ -111,9 +111,9 @@ Deployment triggers automatically on every push to `main`. The site will be live
    - **Environment variable:** `BUN_VERSION = latest`
 3. Click **Save and Deploy**. The site will be live at `https://{project-name}.pages.dev`.
 
-For custom domain setup and free tier details, see the [deployment guide](https://github.com/imyelo/openclaw-chats-share/blob/main/docs/deployment.md).
+For custom domain setup and free tier details, see the [deployment guide](https://github.com/imyelo/clawpage/blob/main/docs/deployment.md).
 
-Once the first deployment completes, copy the assigned URL back into `chats-share.toml`:
+Once the first deployment completes, copy the assigned URL back into `clawpage.toml`:
 
 ```toml
 site = "https://{assigned-url}"
@@ -123,7 +123,7 @@ Then commit and push the update:
 
 ```bash
 cd {localDir}
-git add chats-share.toml
+git add clawpage.toml
 git commit -m "chore: set site URL"
 git push
 ```
@@ -136,11 +136,11 @@ git push
 
 ## Existing Repo, New Environment
 
-Use this when a chats-share repo already exists on GitHub but hasn't been registered on the current machine yet.
+Use this when a clawpage repo already exists on GitHub but hasn't been registered on the current machine yet.
 
 ### 1. Ask for the Repo
 
-Ask the user for their existing chats-share GitHub repo (e.g. `your-username/my-chats`) and where they'd like to clone it locally.
+Ask the user for their existing clawpage GitHub repo (e.g. `your-username/my-chats`) and where they'd like to clone it locally.
 
 ### 2. Clone the Repo
 
@@ -151,7 +151,7 @@ cd {localDir}
 
 ### 3. Verify Configuration
 
-Check that `chats-share.toml` already has `site` set. If it's missing or empty, ask the user for their deployed site URL and fill it in.
+Check that `clawpage.toml` already has `site` set. If it's missing or empty, ask the user for their deployed site URL and fill it in.
 
 ### 4. Register with Your Agent
 
@@ -168,4 +168,4 @@ Follow the **Registration** section in your agent profile:
 | OpenClaw | [platforms/openclaw.md](platforms/openclaw.md#registration) |
 | _(others)_ | [platforms/unknown.md](platforms/unknown.md#registration) — provide project path manually |
 
-Then confirm `{projectDir}/chats-share.toml` has `site` set and the agent profile lists the correct project path.
+Then confirm `{projectDir}/clawpage.toml` has `site` set and the agent profile lists the correct project path.

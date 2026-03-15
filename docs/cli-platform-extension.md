@@ -9,9 +9,9 @@ Only the `openclaw` platform is implemented. The extension point exists but is n
 ## CLI Usage
 
 ```bash
-openclaw-chats-share parse <file> [--platform <name>]
+clawpage parse <file> [--platform <name>]
 # or
-openclaw-chats-share parse <file> [-p <name>]
+clawpage parse <file> [-p <name>]
 ```
 
 The default is `openclaw`. Specifying an unknown platform name prints an error and exits:
@@ -42,7 +42,7 @@ Both `parse` and `parseFile` must return a `ParsedSession` (defined in `session-
 
 Reads Openclaw session JSONL files (`{id}.jsonl`). Key behaviours:
 
-- **Role mapping** — Openclaw roles (`user`/`assistant`) are mapped to the canonical chats-share roles (`human`/`agent`). `toolResult` is kept as-is.
+- **Role mapping** — Openclaw roles (`user`/`assistant`) are mapped to the canonical clawpage roles (`human`/`agent`). `toolResult` is kept as-is.
 - **External channel cleaning** — User messages may carry Discord / Telegram metadata prefixes injected by Openclaw's channel integrations. The parser strips these before writing the YAML.
 - **Exec result extraction** — `System: [...] Exec completed/failed (...)` lines are discarded from user message content.
 - **Thinking blocks** — Included by default (`includeThinking: true`). Can be suppressed via `ParserOptions`.

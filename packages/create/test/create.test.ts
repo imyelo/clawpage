@@ -49,7 +49,7 @@ async function runCreate(cwd: string, args: string[] = []) {
   return { exitCode, stderr }
 }
 
-describe('create-openclaw-chats-share', () => {
+describe('create-clawpage', () => {
   let tempDir: string
 
   beforeEach(() => {

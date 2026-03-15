@@ -18,7 +18,7 @@ bun run dev
 
 ## Deployment
 
-This project includes configuration files for all supported platforms. See the [deployment guide](https://github.com/imyelo/openclaw-chats-share/blob/main/docs/deployment.md) for step-by-step instructions.
+This project includes configuration files for all supported platforms. See the [deployment guide](https://github.com/imyelo/clawpage/blob/main/docs/deployment.md) for step-by-step instructions.
 
 | Platform | Config file | Notes |
 | --- | --- | --- |
@@ -29,10 +29,10 @@ This project includes configuration files for all supported platforms. See the [
 
 ## Configuration
 
-Edit `chats-share.toml` to customise the site URL, base path, and appearance (title, subtitle, footer, etc.).
+Edit `clawpage.toml` to customise the site URL, base path, and appearance (title, subtitle, footer, etc.).
 
-For a full list of options and advanced configuration (custom domain, external chats directory, etc.), see the [openclaw-chats-share documentation](https://github.com/imyelo/openclaw-chats-share#configuration).
+For a full list of options and advanced configuration (custom domain, external chats directory, etc.), see the [clawpage documentation](https://github.com/imyelo/clawpage#configuration).
 
 ---
 
-Powered by [openclaw-chats-share](https://github.com/imyelo/openclaw-chats-share).
+Powered by [clawpage](https://github.com/imyelo/clawpage).

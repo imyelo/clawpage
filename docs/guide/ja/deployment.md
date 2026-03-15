@@ -2,7 +2,7 @@
 
 scaffoldにはすべてのサポートプラットフォーム向けの設定ファイルが含まれています。ご利用のホスティングに合ったものを選び、以下の手順に従ってください。
 
-> **プライベートリポジトリに関する注意：** チャット内の機密情報を保護するために、リポジトリを**プライベート**に保つことをベストプラクティスとして推奨します — [機密情報の保護方法](https://chats-share.yelo.ooo/chats/how-to-protect-sensitive-info/)を参照してください。ただし、GitHub Pagesでプライベートリポジトリからデプロイするには**Proプラン以上**が必要です。リポジトリがプライベートでGitHub無料プランをご利用の場合は、Netlify、Vercel、またはCloudflare Pagesをご利用ください — 3つとも無料プランでプライベートリポジトリをサポートしています。
+> **プライベートリポジトリに関する注意：** チャット内の機密情報を保護するために、リポジトリを**プライベート**に保つことをベストプラクティスとして推奨します — [機密情報の保護方法](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/)を参照してください。ただし、GitHub Pagesでプライベートリポジトリからデプロイするには**Proプラン以上**が必要です。リポジトリがプライベートでGitHub無料プランをご利用の場合は、Netlify、Vercel、またはCloudflare Pagesをご利用ください — 3つとも無料プランでプライベートリポジトリをサポートしています。
 
 ---
 
@@ -19,7 +19,7 @@ scaffoldにはすべてのサポートプラットフォーム向けの設定フ
 3. **Source** を `Deploy from a branch`、ブランチ `gh-pages`、フォルダ `/ (root)` に設定します。
 4. `main` にコミットをプッシュします — ワークフローが自動実行され、サイトが `https://<ユーザー名>.github.io/<repo>/` で公開されます。
 
-**設定：** GitHub Pages URLに合わせて `chats-share.toml` に `site` と `base` を設定します：
+**設定：** GitHub Pages URLに合わせて `clawpage.toml` に `site` と `base` を設定します：
 
 ```toml
 site = "https://your-username.github.io"
@@ -33,7 +33,7 @@ base = "/your-repo-name"
 1. `public/` ディレクトリにドメインを記載した `CNAME` ファイルを追加します（例：`chats.example.com`）。
 2. DNSプロバイダーで、サブドメインを `<ユーザー名>.github.io` に向ける `CNAME` レコードを追加します。
 3. **Settings → Pages** でカスタムドメインを入力し、証明書が発行されたら **Enforce HTTPS** を有効化します。
-4. `chats-share.toml` から `base` を削除し、`site` をカスタムドメインに更新します。
+4. `clawpage.toml` から `base` を削除し、`site` をカスタムドメインに更新します。
 
 ---
 
@@ -57,7 +57,7 @@ base = "/your-repo-name"
 1. **Site settings → Domain management** で **Add a domain** をクリックし、ドメインを入力します。
 2. Netlifyの指示に従ってDNSレコードを更新します（ネームサーバーをNetlifyに向けるか、提供された `A`/`CNAME` レコードをDNSプロバイダーに追加します）。
 3. NetlifyがTLS証明書を自動で無料発行します。
-4. `chats-share.toml` の `site` をカスタムドメインに更新し、`base` が設定されていれば削除します。
+4. `clawpage.toml` の `site` をカスタムドメインに更新し、`base` が設定されていれば削除します。
 
 ---
 
@@ -87,7 +87,7 @@ npx vercel --prod
 1. **Project settings → Domains** で **Add** をクリックし、ドメインを入力します。
 2. Vercelの指示に従って、提供された `A` または `CNAME` レコードをDNSプロバイダーに追加します。
 3. VercelがTLS証明書を自動で無料発行します。
-4. `chats-share.toml` の `site` をカスタムドメインに更新し、`base` が設定されていれば削除します。
+4. `clawpage.toml` の `site` をカスタムドメインに更新し、`base` が設定されていれば削除します。
 
 ---
 
@@ -122,7 +122,7 @@ wrangler login
 
 # ビルドしてデプロイ
 bun run build
-wrangler pages deploy ./dist --project-name=chats-share
+wrangler pages deploy ./dist --project-name=clawpage
 ```
 
 初回実行時、WranglerがPagesプロジェクトを自動作成します。以降の実行では更新されます。
@@ -132,4 +132,4 @@ wrangler pages deploy ./dist --project-name=chats-share
 1. Pagesプロジェクトで **Custom domains → Set up a custom domain** に移動し、ドメインを入力します。
 2. ドメインがすでにCloudflareにある場合、DNSレコードは自動追加されます。それ以外の場合は、提供された `CNAME` レコードをDNSプロバイダーに追加します。
 3. CloudflareがTLS証明書を自動で無料発行します。
-4. `chats-share.toml` の `site` をカスタムドメインに更新し、`base` が設定されていれば削除します。
+4. `clawpage.toml` の `site` をカスタムドメインに更新し、`base` が設定されていれば削除します。

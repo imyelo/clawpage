@@ -10,22 +10,22 @@ This is a monorepo for Openclaw conversation sharing tools. It includes a CLI fo
 
 ```
 packages/
-  cli/           - openclaw-chats-share CLI package
+  cli/           - clawpage CLI package
     src/
       session-log-parser/  - Parse Openclaw session JSONL files ({id}.jsonl)
       format-constraint/   - Define and validate YAML output format constraints
       yaml-generator/      - Generate YAML files from parsed sessions
     test/                  - Bun tests for all three modules
-  web/           - openclaw-chats-share-web package (Astro-based)
+  web/           - clawpage-web package (Astro-based)
     src/
       pages/               - index.astro (chat index), share/[slug].astro (per-chat)
       components/          - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx (React), Footer.astro, MemoryBackground.astro
       layouts/             - ChatLayout.astro
       lib/chats.ts         - Reads chats/ from monorepo root (or chats_dir config)
-      lib/config-schema.ts - Zod schema for chats-share.toml (ChatsShareConfigSchema)
+      lib/config-schema.ts - Zod schema for clawpage.toml (ClawpageConfigSchema)
       lib/config.ts        - Runtime config loader with validation
       constants/index.ts   - Message type color/style maps
-  create/        - create-openclaw-chats-share scaffolding tool
+  create/        - create-clawpage scaffolding tool
     test/                  - Bun snapshot tests for scaffold output
 chats/           - Chat YAML files (read by web package at build time)
 skills/          - Openclaw skills
@@ -58,19 +58,19 @@ cd packages/create && bun test
 
 ## Packages
 
-### openclaw-chats-share (CLI)
+### clawpage (CLI)
 ```bash
-npx openclaw-chats-share parse <{id}.jsonl> [-o output.yaml]
+npx clawpage parse <{id}.jsonl> [-o output.yaml]
 ```
 
-### openclaw-chats-share-web
+### clawpage-web
 ```bash
-npx openclaw-chats-share-web dev|build|preview
+npx clawpage-web dev|build|preview
 ```
 
-### create-openclaw-chats-share
+### create-clawpage
 ```bash
-npx create-openclaw-chats-share <project-name>
+npx create-clawpage <project-name>
 ```
 
 ## Architecture
@@ -85,7 +85,7 @@ The CLI processes session data through three sequential stages:
 
 ### Web Data Flow
 
-At build time, `packages/web/src/lib/chats.ts` reads all `*.yaml` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `chats-share.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
+At build time, `packages/web/src/lib/chats.ts` reads all `*.yaml` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `clawpage.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
 
 Only chats with `visibility: public` (or no visibility field) are shown in the index. All slugs (including `private`) get individual pages and are accessible via direct URL.
 
@@ -108,12 +108,12 @@ Each timeline entry has a `type` field:
 
 UI panel colors by type: `thinking` / `thinking_level_change` (gray), `tool_call` with error (red), `session` (green), `model_change` / `compaction` / `custom` (indigo). Color/style maps live in `packages/web/src/constants/index.ts`.
 
-See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for the full schema and examples.
+See [docs/clawpage-data-format.md](/docs/clawpage-data-format.md) for the full schema and examples.
 
 ## Additional Resources
 
 - See [docs/openclaw-session-log-format-search.md](/docs/openclaw-session-log-format-search.md) for detailed event schemas.
-- See [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) for complete frontmatter fields and content format.
+- See [docs/clawpage-data-format.md](/docs/clawpage-data-format.md) for complete frontmatter fields and content format.
 - See [docs/cli-platform-extension.md](/docs/cli-platform-extension.md) for the `--platform` flag, the `Platform` interface, and how to add new platform parsers.
 
 ---

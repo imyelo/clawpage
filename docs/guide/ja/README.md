@@ -1,6 +1,6 @@
 # OpenClaw Chats Share
 
-> 📤 Openclaw チャットで `/chats-share` と入力してください。会話は自分の URL の恒久的なページになります。GitHub Pages、Vercel、Netlify、または Cloudflare Pages にデプロイされます。
+> 📤 Openclaw チャットで `/clawpage` と入力してください。会話は自分の URL の恒久的なページになります。GitHub Pages、Vercel、Netlify、または Cloudflare Pages にデプロイされます。
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [한국어](/docs/guide/ko/README.md)
 
@@ -8,7 +8,7 @@
 
 ## 📌 できること
 
-- ⚡ 任意のチャットで `/chats-share` → 数分であなたの URL にライブページが公開
+- ⚡ 任意のチャットで `/clawpage` → 数分であなたの URL にライブページが公開
 - 🚀 インフラ管理不要 — 純粋な静的サイト、GitHub Pages・Vercel・Netlify・Cloudflare Pages に無料デプロイ
 - 🔀 公開前にレビュー — チャットごとに PR が作成され、何を公開するかをコントロール
 - 🔒 プライベート共有 — 直接リンクで共有可能、公開インデックスにはデフォルトで表示されない
@@ -17,7 +17,7 @@
 
 ## ライブデモ 🚀
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 または、数週間運営中のサイトを確認してください — 私たちも自分たちで使っています：[vibe.yelo.cc](https://vibe.yelo.cc)
 
@@ -26,20 +26,20 @@
 これをagentチャットにコピー＆ペーストしてください：
 
 ```
-https://clawhub.ai/imyelo/chats-shareを読んでchats-share skillをインストールし、
+https://clawhub.ai/imyelo/clawpageを読んでclawpage skillをインストールし、
 その後初めての設定を実行してください。
 ```
 
 ## 🤖 Agentが設定中にやること
 
-agentは私有GitHubリポジトリをスキャフォールドし、Pages URLで`chats-share.toml`を設定し、初期コミットをプッシュし、GitHub ActionsをPagesソースとして有効化し、`/chats-share`がすぐに動作するようにプロジェクトを登録します。完全なステップバイステップは [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md) を参照してください。
+agentは私有GitHubリポジトリをスキャフォールドし、Pages URLで`clawpage.toml`を設定し、初期コミットをプッシュし、GitHub ActionsをPagesソースとして有効化し、`/clawpage`がすぐに動作するようにプロジェクトを登録します。完全なステップバイステップは [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md) を参照してください。
 
 ## 📤 チャットを共有する
 
-設定が完了したら、任意のOpenclawチャットで `/chats-share` skillコマンドを使用してエクスポートします：
+設定が完了したら、任意のOpenclawチャットで `/clawpage` skillコマンドを使用してエクスポートします：
 
 ```
-/chats-share
+/clawpage
 ```
 
 agentは以下を行います：
@@ -52,14 +52,14 @@ agentは以下を行います：
 
 PRをマージすると、チャットは `https://your-domain/chats/{slug}` で公開されます。
 
-> **⚠️ マージ前に確認：** AI による自動編集は100%確実ではありません。PR内の生成されたYAMLファイルを開き、見落とされた機密情報を手動で `[REDACTED]` に置き換えてください。詳細は [機密情報の保護方法](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info) をご覧ください。
+> **⚠️ マージ前に確認：** AI による自動編集は100%確実ではありません。PR内の生成されたYAMLファイルを開き、見落とされた機密情報を手動で `[REDACTED]` に置き換えてください。詳細は [機密情報の保護方法](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info) をご覧ください。
 
 > **💡 ヒント:** `visibility: private`（デフォルト）を設定すると、チャットは公開インデックスには表示されず、直接URLからのみアクセスできます。
 
 ## ⚙️ 仕組み
 
 ```
-/chats-share
+/clawpage
     │
     ▼
 🤖 OpenClaw Skill
@@ -84,12 +84,12 @@ PRをマージすると、チャットは `https://your-domain/chats/{slug}` で
 
 | リポジトリ | 公開設定 | 目的 |
 |------|------------|---------|
-| `openclaw-chats-share` | 公開 | テンプレート、パッケージ、Skill |
-| `your-chats-share` | 私有 | 実際のチャットデータ |
+| `clawpage` | 公開 | テンプレート、パッケージ、Skill |
+| `your-clawpage` | 私有 | 実際のチャットデータ |
 
 ## ⚡ 設定
 
-webパッケージはワークリポジトリルートにある`chats-share.toml`で設定されます。
+webパッケージはワークリポジトリルートにある`clawpage.toml`で設定されます。
 
 | キー | 型 | 説明 | 例 |
 |-----|------|-------------|---------|
@@ -98,21 +98,21 @@ webパッケージはワークリポジトリルートにある`chats-share.toml
 | `public_dir` | string | 静的アセットディレクトリ（設定ファイルからの相対パス） | `"public"` |
 | `out_dir` | string | ビルド出力ディレクトリ（設定ファイルからの相対パス） | `"dist"` |
 | `chats_dir` | string | カスタムチャットディレクトリパス（絶対パスまたは設定ファイルからの相対パス） | `"../my-chats"` |
-| `template.options.title` | string | ホームページタイトル | `"chats-share"` |
+| `template.options.title` | string | ホームページタイトル | `"clawpage"` |
 | `template.options.subtitle` | string | ホームページサブタイトル | `"// conversation archive"` |
 | `template.options.description` | string | サイトのmeta description | `"My conversation archive"` |
 | `template.options.footer` | string | フッターテキスト（Markdownサポート） | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
-| `template.options.promo.enabled` | boolean | ホームページにプロモーションブロックを表示して openclaw-chats-share を広める | `false` |
+| `template.options.promo.enabled` | boolean | ホームページにプロモーションブロックを表示して clawpage を広める | `false` |
 
-**例 `chats-share.toml`：**
+**例 `clawpage.toml`：**
 
 ```toml
 site = "https://your-username.github.io"
 base = "/your-repo-name"
 
 [template.options]
-title = "chats-share"
+title = "clawpage"
 subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 
@@ -160,7 +160,7 @@ scaffoldには以下のプラットフォーム向けの設定ファイルが含
 - `public` — ホームページのインデックスに表示
 - `private` (デフォルト) — 直接URLからのみアクセス可能、インデックスからは隠される
 
-`timeline:` キーはメッセージとイベントオブジェクトの順序付きリストを保持します。完全なスキーマは [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) を参照してください。
+`timeline:` キーはメッセージとイベントオブジェクトの順序付きリストを保持します。完全なスキーマは [docs/clawpage-data-format.md](/docs/clawpage-data-format.md) を参照してください。
 
 **例ファイル：**
 
@@ -198,30 +198,30 @@ timeline:
 
 ## 📦 パッケージ
 
-### 📄 `openclaw-chats-share` (CLI)
+### 📄 `clawpage` (CLI)
 
 OpenClaw `sessions/{uuid}.jsonl` 生JSONLファイルを解析し、YAML出力を生成します。
 
 ```bash
-npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+npx clawpage parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-### 🌐 `openclaw-chats-share-web`
+### 🌐 `clawpage-web`
 
 Astroベースの静的サイトジェネレーター。チャットYAMLファイルを共有可能なページにレンダリングします。
 
 ```bash
-npx openclaw-chats-share-web dev     # ローカル開発サーバー
-npx openclaw-chats-share-web build   # 静的サイトをビルド
-npx openclaw-chats-share-web preview # ローカルでビルド結果をプレビュー
+npx clawpage-web dev     # ローカル開発サーバー
+npx clawpage-web build   # 静的サイトをビルド
+npx clawpage-web preview # ローカルでビルド結果をプレビュー
 ```
 
-### 🛠️ `create-openclaw-chats-share`
+### 🛠️ `create-clawpage`
 
 このテンプレートから新しいワークリポジトリを初期化するスキャフォールディングツール。
 
 ```bash
-npx create-openclaw-chats-share <project-name>
+npx create-clawpage <project-name>
 ```
 
 ## 🧑‍💻 開発
@@ -271,29 +271,29 @@ bun run version
 
 ```
 packages/
-  cli/     - openclaw-chats-share CLI（セッションログ解析 + YAMLジェネレーター）
-  web/     - openclaw-chats-share-web（Astro静的サイト）
+  cli/     - clawpage CLI（セッションログ解析 + YAMLジェネレーター）
+  web/     - clawpage-web（Astro静的サイト）
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
       pages/       - index.astro, share/[slug].astro
-  create/  - create-openclaw-chats-share スキャフォールディングツール
+  create/  - create-clawpage スキャフォールディングツール
 chats/     - デモ用YAMLチャットファイル
 docs/      - プロジェクトドキュメント
 skills/    - OpenClaw Skill定義
 ```
 
-## 🌟 openclaw-chats-shareを使用したサイト
+## 🌟 clawpageを使用したサイト
 
 このツールで構築されたサイト：
 
 - [Yelo](https://vibe.yelo.cc)
-- あなたのサイト — [PRを提交](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md)して追加！
+- あなたのサイト — [PRを提交](https://github.com/imyelo/clawpage/edit/main/README.md)して追加！
 
 ## 📚 追加リソース
 
 - 各プラットフォームのデプロイ手順、カスタムドメイン設定、無料プランの制限については [docs/guide/ja/deployment.md](/docs/guide/ja/deployment.md) を参照してください。
-- 完全なfrontmatterフィールドとコンテンツ形式については [docs/chats-share-data-format.md](/docs/chats-share-data-format.md) を参照してください。
+- 完全なfrontmatterフィールドとコンテンツ形式については [docs/clawpage-data-format.md](/docs/clawpage-data-format.md) を参照してください。
 
 ## ライセンス
 

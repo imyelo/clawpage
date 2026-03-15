@@ -1,6 +1,6 @@
 # OpenClaw Chats Share
 
-> 📤 在任何 Openclaw 聊天中输入 `/chats-share`。你的对话将变成你专属 URL 上的永久页面。部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages。
+> 📤 在任何 Openclaw 聊天中输入 `/clawpage`。你的对话将变成你专属 URL 上的永久页面。部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages。
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
@@ -8,7 +8,7 @@
 
 ## 📌 你将获得什么
 
-- ⚡ 在任何聊天中输入 `/chats-share` → 几分钟内在你的 URL 上线
+- ⚡ 在任何聊天中输入 `/clawpage` → 几分钟内在你的 URL 上线
 - 🚀 无需管理基础设施 — 纯静态，免费部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages
 - 🔀 发布前先审查 — 每次聊天会开启一个 PR，让你掌控什么内容上线
 - 🔒 私密分享 — 直接链接可用，但聊天默认不出现在公开索引中
@@ -17,7 +17,7 @@
 
 ## 实时演示 🚀
 
-<a href="https://chats-share.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with openclaw-chats-share" width="640" /></a>
+<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 或者查看一个已经运行数周的站点 — 我们自己在用它：[vibe.yelo.cc](https://vibe.yelo.cc)
 
@@ -26,20 +26,20 @@
 复制粘贴到你的 agent 对话中：
 
 ```
-阅读 https://clawhub.ai/imyelo/chats-share 并安装 chats-share skill，
+阅读 https://clawhub.ai/imyelo/clawpage 并安装 clawpage skill，
 然后帮我运行首次设置。
 ```
 
 ## 🤖 Agent 在设置期间做什么
 
-Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `chats-share.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/chats-share` 立即可用。完整步骤详见 [skills/chats-share/references/setup.md](../../../skills/chats-share/references/setup.md)。
+Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `clawpage.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/clawpage` 立即可用。完整步骤详见 [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md)。
 
 ## 📤 分享聊天
 
-设置完成后，在任何 Openclaw 聊天中使用 `/chats-share` skill 命令来导出：
+设置完成后，在任何 Openclaw 聊天中使用 `/clawpage` skill 命令来导出：
 
 ```
-/chats-share
+/clawpage
 ```
 
 Agent 将：
@@ -52,14 +52,14 @@ Agent 将：
 
 PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
 
-> **⚠️ 合并前请注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中打开生成的 YAML 文件，手动将任何遗漏的敏感内容替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://chats-share.yelo.ooo/share/how-to-protect-sensitive-info)。
+> **⚠️ 合并前请注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中打开生成的 YAML 文件，手动将任何遗漏的敏感内容替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info)。
 
 > **💡 提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
 
 ## ⚙️ 工作原理
 
 ```
-/chats-share
+/clawpage
     │
     ▼
 🤖 OpenClaw Skill
@@ -84,12 +84,12 @@ PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
 
 | 仓库 | 可见性 | 用途 |
 |------|--------|------|
-| `openclaw-chats-share` | 公共 | 模板、packages 和 Skill |
-| `your-chats-share` | 私有 | 你实际的聊天数据 |
+| `clawpage` | 公共 | 模板、packages 和 Skill |
+| `your-clawpage` | 私有 | 你实际的聊天数据 |
 
 ## ⚡ 配置
 
-Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
+Web 包通过工作仓库根目录的 `clawpage.toml` 进行配置。
 
 | 键 | 类型 | 描述 | 示例 |
 |-----|------|------|------|
@@ -98,21 +98,21 @@ Web 包通过工作仓库根目录的 `chats-share.toml` 进行配置。
 | `public_dir` | string | 静态资源目录（相对于配置文件） | `"public"` |
 | `out_dir` | string | 构建输出目录（相对于配置文件） | `"dist"` |
 | `chats_dir` | string | 自定义聊天目录路径（绝对或相对于配置文件） | `"../my-chats"` |
-| `template.options.title` | string | 首页标题 | `"chats-share"` |
+| `template.options.title` | string | 首页标题 | `"clawpage"` |
 | `template.options.subtitle` | string | 首页副标题 | `"// conversation archive"` |
 | `template.options.description` | string | 站点 meta 描述 | `"My conversation archive"` |
 | `template.options.footer` | string | 页脚文本（支持 Markdown） | `` |
 | `template.options.analytics.google_analytics_id` | string | Google Analytics 4 Measurement ID | `"G-XXXXXXXXXX"` |
-| `template.options.promo.enabled` | boolean | 在首页显示推广区块，帮助传播 openclaw-chats-share | `false` |
+| `template.options.promo.enabled` | boolean | 在首页显示推广区块，帮助传播 clawpage | `false` |
 
-**示例 `chats-share.toml`：**
+**示例 `clawpage.toml`：**
 
 ```toml
 site = "https://your-username.github.io"
 base = "/your-repo-name"
 
 [template.options]
-title = "chats-share"
+title = "clawpage"
 subtitle = "// conversation archive"
 footer = "powered by [@imyelo](https://github.com/imyelo)"
 
@@ -160,7 +160,7 @@ enabled = true
 - `public` — 出现在首页索引中
 - `private`（默认）— 仅可通过直接 URL 访问，索引中隐藏
 
-`timeline:` 键保存消息和事件对象的有序列表。完整 schema 详见 [docs/chats-share-data-format.md](/docs/chats-share-data-format.md)。
+`timeline:` 键保存消息和事件对象的有序列表。完整 schema 详见 [docs/clawpage-data-format.md](/docs/clawpage-data-format.md)。
 
 **示例文件：**
 
@@ -198,30 +198,30 @@ timeline:
 
 ## 📦 Packages
 
-### 📄 `openclaw-chats-share` (CLI)
+### 📄 `clawpage` (CLI)
 
 解析 OpenClaw `sessions/{uuid}.jsonl` 原始 JSONL 文件并生成 YAML 输出。
 
 ```bash
-npx openclaw-chats-share parse <sessions/{uuid}.jsonl> [-o output.yaml]
+npx clawpage parse <sessions/{uuid}.jsonl> [-o output.yaml]
 ```
 
-### 🌐 `openclaw-chats-share-web`
+### 🌐 `clawpage-web`
 
 基于 Astro 的静态网站生成器。将聊天 YAML 文件渲染为可分享的页面。
 
 ```bash
-npx openclaw-chats-share-web dev     # 本地开发服务器
-npx openclaw-chats-share-web build   # 构建静态网站
-npx openclaw-chats-share-web preview # 本地预览构建结果
+npx clawpage-web dev     # 本地开发服务器
+npx clawpage-web build   # 构建静态网站
+npx clawpage-web preview # 本地预览构建结果
 ```
 
-### 🛠️ `create-openclaw-chats-share`
+### 🛠️ `create-clawpage`
 
 脚手架工具从此模板初始化新的工作仓库。
 
 ```bash
-npx create-openclaw-chats-share <project-name>
+npx create-clawpage <project-name>
 ```
 
 ## 🧑‍💻 开发
@@ -271,29 +271,29 @@ bun run version
 
 ```
 packages/
-  cli/     - openclaw-chats-share CLI（会话日志解析器 + YAML 生成器）
-  web/     - openclaw-chats-share-web（Astro 静态站点）
+  cli/     - clawpage CLI（会话日志解析器 + YAML 生成器）
+  web/     - clawpage-web（Astro 静态站点）
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
       pages/       - index.astro, share/[slug].astro
-  create/  - create-openclaw-chats-share 脚手架工具
+  create/  - create-clawpage 脚手架工具
 chats/     - 演示用 YAML 聊天文件
 docs/      - 项目文档
 skills/    - OpenClaw Skill 定义
 ```
 
-## 🌟 使用 openclaw-chats-share 的站点
+## 🌟 使用 clawpage 的站点
 
 使用此工具构建的站点：
 
 - [Yelo](https://vibe.yelo.cc)
-- 你的站点 — 通过 [提交 PR](https://github.com/imyelo/openclaw-chats-share/edit/main/README.md) 添加！
+- 你的站点 — 通过 [提交 PR](https://github.com/imyelo/clawpage/edit/main/README.md) 添加！
 
 ## 📚 更多资源
 
 - 各平台的部署说明、自定义域名配置和免费层限制，请参阅 [docs/guide/zh/deployment.md](/docs/guide/zh/deployment.md)。
-- 完整的 frontmatter 字段和内容格式请参阅 [docs/chats-share-data-format.md](/docs/chats-share-data-format.md)。
+- 完整的 frontmatter 字段和内容格式请参阅 [docs/clawpage-data-format.md](/docs/clawpage-data-format.md)。
 
 ## 许可证
 

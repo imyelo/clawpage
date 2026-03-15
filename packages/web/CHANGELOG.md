@@ -1,4 +1,4 @@
-# openclaw-chats-share-web
+# clawpage-web
 
 ## 0.8.0
 
@@ -32,7 +32,7 @@
 
 - Add configurable subtitle to page titles and meta tags
 
-  - Add `subtitle` option to `chats-share.toml` template options
+  - Add `subtitle` option to `clawpage.toml` template options
   - Subtitle appears in page titles and meta descriptions
   - Also pins Astro dependency to 5.18.0 for stability
 
@@ -99,7 +99,7 @@
 
 - b174aed: Add web configuration enhancements and new UI components
 
-  - Add Zod config schema with validation for chats-share.toml
+  - Add Zod config schema with validation for clawpage.toml
   - Add customizable footer component support
   - Add memory background effect for chat pages
   - Add custom chats directory support with external file watching
@@ -110,7 +110,7 @@
 
 ### Minor Changes
 
-- 86144f9: Initial release of openclaw-chats-share monorepo
+- 86144f9: Initial release of clawpage monorepo
 
   - CLI tool for parsing Openclaw session logs to markdown
   - Astro-based web package for sharing conversations

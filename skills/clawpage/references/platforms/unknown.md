@@ -6,8 +6,8 @@ It provides a generic skill-based conversion approach using the Skill's own read
 ## Config Lookup
 
 No automated config lookup is available for unknown platforms. Ask the user:
-1. The absolute path to the chats-share project directory
-2. The site URL (usually found in `{projectDir}/chats-share.toml`)
+1. The absolute path to the clawpage project directory
+2. The site URL (usually found in `{projectDir}/clawpage.toml`)
 
 ## Session Discovery
 
@@ -64,5 +64,5 @@ No registration mechanism is defined for unknown platforms. The user should prov
 
 ## Conversion
 
-Convert extracted events and messages to chats-share YAML format.
+Convert extracted events and messages to clawpage YAML format.
 See [output-template.md](../output-template.md) for the full schema and example.

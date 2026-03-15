@@ -2,7 +2,7 @@
 
 脚手架已包含所有支持平台的配置文件。选择与你的托管服务匹配的平台，按照以下步骤操作。
 
-> **关于私有仓库的说明：** 我们建议将仓库设为**私有**，以保护聊天中的敏感信息 — 参阅[如何保护敏感信息](https://chats-share.yelo.ooo/chats/how-to-protect-sensitive-info/)。但是，GitHub Pages 从私有仓库部署需要 **Pro 计划或更高版本**。如果你的仓库是私有的且使用 GitHub 免费计划，请改用 Netlify、Vercel 或 Cloudflare Pages — 三者均在免费层支持私有仓库。
+> **关于私有仓库的说明：** 我们建议将仓库设为**私有**，以保护聊天中的敏感信息 — 参阅[如何保护敏感信息](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/)。但是，GitHub Pages 从私有仓库部署需要 **Pro 计划或更高版本**。如果你的仓库是私有的且使用 GitHub 免费计划，请改用 Netlify、Vercel 或 Cloudflare Pages — 三者均在免费层支持私有仓库。
 
 ---
 
@@ -19,7 +19,7 @@
 3. 将 **Source** 设置为 `Deploy from a branch`，分支选 `gh-pages`，文件夹选 `/ (root)`。
 4. 推送一个 commit 到 `main` — 工作流自动运行，站点将在 `https://<用户名>.github.io/<repo>/` 上线。
 
-**配置：** 在 `chats-share.toml` 中设置 `site` 和 `base` 以匹配你的 GitHub Pages URL：
+**配置：** 在 `clawpage.toml` 中设置 `site` 和 `base` 以匹配你的 GitHub Pages URL：
 
 ```toml
 site = "https://your-username.github.io"
@@ -33,7 +33,7 @@ base = "/your-repo-name"
 1. 在 `public/` 目录中添加包含你域名的 `CNAME` 文件（例如 `chats.example.com`）。
 2. 在 DNS 提供商处，添加一条 `CNAME` 记录将你的子域名指向 `<用户名>.github.io`。
 3. 在 **Settings → Pages** 中填写自定义域名，证书签发后启用 **Enforce HTTPS**。
-4. 从 `chats-share.toml` 中删除 `base`，并将 `site` 更新为你的自定义域名。
+4. 从 `clawpage.toml` 中删除 `base`，并将 `site` 更新为你的自定义域名。
 
 ---
 
@@ -57,7 +57,7 @@ base = "/your-repo-name"
 1. 在 **Site settings → Domain management** 点击 **Add a domain** 并填写域名。
 2. 按照 Netlify 的指示更新 DNS 记录（将 nameserver 指向 Netlify，或在 DNS 提供商处添加提供的 `A`/`CNAME` 记录）。
 3. Netlify 自动签发免费 TLS 证书。
-4. 将 `chats-share.toml` 中的 `site` 更新为自定义域名，并删除 `base`（如已设置）。
+4. 将 `clawpage.toml` 中的 `site` 更新为自定义域名，并删除 `base`（如已设置）。
 
 ---
 
@@ -87,7 +87,7 @@ npx vercel --prod
 1. 在 **Project settings → Domains** 点击 **Add** 并填写域名。
 2. 按照 Vercel 的指示在 DNS 提供商处添加提供的 `A` 或 `CNAME` 记录。
 3. Vercel 自动签发免费 TLS 证书。
-4. 将 `chats-share.toml` 中的 `site` 更新为自定义域名，并删除 `base`（如已设置）。
+4. 将 `clawpage.toml` 中的 `site` 更新为自定义域名，并删除 `base`（如已设置）。
 
 ---
 
@@ -122,7 +122,7 @@ wrangler login
 
 # 构建并部署
 bun run build
-wrangler pages deploy ./dist --project-name=chats-share
+wrangler pages deploy ./dist --project-name=clawpage
 ```
 
 首次运行时，Wrangler 会自动创建 Pages 项目。后续运行将更新该项目。
@@ -132,4 +132,4 @@ wrangler pages deploy ./dist --project-name=chats-share
 1. 在你的 Pages 项目中，前往 **Custom domains → Set up a custom domain** 并填写域名。
 2. 如果域名已在 Cloudflare 上，DNS 记录会自动添加。否则，在 DNS 提供商处添加提供的 `CNAME` 记录。
 3. Cloudflare 自动签发免费 TLS 证书。
-4. 将 `chats-share.toml` 中的 `site` 更新为自定义域名，并删除 `base`（如已设置）。
+4. 将 `clawpage.toml` 中的 `site` 更新为自定义域名，并删除 `base`（如已设置）。

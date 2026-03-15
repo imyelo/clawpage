@@ -1,9 +1,9 @@
 {
-  "name": "openclaw-chats-share",
+  "name": "clawpage",
   "version": "0.4.0",
   "type": "module",
   "bin": {
-    "openclaw-chats-share": "bin/cli.js"
+    "clawpage": "bin/cli.js"
   },
   "main": "./dist/index.js",
   "exports": {

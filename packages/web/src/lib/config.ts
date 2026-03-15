@@ -1,20 +1,20 @@
 import { loadConfig } from 'c12'
-import { type ChatsShareConfig, ChatsShareConfigSchema } from './config-schema'
+import { type ClawpageConfig, ClawpageConfigSchema } from './config-schema'
 
-let _configCache: ChatsShareConfig | null = null
+let _configCache: ClawpageConfig | null = null
 
-export async function getProjectConfig(): Promise<ChatsShareConfig> {
+export async function getProjectConfig(): Promise<ClawpageConfig> {
   if (_configCache) {
     return _configCache
   }
 
-  const { config } = await loadConfig<ChatsShareConfig>({
-    name: 'chats-share',
-    configFile: 'chats-share',
+  const { config } = await loadConfig<ClawpageConfig>({
+    name: 'clawpage',
+    configFile: 'clawpage',
     cwd: getWorkingDir(),
   })
 
-  const parsed = ChatsShareConfigSchema.safeParse(config)
+  const parsed = ClawpageConfigSchema.safeParse(config)
   if (!parsed.success) {
     console.warn('Invalid config:', parsed.error.flatten())
     _configCache = {}

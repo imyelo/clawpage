@@ -2,11 +2,11 @@
   "name": "my-chats-project",
   "private": true,
   "scripts": {
-    "dev": "openclaw-chats-share-web dev",
-    "build": "rimraf ./dist && openclaw-chats-share-web build"
+    "dev": "clawpage-web dev",
+    "build": "rimraf ./dist && clawpage-web build"
   },
   "dependencies": {
-    "openclaw-chats-share-web": "latest"
+    "clawpage-web": "latest"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.4",

@@ -7,13 +7,13 @@ Copy this file to `references/platforms/{agent-name}.md` and fill in each sectio
 
 ## Config Lookup
 
-Describe how to find the registered chats-share project directory for this agent.
+Describe how to find the registered clawpage project directory for this agent.
 
 - Where does this agent store tool/project registrations? (e.g., a config file, workspace file, env var)
 - What key or section to look up?
 - What to do if not found → link to [First-Time Setup](../setup.md)
 
-Also describe where to find the `site` URL (usually `{projectDir}/chats-share.toml`).
+Also describe where to find the `site` URL (usually `{projectDir}/clawpage.toml`).
 
 ## Session Discovery
 
@@ -64,13 +64,13 @@ If this agent injects channel-specific metadata (Discord, Telegram, etc.) into m
 
 ## Registration
 
-Describe how the user registers a chats-share project with this agent so that Config Lookup can find it.
+Describe how the user registers a clawpage project with this agent so that Config Lookup can find it.
 
 Include the exact command or file edit needed.
 
 ## Conversion
 
-Describe how to convert the session to chats-share YAML for this platform.
+Describe how to convert the session to clawpage YAML for this platform.
 
 If a CLI tool handles it, show the exact command.
 If the Skill does it manually, describe the extraction steps and reference [output-template.md](../output-template.md) for the output schema.

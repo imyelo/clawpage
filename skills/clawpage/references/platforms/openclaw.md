@@ -3,13 +3,13 @@
 ## Config Lookup
 
 Read project dir from `~/.openclaw/workspace/TOOLS.md`:
-1. Find the `## chats-share` section
+1. Find the `## clawpage` section
 2. Extract the `- Project: {path}` value
 
 If not found → [First-Time Setup](../setup.md)
 If not found → [First-Time Setup](../setup.md) — suggested default for `{localDir}`: `~/.openclaw/workspace/{repoName}`
 
-Also read `site` URL from `{projectDir}/chats-share.toml`.
+Also read `site` URL from `{projectDir}/clawpage.toml`.
 
 ## Session Discovery
 
@@ -44,7 +44,7 @@ Full schemas: `docs/openclaw-session-log-format-search.md`
 Append to `~/.openclaw/workspace/TOOLS.md`:
 
 ```bash
-echo -e "\n## chats-share\n\n- Project: {absolute-path-to-project}\n" >> ~/.openclaw/workspace/TOOLS.md
+echo -e "\n## clawpage\n\n- Project: {absolute-path-to-project}\n" >> ~/.openclaw/workspace/TOOLS.md
 ```
 
 This entry is what Config Lookup reads (see above).
@@ -83,23 +83,23 @@ Available process types for `--include-process` / `--exclude-process`:
 ### Step 2 — Run the CLI
 
 ```bash
-npx openclaw-chats-share parse {sessionPath} -o {projectDir}/chats/.tmp/{timestamp}.yaml [--include-process=<types> | --exclude-process=<types>]
+npx clawpage parse {sessionPath} -o {projectDir}/chats/.tmp/{timestamp}.yaml [--include-process=<types> | --exclude-process=<types>]
 ```
 
 Examples:
 
 ```bash
 # Everything (default — no filter flag needed)
-npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml
+npx clawpage parse {id}.jsonl -o chats/.tmp/1234.yaml
 
 # Messages only
-npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml --exclude-process=all
+npx clawpage parse {id}.jsonl -o chats/.tmp/1234.yaml --exclude-process=all
 
 # Messages + thinking only
-npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml --include-process=thinking
+npx clawpage parse {id}.jsonl -o chats/.tmp/1234.yaml --include-process=thinking
 
 # Messages + thinking + tool calls (without results)
-npx openclaw-chats-share parse {id}.jsonl -o chats/.tmp/1234.yaml --include-process=thinking,toolcalls
+npx clawpage parse {id}.jsonl -o chats/.tmp/1234.yaml --include-process=thinking,toolcalls
 ```
 
 The CLI handles format conversion, metadata extraction, and timeline building — including large files.

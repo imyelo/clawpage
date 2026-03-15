@@ -4,7 +4,7 @@ import { buildSvgBase, escapeXml, SVG_THEME } from '../lib/svg-utils.js'
 
 export const GET: APIRoute = async () => {
   const config = await getProjectConfig()
-  const siteTitle = config.template?.options?.title || 'chats-share'
+  const siteTitle = config.template?.options?.title || 'clawpage'
   const siteSubtitle = config.template?.options?.subtitle || '// openclaw conversation archive'
 
   return new Response(buildSiteCover(siteTitle, siteSubtitle), {

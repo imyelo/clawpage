@@ -2,9 +2,9 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "openclaw-chats-share-demo",
+      "name": "clawpage-demo",
       "dependencies": {
-        "openclaw-chats-share-web": "workspace:*",
+        "clawpage-web": "workspace:*",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.4.4",
@@ -17,10 +17,10 @@
       },
     },
     "packages/cli": {
-      "name": "openclaw-chats-share",
+      "name": "clawpage",
       "version": "0.4.0",
       "bin": {
-        "openclaw-chats-share": "bin/cli.js",
+        "clawpage": "bin/cli.js",
       },
       "dependencies": {
         "cac": "^6.7.14",
@@ -33,17 +33,17 @@
       },
     },
     "packages/create": {
-      "name": "create-openclaw-chats-share",
-      "version": "0.3.0",
+      "name": "create-clawpage",
+      "version": "0.5.0",
       "bin": {
-        "create-openclaw-chats-share": "./bin/create.js",
+        "create-clawpage": "bin/create.js",
       },
     },
     "packages/web": {
-      "name": "openclaw-chats-share-web",
-      "version": "0.7.0",
+      "name": "clawpage-web",
+      "version": "0.8.0",
       "bin": {
-        "openclaw-chats-share-web": "bin/web.js",
+        "clawpage-web": "bin/web.js",
       },
       "dependencies": {
         "@astrojs/check": "^0.9.6",
@@ -552,6 +552,10 @@
 
     "clawhub": ["clawhub@0.7.0", "", { "dependencies": { "@clack/prompts": "^0.11.0", "arktype": "^2.1.29", "commander": "^14.0.2", "fflate": "^0.8.2", "ignore": "^7.0.5", "json5": "^2.2.3", "mime": "^4.1.0", "ora": "^9.0.0", "p-retry": "^7.1.1", "semver": "^7.7.3", "undici": "^7.16.0" }, "bin": { "clawhub": "bin/clawdhub.js", "clawdhub": "bin/clawdhub.js" } }, "sha512-volW6SbX8PawlnRxxCoUTKv5Pi+N3MrBi3hlO5/m9bVaO43UFciEeYti9+01c2U5n/SKhUkw7ASvnleyNmcoSA=="],
 
+    "clawpage": ["clawpage@workspace:packages/cli"],
+
+    "clawpage-web": ["clawpage-web@workspace:packages/web"],
+
     "cli-boxes": ["cli-boxes@3.0.0", "", {}, "sha512-/lzGpEWL/8PfI0BmBOPRwp0c/wFNX1RdUML3jK/RcSBA9T8mZDdQpqYBKtCFTOfQbwPqWEOpjqW+Fnayc0969g=="],
 
     "cli-cursor": ["cli-cursor@5.0.0", "", { "dependencies": { "restore-cursor": "^5.0.0" } }, "sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw=="],
@@ -582,7 +586,7 @@
 
     "cookie-es": ["cookie-es@1.2.2", "", {}, "sha512-+W7VmiVINB+ywl1HGXJXmrqkOhpKrIiVZV6tQuV54ZyQC7MMuBt81Vc336GMLoHBq5hV/F9eXgt5Mnx0Rha5Fg=="],
 
-    "create-openclaw-chats-share": ["create-openclaw-chats-share@workspace:packages/create"],
+    "create-clawpage": ["create-clawpage@workspace:packages/create"],
 
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 
@@ -979,10 +983,6 @@
     "oniguruma-parser": ["oniguruma-parser@0.12.1", "", {}, "sha512-8Unqkvk1RYc6yq2WBYRj4hdnsAxVze8i7iPfQr8e4uSP3tRv0rpZcbGUDvxfQQcdwHt/e9PrMvGCsa8OqG9X3w=="],
 
     "oniguruma-to-es": ["oniguruma-to-es@4.3.4", "", { "dependencies": { "oniguruma-parser": "^0.12.1", "regex": "^6.0.1", "regex-recursion": "^6.0.2" } }, "sha512-3VhUGN3w2eYxnTzHn+ikMI+fp/96KoRSVK9/kMTcFqj1NRDh2IhQCKvYxDnWePKRXY/AqH+Fuiyb7VHSzBjHfA=="],
-
-    "openclaw-chats-share": ["openclaw-chats-share@workspace:packages/cli"],
-
-    "openclaw-chats-share-web": ["openclaw-chats-share-web@workspace:packages/web"],
 
     "ora": ["ora@9.3.0", "", { "dependencies": { "chalk": "^5.6.2", "cli-cursor": "^5.0.0", "cli-spinners": "^3.2.0", "is-interactive": "^2.0.0", "is-unicode-supported": "^2.1.0", "log-symbols": "^7.0.1", "stdin-discarder": "^0.3.1", "string-width": "^8.1.0" } }, "sha512-lBX72MWFduWEf7v7uWf5DHp9Jn5BI8bNPGuFgtXMmr2uDz2Gz2749y3am3agSDdkhHPHYmmxEGSKH85ZLGzgXw=="],
 

@@ -35,7 +35,7 @@ const includeProcess = values['include-process'] ? values['include-process'].spl
 
 if (command === 'parse') {
   if (!inputPath) {
-    console.error('Usage: openclaw-chats-share parse <{id}.jsonl> [-o output.yaml] [--platform <name>]')
+    console.error('Usage: clawpage parse <{id}.jsonl> [-o output.yaml] [--platform <name>]')
     process.exit(1)
   }
 

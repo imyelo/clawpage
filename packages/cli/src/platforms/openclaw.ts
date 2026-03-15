@@ -177,7 +177,7 @@ export class OpenClawParser implements Platform {
       return { message: null, execResults: [] }
     }
 
-    // Convert Openclaw session role ('user'/'assistant') to chats-share role ('human'/'agent')
+    // Convert Openclaw session role ('user'/'assistant') to clawpage role ('human'/'agent')
     const roleMap: Record<'user' | 'assistant' | 'toolResult', 'human' | 'agent' | 'toolResult'> = {
       user: 'human',
       assistant: 'agent',

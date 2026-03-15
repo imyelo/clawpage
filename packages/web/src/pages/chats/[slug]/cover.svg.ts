@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 export const GET: APIRoute = async ({ props }) => {
   const { chat } = props as { chat: ChatWithContent }
   const config = await getProjectConfig()
-  const siteTitle = config.template?.options?.title || 'chats-share'
+  const siteTitle = config.template?.options?.title || 'clawpage'
 
   return new Response(buildTextCard(chat, siteTitle), {
     headers: { 'Content-Type': 'image/svg+xml' },

@@ -1,5 +1,5 @@
 /**
- * chats-share core library
+ * clawpage core library
  */
 
 export * from './chats.js'

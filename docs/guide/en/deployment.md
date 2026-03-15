@@ -2,7 +2,7 @@
 
 The scaffold includes configuration files for all supported platforms. Pick the one that matches your host and follow the steps below.
 
-> **Note on private repositories:** We recommend keeping your repository **private** as a best practice to protect sensitive information in your chats — see [how to protect sensitive info](https://chats-share.yelo.ooo/chats/how-to-protect-sensitive-info/). However, GitHub Pages requires a **Pro plan or higher** to deploy from a private repository. If your repository is private and you are on the free GitHub plan, use Netlify, Vercel, or Cloudflare Pages instead — all three support private repositories on their free tiers.
+> **Note on private repositories:** We recommend keeping your repository **private** as a best practice to protect sensitive information in your chats — see [how to protect sensitive info](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/). However, GitHub Pages requires a **Pro plan or higher** to deploy from a private repository. If your repository is private and you are on the free GitHub plan, use Netlify, Vercel, or Cloudflare Pages instead — all three support private repositories on their free tiers.
 
 ---
 
@@ -19,7 +19,7 @@ Uses the included `.github/workflows/deploy.yml`, which builds the site on every
 3. Set **Source** to `Deploy from a branch`, branch `gh-pages`, folder `/ (root)`.
 4. Push a commit to `main` — the workflow runs automatically and your site will be live at `https://<user>.github.io/<repo>/`.
 
-**Configuration:** Set `site` and `base` in `chats-share.toml` to match your GitHub Pages URL:
+**Configuration:** Set `site` and `base` in `clawpage.toml` to match your GitHub Pages URL:
 
 ```toml
 site = "https://your-username.github.io"
@@ -33,7 +33,7 @@ For a user/organisation site (`<user>.github.io`) or when using a custom domain,
 1. Add a `CNAME` file to your `public/` directory containing your domain (e.g. `chats.example.com`).
 2. In your DNS provider, add a `CNAME` record pointing your subdomain to `<user>.github.io`.
 3. In **Settings → Pages**, enter your custom domain and enable **Enforce HTTPS** once the certificate is provisioned.
-4. Remove `base` from `chats-share.toml` and update `site` to your custom domain.
+4. Remove `base` from `clawpage.toml` and update `site` to your custom domain.
 
 ---
 
@@ -57,7 +57,7 @@ Your site is live at `https://<site-name>.netlify.app`.
 1. In **Site settings → Domain management**, click **Add a domain** and enter your domain.
 2. Follow Netlify's instructions to update your DNS records (either point your nameservers to Netlify, or add the provided `A`/`CNAME` records at your DNS provider).
 3. Netlify provisions a free TLS certificate automatically.
-4. Update `site` in `chats-share.toml` to your custom domain and remove `base` if set.
+4. Update `site` in `clawpage.toml` to your custom domain and remove `base` if set.
 
 ---
 
@@ -87,7 +87,7 @@ npx vercel --prod
 1. In **Project settings → Domains**, click **Add** and enter your domain.
 2. Follow Vercel's instructions to add the provided `A` or `CNAME` record at your DNS provider.
 3. Vercel provisions a free TLS certificate automatically.
-4. Update `site` in `chats-share.toml` to your custom domain and remove `base` if set.
+4. Update `site` in `clawpage.toml` to your custom domain and remove `base` if set.
 
 ---
 
@@ -122,7 +122,7 @@ wrangler login
 
 # Build and deploy
 bun run build
-wrangler pages deploy ./dist --project-name=chats-share
+wrangler pages deploy ./dist --project-name=clawpage
 ```
 
 On first run, Wrangler creates the Pages project automatically. Subsequent runs update it.
@@ -132,4 +132,4 @@ On first run, Wrangler creates the Pages project automatically. Subsequent runs 
 1. In your Pages project, go to **Custom domains → Set up a custom domain** and enter your domain.
 2. If your domain is already on Cloudflare, the DNS record is added automatically. Otherwise, add the provided `CNAME` record at your DNS provider.
 3. Cloudflare provisions a free TLS certificate automatically.
-4. Update `site` in `chats-share.toml` to your custom domain and remove `base` if set.
+4. Update `site` in `clawpage.toml` to your custom domain and remove `base` if set.

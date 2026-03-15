@@ -1,9 +1,9 @@
 {
-  "name": "openclaw-chats-share-web",
+  "name": "clawpage-web",
   "version": "0.8.0",
   "type": "module",
   "bin": {
-    "openclaw-chats-share-web": "bin/web.js"
+    "clawpage-web": "bin/web.js"
   },
   "files": [
     "bin",

@@ -7,7 +7,7 @@ import { createDefu } from 'defu';
 import { join, resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import { searchForWorkspaceRoot } from 'vite';
-import { ChatsShareConfigSchema } from './src/lib/config-schema.ts';
+import { ClawpageConfigSchema } from './src/lib/config-schema.ts';
 
 // Arrays are concatenated, then base items.
 const merge = createDefu((obj, key, value) => {
@@ -36,10 +36,10 @@ function externalWatchPlugin() {
       if (existsSync(chatsDir)) {
         server.watcher.add(chatsDir);
       }
-      server.watcher.add(join(configDir, 'chats-share.toml'));
+      server.watcher.add(join(configDir, 'clawpage.toml'));
 
       const reload = (file) => {
-        if (file.startsWith(chatsDir) || file.startsWith(join(configDir, 'chats-share.toml'))) {
+        if (file.startsWith(chatsDir) || file.startsWith(join(configDir, 'clawpage.toml'))) {
           server.moduleGraph.invalidateAll();
           server.ws.send({ type: 'full-reload' });
         }
@@ -53,12 +53,12 @@ function externalWatchPlugin() {
 }
 
 const { config: projectConfig } = await loadConfig({
-  name: 'chats-share',
-  configFile: 'chats-share',
+  name: 'clawpage',
+  configFile: 'clawpage',
   cwd: projectDir,
 });
 
-const parsed = ChatsShareConfigSchema.safeParse(projectConfig);
+const parsed = ClawpageConfigSchema.safeParse(projectConfig);
 if (!parsed.success) {
   console.warn('Invalid config:', parsed.error.flatten());
 }
