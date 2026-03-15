@@ -13,8 +13,8 @@
   <rect x="0" y="0" width="8" height="630" fill="#d4a853"/>
 
   <!-- Site title -->
-  <text x="90" y="280" font-family="monospace" font-size="72" font-weight="500" fill="#e8e6e3">chats-share</text>
+  <text x="90" y="280" font-family="monospace" font-size="72" font-weight="500" fill="#e8e6e3">clawpage</text>
 
   <!-- Subtitle -->
-  <text x="90" y="350" font-family="monospace" font-size="28" fill="#5c5958">demo for openclaw-chats-share (shareable static chat archive)</text>
+  <text x="90" y="350" font-family="monospace" font-size="28" fill="#5c5958">demo for clawpage (shareable static chat archive)</text>
 </svg>
