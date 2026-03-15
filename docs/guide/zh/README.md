@@ -52,7 +52,7 @@ Agent 会：
 
 PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
 
-> **⚠️ 合并前请注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中打开生成的 YAML 文件，手动将任何遗漏的敏感内容替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info)。
+> **⚠️ 合并前请注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中打开生成的 YAML 文件，手动将任何遗漏的敏感内容替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info)。
 
 > **💡 提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
 
@@ -278,7 +278,7 @@ packages/
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
-      pages/       - index.astro, share/[slug].astro
+      pages/       - index.astro, chats/[slug].astro
   create/  - create-clawpage 脚手架工具
 chats/     - 演示用 YAML 聊天文件
 docs/      - 项目文档

@@ -52,7 +52,7 @@ The agent will:
 
 After the PR merges, your chat is live at `https://your-domain/chats/{slug}`.
 
-> **⚠️ Before merging:** AI-powered redaction is not 100% reliable. Always open the generated YAML in the PR and manually replace any missed sensitive content with `[REDACTED]`. See [How to protect sensitive info](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info) for details.
+> **⚠️ Before merging:** AI-powered redaction is not 100% reliable. Always open the generated YAML in the PR and manually replace any missed sensitive content with `[REDACTED]`. See [How to protect sensitive info](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info) for details.
 
 > **💡 Tip:** Set `visibility: private` (the default) to keep a chat accessible via direct link only, without it appearing on the public index page.
 
@@ -278,7 +278,7 @@ packages/
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
-      pages/       - index.astro, share/[slug].astro
+      pages/       - index.astro, chats/[slug].astro
   create/  - create-clawpage scaffolding tool
 chats/     - Demo YAML chat files
 docs/      - Project documentation

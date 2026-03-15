@@ -52,7 +52,7 @@ agentは以下を行います：
 
 PRをマージすると、チャットは `https://your-domain/chats/{slug}` で公開されます。
 
-> **⚠️ マージ前に確認：** AI による自動編集は100%確実ではありません。PR内の生成されたYAMLファイルを開き、見落とされた機密情報を手動で `[REDACTED]` に置き換えてください。詳細は [機密情報の保護方法](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info) をご覧ください。
+> **⚠️ マージ前に確認：** AI による自動編集は100%確実ではありません。PR内の生成されたYAMLファイルを開き、見落とされた機密情報を手動で `[REDACTED]` に置き換えてください。詳細は [機密情報の保護方法](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info) をご覧ください。
 
 > **💡 ヒント:** `visibility: private`（デフォルト）を設定すると、チャットは公開インデックスには表示されず、直接URLからのみアクセスできます。
 
@@ -278,7 +278,7 @@ packages/
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
-      pages/       - index.astro, share/[slug].astro
+      pages/       - index.astro, chats/[slug].astro
   create/  - create-clawpage スキャフォールディングツール
 chats/     - デモ用YAMLチャットファイル
 docs/      - プロジェクトドキュメント

@@ -52,7 +52,7 @@ L'agent va :
 
 Après la fusion de la PR, votre chat est en ligne à `https://votre-domaine/chats/{slug}`.
 
-> **⚠️ Avant de fusionner :** La rédaction automatique par IA n'est pas fiable à 100 %. Ouvrez le YAML généré dans la PR et remplacez manuellement tout contenu sensible manqué par `[REDACTED]`. Voir [Comment protéger les informations sensibles](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info) pour plus de détails.
+> **⚠️ Avant de fusionner :** La rédaction automatique par IA n'est pas fiable à 100 %. Ouvrez le YAML généré dans la PR et remplacez manuellement tout contenu sensible manqué par `[REDACTED]`. Voir [Comment protéger les informations sensibles](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info) pour plus de détails.
 
 > **💡 Astuce :** Définissez `visibility: private` (la valeur par défaut) pour garder un chat accessible uniquement via un lien direct, sans qu'il n'apparaisse sur la page d'index publique.
 
@@ -278,7 +278,7 @@ packages/
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
-      pages/       - index.astro, share/[slug].astro
+      pages/       - index.astro, chats/[slug].astro
   create/  - Outil d'échafaudage create-clawpage
 chats/     - Fichiers YAML de chat de démonstration
 docs/      - Documentation du projet

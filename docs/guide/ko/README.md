@@ -52,7 +52,7 @@ agent는 다음을 수행합니다:
 
 PR을 병합하면 채팅이 `https://your-domain/chats/{slug}`에 공개됩니다.
 
-> **⚠️ 병합 전 확인:** AI 자동 편집은 100% 신뢰할 수 없습니다. PR에서 생성된 YAML 파일을 열어 누락된 민감한 내용을 `[REDACTED]`로 직접 교체하세요. 자세한 내용은 [민감한 정보 보호 방법](https://clawpage.yelo.ooo/share/how-to-protect-sensitive-info)을 참조하세요.
+> **⚠️ 병합 전 확인:** AI 자동 편집은 100% 신뢰할 수 없습니다. PR에서 생성된 YAML 파일을 열어 누락된 민감한 내용을 `[REDACTED]`로 직접 교체하세요. 자세한 내용은 [민감한 정보 보호 방법](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info)을 참조하세요.
 
 > **💡 팁:** `visibility: private`(기본값)를 설정하면 채팅이 공개 인덱스에 표시되지 않고 직접 링크를 통해서만 액세스할 수 있습니다.
 
@@ -278,7 +278,7 @@ packages/
     src/
       components/  - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx, Footer.astro, MemoryBackground.astro
       lib/         - chats.ts, config.ts, config-schema.ts
-      pages/       - index.astro, share/[slug].astro
+      pages/       - index.astro, chats/[slug].astro
   create/  - create-clawpage 스캐폴딩 도구
 chats/     - 데모용 YAML 채팅 파일
 docs/      - 프로젝트 문서

@@ -102,9 +102,9 @@
 
 ### Minor Changes
 
-- 0756090: Move chat detail route from /share/[slug] to /chats/[slug]
+- 0756090: Move chat detail route from /chats/[slug] to /chats/[slug]
 
-  - Chat detail pages are now accessible at `/chats/[slug]` instead of `/share/[slug]`
+  - Chat detail pages are now accessible at `/chats/[slug]` instead of `/chats/[slug]`
   - This provides a cleaner URL structure for viewing shared chats
 
 ## 0.2.0

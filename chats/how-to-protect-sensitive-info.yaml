@@ -97,7 +97,7 @@ timeline:
 
       **Critical:** Make sure your repository is **private**. If it's public, anyone can view the raw YAML file at your GitHub repository history and see the original unredacted data.
 
-      The rendered page (`/share/your-session`) is safe — only the YAML source contains the original values.
+      The rendered page (`/chats/your-session`) is safe — only the YAML source contains the original values.
 
   - type: message
     role: human

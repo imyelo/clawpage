@@ -18,7 +18,7 @@ packages/
     test/                  - Bun tests for all three modules
   web/           - clawpage-web package (Astro-based)
     src/
-      pages/               - index.astro (chat index), share/[slug].astro (per-chat)
+      pages/               - index.astro (chat index), chats/[slug].astro (per-chat)
       components/          - MessageHeader.astro, ChatMessage.astro, CollapsibleMessage.tsx (React), Footer.astro, MemoryBackground.astro
       layouts/             - ChatLayout.astro
       lib/chats.ts         - Reads chats/ from monorepo root (or chats_dir config)
@@ -85,7 +85,7 @@ The CLI processes session data through three sequential stages:
 
 ### Web Data Flow
 
-At build time, `packages/web/src/lib/chats.ts` reads all `*.yaml` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `clawpage.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/share/[slug].astro` consume this data.
+At build time, `packages/web/src/lib/chats.ts` reads all `*.yaml` files from the chats directory. The default path is `../../chats/` (monorepo root relative to `packages/web/`), but it can be overridden via `chats_dir` in `clawpage.toml`. During `dev`, a Vite plugin watches external chats directories for hot-reload. The module exports `getAllChats()` (frontmatter only) and `getAllChatsWithContent()` (frontmatter + parsed message blocks). Frontmatter is parsed manually (no external library). The Astro pages at `src/pages/index.astro` and `src/pages/chats/[slug].astro` consume this data.
 
 Only chats with `visibility: public` (or no visibility field) are shown in the index. All slugs (including `private`) get individual pages and are accessible via direct URL.
 
