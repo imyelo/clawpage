@@ -17,7 +17,7 @@
     "prepublish": "bun run build",
     "changeset": "changeset",
     "version": "bunx changeset version",
-    "skill:publish": "clawhub publish ./skills/clawpage --slug clawpage --name \"Chats Share\""
+    "skill:publish": "clawhub publish ./skills/clawpage --slug clawpage --name \"Clawpage\""
   },
   "dependencies": {
     "clawpage-web": "workspace:*"
