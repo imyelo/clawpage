@@ -1,5 +1,19 @@
 # create-clawpage
 
+## 1.0.0
+
+### Major Changes
+
+- Rename project from chats-share to Clawpage
+
+  The project config file has been renamed from `chats-share.toml` to `clawpage.toml`.
+
+  **Migration:** rename your config file:
+
+  ```bash
+  mv chats-share.toml clawpage.toml
+  ```
+
 ## 0.5.0
 
 ### Minor Changes

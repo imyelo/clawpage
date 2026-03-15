@@ -1,6 +1,6 @@
 {
   "name": "clawpage-web",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "type": "module",
   "bin": {
     "clawpage-web": "bin/web.js"
