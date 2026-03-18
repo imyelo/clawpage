@@ -69,6 +69,8 @@ Do **not** silently remove content — always substitute `[REDACTED]` so the rea
 - **Before moving the file, create a dedicated branch** (see below — required even if the user does not publish yet):
   ```bash
   cd {projectDir}
+  git checkout main
+  git pull origin main
   git checkout -b chat/{YYYYMMDD}-{topic}
   ```
 - Move: `{projectDir}/chats/.tmp/{timestamp}.yaml` → `{projectDir}/chats/{YYYYMMDD}-{topic}.yaml`

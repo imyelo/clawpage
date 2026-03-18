@@ -23,5 +23,6 @@ By the time this step runs, the branch `chat/{YYYYMMDD}-{topic}` already exists 
 
    Next steps:
    1. Open https://github.com/{repo}/pull/new/chat/{YYYYMMDD}-{topic}
-   2. Review and create PR → merging to main will trigger the GitHub Actions build
+   2. Set the base branch to `main` (not gh-pages)
+   3. Review and create PR → merging to main will trigger the GitHub Actions build
    ```
