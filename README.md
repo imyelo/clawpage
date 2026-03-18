@@ -26,7 +26,7 @@ Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.
 
 ## 🚀 Live Demo
 
-<a href="https://clawpage.yelo.ooo" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
+<a href="https://clawpage.yelo.ooo/chats/building-a-conversation-sharing-tool" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 Or see a site we use it ourselves: [vibe.yelo.cc](https://vibe.yelo.cc)
 
