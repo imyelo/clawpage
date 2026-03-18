@@ -1,19 +1,28 @@
+<div align="center">
+
 # Clawpage
 
-> 📤 Type /clawpage in any Openclaw chat. Your conversation becomes a permanent page at your own URL. Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.
+**Type `/clawpage` in any Openclaw chat. Your conversation becomes a permanent page at your own URL.**<br>
+Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.
 
 [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-✨ No manual exports, no copy-pasting. One command and your chat is live at your own URL — title, description, and sensitive data handled for you.
+<img src="./media/info-card.svg" alt="Clawpage Info Card">
+
+<br>
+
+✨ **No manual exports, no copy-pasting.** One command and your chat is live at your own URL — title, description, and sensitive data handled for you.
+
+</div>
 
 ## 📌 Features
 
-- ⚡ `/clawpage` in any chat → live page at your URL in minutes
-- 🚀 No infrastructure to manage — pure static, deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages for free
-- 🔀 Review before you publish — each chat opens a PR so you control what goes live
-- 🔒 Share privately — direct link works, but chats stay off the public index by default
-- 🛡️ Safe to share — AI-assisted redaction replaces sensitive data with `[REDACTED]` before export
-- 🧠 Full fidelity — tool calls and thinking traces are preserved in the timeline, not stripped out
+- ⚡ **`/clawpage`** in any chat → live page at your URL in minutes
+- 🚀 **No infrastructure to manage** — pure static, deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages for free
+- 🔀 **Review before you publish** — each chat opens a PR so you control what goes live
+- 🔒 **Share privately** — direct link works, but chats stay off the public index by default
+- 🛡️ **Safe to share** — AI-assisted redaction replaces sensitive data with `[REDACTED]` before export
+- 🧠 **Full fidelity** — tool calls and thinking traces are preserved in the timeline, not stripped out
 
 ## 🚀 Live Demo
 
