@@ -2,33 +2,36 @@
 
 # Clawpage
 
-**Type `/clawpage` in any Openclaw chat. Your conversation becomes a permanent page at your own URL.**<br>
-Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.
-
-[Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
+**Type `/clawpage` in any Openclaw chat - conversation becomes a polished archive page at your own URL.**<br />
+**🚀 Deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages.**
 
 <img src="./media/info-card.svg" alt="Clawpage Info Card">
 
-<br>
+[Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-✨ **No manual exports, no copy-pasting.** One command and your chat is live at your own URL — title, description, and sensitive data handled for you.
+✨ **No manual exports, no copy-pasting, sensitive data auto-redacted**
 
 </div>
 
-## 📌 Features
+## 🤔 Why?
 
-- ⚡ **`/clawpage`** in any chat → live page at your URL in minutes
-- 🚀 **No infrastructure to manage** — pure static, deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages for free
-- 🔀 **Review before you publish** — each chat opens a PR so you control what goes live
-- 🔒 **Share privately** — direct link works, but chats stay off the public index by default
-- 🛡️ **Safe to share** — AI-assisted redaction replaces sensitive data with `[REDACTED]` before export
-- 🧠 **Full fidelity** — tool calls and thinking traces are preserved in the timeline, not stripped out
+AI chats are valuable, but they disappear. Clawpage turns them into publishable content you can save and share.
 
 ## 🚀 Live Demo
 
 <a href="https://clawpage.yelo.ooo/chats/building-a-conversation-sharing-tool" target="_blank"><img src="./media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 Or see a site we use it ourselves: [vibe.yelo.cc](https://vibe.yelo.cc)
+
+## 📌 Features
+
+- ⚡ **Based on Skills** — type `/clawpage` in any chat to start sharing
+- 🕐 **Any session** — not just the current chat, but also any historical session by ID or keyword
+- 🚀 **No server to manage** — pure static, deploys to GitHub Pages, Vercel, Netlify, or Cloudflare Pages for free
+- 🔀 **Review before you publish** — each export opens a PR so you can review content before merging
+- 🔒 **Share privately** — direct link works, but chats stay off the public index by default
+- 🛡️ **Safe to share** — AI-assisted redaction replaces sensitive data with `[REDACTED]` before export
+- 🧠 **Full fidelity** — tool calls and thinking traces are preserved in the timeline, not stripped out
 
 ## ⚡ Quick Start
 
@@ -53,7 +56,7 @@ Once setup is complete, use the `/clawpage` skill command in any Openclaw chat t
 
 The agent will:
 
-1. 🔍 Identify the current session to export
+1. 🔍 Locate the session to export — defaults to the current chat; you can also pick any previous session by ID or keyword
 2. ✅ Ask you to confirm the title, description, and visibility (`public` / `private`)
 3. 🔒 Redact any sensitive data you flag
 4. 📝 Write the YAML file to your working repo on a new branch (`chat/{YYYYMMDD}-{slug}`)
@@ -72,7 +75,7 @@ After the PR merges, your chat is live at `https://your-domain/chats/{slug}`.
     │
     ▼
 🤖 OpenClaw Skill
-    │  1. 🔍 Locate and confirm the session to export
+    │  1. 🔍 Locate session (current or any historical) → confirm
     │  2. 💬 Extract message history
     │  3. 📝 Populate metadata (title, participants, description)
     │  4. 🔒 Redact sensitive data

@@ -1,25 +1,37 @@
+<div align="center">
+
 # Clawpage
 
-> 📤 Tapez `/clawpage` dans n'importe quel chat Openclaw. Votre conversation devient une page permanente à votre propre URL. Déployé sur GitHub Pages, Vercel, Netlify ou Cloudflare Pages.
+**Tapez `/clawpage` dans n'importe quel chat Openclaw. Votre conversation devient une page d'archive soignée à votre propre URL en quelques minutes.**<br />
+**🚀 Déployé sur GitHub Pages, Vercel, Netlify ou Cloudflare Pages.**
+
+<img src="../../../media/info-card.svg" alt="Clawpage Info Card">
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-✨ Pas d'export manuel, pas de copier-coller. Une commande et votre chat est en ligne à votre propre URL — titre, description et données sensibles gérés pour vous.
+✨ **Pas d'export manuel, pas de copier-coller, données sensibles auto-expurgées**
 
-## 📌 Fonctionnalités
+</div>
 
-- ⚡ `/clawpage` dans n'importe quel chat → page en direct à votre URL en quelques minutes
-- 🚀 Aucune infrastructure à gérer — purement statique, déployé sur GitHub Pages, Vercel, Netlify ou Cloudflare Pages gratuitement
-- 🔀 Révisez avant de publier — chaque chat ouvre une PR pour que vous contrôliez ce qui est mis en ligne
-- 🔒 Partagez en privé — le lien direct fonctionne, mais les chats restent hors de l'index public par défaut
-- 🛡️ Sûr à partager — la rédaction assistée par IA remplace les données sensibles par `[REDACTED]` avant l'export
-- 🧠 Fidélité totale — les appels d'outils et les traces de réflexion sont préservés dans la chronologie, pas supprimés
+## 🤔 Pourquoi ?
+
+Les conversations avec l'IA sont précieuses, mais elles disparaissent. Clawpage les transforme en contenu publiable que vous pouvez sauvegarder et partager.
 
 ## Démo en Direct 🚀
 
-<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
+<a href="https://clawpage.yelo.ooo/chats/building-a-conversation-sharing-tool" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 Ou consultez un site que nous utilisons nous-mêmes : [vibe.yelo.cc](https://vibe.yelo.cc)
+
+## 📌 Fonctionnalités
+
+- ⚡ **Basé sur les Skills** — tapez `/clawpage` dans n'importe quel chat pour commencer à partager
+- 🕐 **N'importe quelle session** — pas seulement le chat actuel, mais aussi n'importe quelle session historique par ID ou mot-clé
+- 🚀 **Aucun serveur à gérer** — purement statique, déployé sur GitHub Pages, Vercel, Netlify ou Cloudflare Pages gratuitement
+- 🔀 **Révisez avant de publier** — chaque exportation ouvre une PR pour que vous puissiez réviser le contenu avant de fusionner
+- 🔒 **Partagez en privé** — le lien direct fonctionne, mais les chats restent hors de l'index public par défaut
+- 🛡️ **Sûr à partager** — la rédaction assistée par IA remplace les données sensibles par `[REDACTED]` avant l'export
+- 🧠 **Fidélité totale** — les appels d'outils et les traces de réflexion sont préservés dans la chronologie, pas supprimés
 
 ## ⚡ Démarrage Rapide
 
@@ -44,7 +56,7 @@ Une fois la configuration terminée, utilisez la commande skill `/clawpage` dans
 
 L'agent va :
 
-1. 🔍 Identifier la session actuelle à exporter
+1. 🔍 Localiser la session à exporter — par défaut le chat actuel ; vous pouvez également choisir n'importe quelle session précédente par ID ou mot-clé
 2. ✅ Vous demander de confirmer le titre, la description et la visibilité (`public` / `private`)
 3. 🔒 Masquer les données sensibles que vous signalez
 4. 📝 Écrire le fichier YAML dans votre repo de travail sur une nouvelle branche (`chat/{YYYYMMDD}-{slug}`)
@@ -63,7 +75,7 @@ Après la fusion de la PR, votre chat est en ligne à `https://votre-domaine/cha
     │
     ▼
 🤖 OpenClaw Skill
-    │  1. 🔍 Localiser et confirmer la session à exporter
+    │  1. 🔍 Localiser la session (actuelle ou historique) → confirmer
     │  2. 💬 Extraire l'historique des messages
     │  3. 📝 Remplir les métadonnées (titre, participants, description)
     │  4. 🔒 Masquer les données sensibles

@@ -1,25 +1,37 @@
+<div align="center">
+
 # Clawpage
 
-> 📤 Openclaw チャットで `/clawpage` と入力してください。会話は自分の URL の恒久的なページになります。GitHub Pages、Vercel、Netlify、または Cloudflare Pages にデプロイされます。
+**Openclaw チャットで `/clawpage` と入力してください。会話は数分で自分の URL の洗練されたアーカイブページになります。**<br />
+**🚀 GitHub Pages、Vercel、Netlify、または Cloudflare Pages にデプロイされます。**
+
+<img src="../../../media/info-card.svg" alt="Clawpage Info Card">
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [한국어](/docs/guide/ko/README.md)
 
-手動エクスポート不要、コピペ不要。1つのコマンドでチャットが自分の URL で公開されます — タイトル、説明、機密データはすべて代わりに処理されます。
+✨ **手動エクスポート不要、コピペ不要、機密データ自動編集**
 
-## 📌 機能
+</div>
 
-- ⚡ 任意のチャットで `/clawpage` → 数分であなたの URL にライブページが公開
-- 🚀 インフラ管理不要 — 純粋な静的サイト、GitHub Pages・Vercel・Netlify・Cloudflare Pages に無料デプロイ
-- 🔀 公開前にレビュー — チャットごとに PR が作成され、何を公開するかをコントロール
-- 🔒 プライベート共有 — 直接リンクで共有可能、公開インデックスにはデフォルトで表示されない
-- 🛡️ 安全に共有 — AIによる自動編集がエクスポート前に機密データを `[REDACTED]` に置き換える
-- 🧠 完全な忠実性 — ツール呼び出しと思考トレースはタイムラインに保存され、削除されない
+## 🤔 なぜ？
+
+AI とのチャットには貴重なアイデアが含まれますが、消えてしまいます。Clawpage は、それらを保存して共有できるコンテンツに変換します。
 
 ## ライブデモ 🚀
 
-<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
+<a href="https://clawpage.yelo.ooo/chats/building-a-conversation-sharing-tool" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 実際に使っているサイトもご覧ください：[vibe.yelo.cc](https://vibe.yelo.cc)
+
+## 📌 機能
+
+- ⚡ **Skills ベース** — 任意のチャットで `/clawpage` と入力してシェアを開始
+- 🕐 **任意のセッション** — 現在のチャットだけでなく、IDやキーワードで過去の任意の会話をエクスポート可能
+- 🚀 **サーバー管理不要** — 純粋な静的サイト、GitHub Pages・Vercel・Netlify・Cloudflare Pages に無料デプロイ
+- 🔀 **公開前にレビュー** — 毎回エクスポート時に PR が作成され、マージ前にコンテンツをレビュー可能
+- 🔒 **プライベート共有** — 直接リンクで共有可能、公開インデックスにはデフォルトで表示されない
+- 🛡️ **安全に共有** — AIによる自動編集がエクスポート前に機密データを `[REDACTED]` に置き換える
+- 🧠 **完全な忠実性** — ツール呼び出しと思考トレースはタイムラインに保存され、削除されない
 
 ## ⚡ クイックスタート
 
@@ -44,7 +56,7 @@ agentは私有GitHubリポジトリをスキャフォールドし、Pages URLで
 
 agentは以下を行います：
 
-1. 🔍 エクスポートする現在のセッションを特定
+1. 🔍 エクスポートするセッションを特定 — デフォルトは現在のチャットです。IDやキーワードで過去の任意のセッションを選択することもできます
 2. ✅ タイトル、説明、公開設定（`public` / `private`）の確認を求める
 3. 🔒 フラグした機密データを編集
 4. 📝 ワークリポジトリの新しいブランチ（`chat/{YYYYMMDD}-{slug}`）にYAMLファイルを書き込み
@@ -63,7 +75,7 @@ PRをマージすると、チャットは `https://your-domain/chats/{slug}` で
     │
     ▼
 🤖 OpenClaw Skill
-    │  1. 🔍 エクスポートするセッションを特定して確認
+    │  1. 🔍 セッションを特定（現在または過去）→ 確認
     │  2. 💬 メッセージ履歴を抽出
     │  3. 📝 メタデータ（タイトル、参加者、説明）を記述
     │  4. 🔒 機密データを編集

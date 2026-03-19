@@ -2,7 +2,7 @@
 
 脚手架已包含所有支持平台的配置文件。选择与你的托管服务匹配的平台，按照以下步骤操作。
 
-> **关于私有仓库的说明：** 我们建议将仓库设为**私有**，以保护聊天中的敏感信息 — 参阅[如何保护敏感信息](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/)。但是，GitHub Pages 从私有仓库部署需要 **Pro 计划或更高版本**。如果你的仓库是私有的且使用 GitHub 免费计划，请改用 Netlify、Vercel 或 Cloudflare Pages — 三者均在免费层支持私有仓库。
+> ⚠️ **关于私有仓库的说明：** 我们建议将仓库设为**私有**，以保护聊天中的敏感信息 — 参阅[如何保护敏感信息](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/)。但是，GitHub Pages 从私有仓库部署需要 **Pro 计划或更高版本**。如果你的仓库是私有的且使用 GitHub 免费计划，请改用 Netlify、Vercel 或 Cloudflare Pages — 三者均在免费层支持私有仓库。
 
 ---
 

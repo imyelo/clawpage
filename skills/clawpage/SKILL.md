@@ -30,6 +30,7 @@ Share AI agent conversations as public web pages.
 ### 2. Locate Session
 
 - List sessions using agent profile discovery
+- Default to the most recent (current) session; offer to pick any historical session by ID or keyword
 - Show candidates → user confirms selection
 
 ### 3. Extract & Convert

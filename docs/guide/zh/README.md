@@ -1,25 +1,37 @@
+<div align="center">
+
 # Clawpage
 
-> 📤 在任何 Openclaw 聊天中输入 `/clawpage`。你的对话将变成你专属 URL 上的永久页面。部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages。
+**在 Openclaw 中输入 `/clawpage`，将历史对话变成精美的网页。**<br />
+**已集成 GitHub Pages、Vercel、Netlify 及 Cloudflare Pages 部署。**
+
+<img src="../../../media/info-card.svg" alt="Clawpage Info Card">
 
 [English](/docs/guide/en/README.md) · [Español](/docs/guide/es/README.md) · [Français](/docs/guide/fr/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-✨ 不用手动导出，不用复制粘贴。一条命令，你的聊天就在你自己的 URL 上线了——标题、描述、敏感数据，统统帮你搞定。
+✨ **无需手动导出，无需复制粘贴，敏感数据自动脱敏**
 
-## 📌 功能特性
+</div>
 
-- ⚡ 在任何聊天中输入 `/clawpage` → 几分钟内在你的 URL 上线
-- 🚀 无需管理基础设施 — 纯静态，免费部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages
-- 🔀 发布前先审查 — 每次聊天会开启一个 PR，让你掌控什么内容上线
-- 🔒 私密分享 — 直接链接可用，但聊天默认不出现在公开索引中
-- 🛡️ 安全分享 — AI 辅助编辑在导出前将敏感数据替换为 `[REDACTED]`
-- 🧠 完整保真 — 工具调用和思考轨迹都保留在时间线中，不会被删除
+## 为什么？
+
+与 AI 的对话里常常藏着好想法、难得的思路，但它们会消失。 Clawpage 把它们变成可以保存和发布的内容。
 
 ## 实时演示 🚀
 
-<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
+<a href="https://clawpage.yelo.ooo/chats/building-a-conversation-sharing-tool" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
-或者查看我们自己在用的站点：[vibe.yelo.cc](https://vibe.yelo.cc)
+或者看看我们实际在用的站点：[vibe.yelo.cc](https://vibe.yelo.cc)
+
+## 📌 功能特性
+
+- ⚡ **基于 Skills** - 在聊天中随时输入 `/clawpage` 开始分享
+- 🕐 **任意会话** — 不仅支持当前对话，还可以通过 ID / 关键词导出任意历史会话
+- 🚀 **无需服务器** — 纯静态，免费部署到 GitHub Pages、Vercel、Netlify 或 Cloudflare Pages
+- 🔀 **发布前先审查** — 每次导出都会创建一个 PR，让你在合并前审核内容
+- 🔒 **私密分享** — 通过直达链接分享，默认不出现在公开索引中
+- 🛡️ **安全分享** — AI 辅助脱敏，在导出时自动将敏感数据替换为 `[REDACTED]`
+- 🧠 **完整保真** — 工具调用和思考轨迹也都完整保留在时间线中
 
 ## ⚡ 快速开始
 
@@ -34,7 +46,7 @@
 
 Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `clawpage.toml`，推送初始提交，启用 GitHub Actions 作为 Pages 来源，并注册项目使 `/clawpage` 立即可用。完整步骤详见 [skills/clawpage/references/setup.md](../../../skills/clawpage/references/setup.md)。
 
-## 📤 分享聊天
+## 📤 分享对话
 
 设置完成后，在任何 Openclaw 聊天中使用 `/clawpage` skill 命令来导出：
 
@@ -44,15 +56,15 @@ Agent 会搭建一个私有 GitHub 仓库，用你的 Pages URL 配置 `clawpage
 
 Agent 会：
 
-1. 🔍 识别要导出的当前会话
+1. 🔍 定位要导出的会话 — 默认为当前对话；也可通过 ID 或关键词选取任意历史会话
 2. ✅ 请你确认标题、描述和可见性（`public` / `private`）
 3. 🔒 将你标记的敏感数据脱敏
 4. 📝 将 YAML 文件写入工作仓库的新分支（`chat/{YYYYMMDD}-{slug}`）
 5. 🔀 提示你创建 Pull Request — 合并到 `main` 会触发 GitHub Pages 构建
 
-PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
+PR 合并后，你们的对话将在 `https://your-domain/chats/{slug}` 上线。
 
-> **⚠️ 合并前请注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中打开生成的 YAML 文件，手动将任何遗漏的敏感内容替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info)。
+> **⚠️ 注意：** AI 自动脱敏并非 100% 可靠。请在 PR 中检查 YAML 文件，将遗漏的敏感内容手动替换为 `[REDACTED]`。详情请参阅 [如何保护敏感信息](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info)。
 
 > **💡 提示：** 设置 `visibility: private`（默认）可以让聊天仅通过直接链接访问，而不会出现在公开索引页面上。
 
@@ -63,7 +75,7 @@ PR 合并后，你的聊天将在 `https://your-domain/chats/{slug}` 上线。
     │
     ▼
 🤖 OpenClaw Skill
-    │  1. 🔍 定位并确认要导出的会话
+    │  1. 🔍 定位会话（当前或历史）→ 确认
     │  2. 💬 提取消息历史
     │  3. 📝 填充元数据（标题、参与者、描述）
     │  4. 🔒 脱敏敏感数据

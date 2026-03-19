@@ -2,7 +2,7 @@
 
 Le scaffold inclut des fichiers de configuration pour toutes les plateformes supportées. Choisissez celle qui correspond à votre hébergeur et suivez les étapes ci-dessous.
 
-> **Note sur les dépôts privés :** Nous recommandons de garder votre dépôt **privé** comme bonne pratique pour protéger les informations sensibles dans vos chats — voir [comment protéger les informations sensibles](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/). Cependant, GitHub Pages nécessite un **plan Pro ou supérieur** pour déployer depuis un dépôt privé. Si votre dépôt est privé et que vous êtes sur le plan gratuit GitHub, utilisez Netlify, Vercel ou Cloudflare Pages à la place — les trois supportent les dépôts privés sur leurs niveaux gratuits.
+> ⚠️ **Note sur les dépôts privés :** Nous recommandons de garder votre dépôt **privé** comme bonne pratique pour protéger les informations sensibles dans vos chats — voir [comment protéger les informations sensibles](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/). Cependant, GitHub Pages nécessite un **plan Pro ou supérieur** pour déployer depuis un dépôt privé. Si votre dépôt est privé et que vous êtes sur le plan gratuit GitHub, utilisez Netlify, Vercel ou Cloudflare Pages à la place — les trois supportent les dépôts privés sur leurs niveaux gratuits.
 
 ---
 

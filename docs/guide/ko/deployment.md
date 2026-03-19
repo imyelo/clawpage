@@ -2,7 +2,7 @@
 
 scaffold에는 지원되는 모든 플랫폼의 설정 파일이 포함되어 있습니다. 사용 중인 호스팅에 맞는 플랫폼을 선택하고 아래 단계를 따르세요.
 
-> **비공개 저장소에 대한 참고 사항:** 채팅 내 민감한 정보를 보호하기 위해 저장소를 **비공개**로 유지하는 것을 권장합니다 — [민감한 정보 보호 방법](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/)을 참조하세요. 단, GitHub Pages에서 비공개 저장소로 배포하려면 **Pro 플랜 이상**이 필요합니다. 저장소가 비공개이고 GitHub 무료 플랜을 사용 중이라면 Netlify, Vercel, 또는 Cloudflare Pages를 사용하세요 — 세 플랫폼 모두 무료 티어에서 비공개 저장소를 지원합니다.
+> ⚠️ **비공개 저장소에 대한 참고 사항:** 채팅 내 민감한 정보를 보호하기 위해 저장소를 **비공개**로 유지하는 것을 권장합니다 — [민감한 정보 보호 방법](https://clawpage.yelo.ooo/chats/how-to-protect-sensitive-info/)을 참조하세요. 단, GitHub Pages에서 비공개 저장소로 배포하려면 **Pro 플랜 이상**이 필요합니다. 저장소가 비공개이고 GitHub 무료 플랜을 사용 중이라면 Netlify, Vercel, 또는 Cloudflare Pages를 사용하세요 — 세 플랫폼 모두 무료 티어에서 비공개 저장소를 지원합니다.
 
 ---
 

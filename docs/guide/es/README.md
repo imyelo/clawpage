@@ -1,25 +1,37 @@
+<div align="center">
+
 # Clawpage
 
-> 📤 Escribe `/clawpage` en cualquier chat de Openclaw. Tu conversación se convierte en una página permanente en tu propia URL. Se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages.
+**Escribe `/clawpage` en cualquier chat de Openclaw. Tu conversación se convierte en una página de archivo en minutos en tu propia URL.**<br />
+**🚀 Se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages.**
+
+<img src="../../../media/info-card.svg" alt="Clawpage Info Card">
 
 [English](/docs/guide/en/README.md) · [Français](/docs/guide/fr/README.md) · [中文](/docs/guide/zh/README.md) · [日本語](/docs/guide/ja/README.md) · [한국어](/docs/guide/ko/README.md)
 
-✨ Sin exportaciones manuales, sin copy-paste. Un comando y tu chat está en línea en tu propia URL — título, descripción y datos sensibles gestionados para ti.
+✨ **Sin exportaciones manuales, sin copiar-pegar, datos sensibles auto-redactados**
 
-## 📌 Funcionalidades
+</div>
 
-- ⚡ `/clawpage` en cualquier chat → página en vivo en tu URL en minutos
-- 🚀 Sin infraestructura que gestionar — puramente estático, se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages gratis
-- 🔀 Revisa antes de publicar — cada chat abre un PR para que controles qué sale a producción
-- 🔒 Comparte de forma privada — el enlace directo funciona, pero los chats no aparecen en el índice público por defecto
-- 🛡️ Seguro para compartir — la redacción asistida por IA reemplaza los datos sensibles con `[REDACTED]` antes de exportar
-- 🧠 Fidelidad total — las llamadas a herramientas y los rastros de pensamiento se preservan en la línea de tiempo, no se eliminan
+## 🤔 ¿Por qué?
+
+Los chats de IA son valiosos, pero desaparecen. Clawpage los convierte en contenido publicable que puedes guardar y compartir.
 
 ## Demo en Vivo 🚀
 
-<a href="https://clawpage.yelo.ooo" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
+<a href="https://clawpage.yelo.ooo/chats/building-a-conversation-sharing-tool" target="_blank"><img src="../../../media/screenshot.png" alt="Screenshot of a chat page built with clawpage" width="640" /></a>
 
 O consulta un sitio que usamos nosotros mismos: [vibe.yelo.cc](https://vibe.yelo.cc)
+
+## 📌 Funcionalidades
+
+- ⚡ **Basado en Skills** — escribe `/clawpage` en cualquier chat para empezar a compartir
+- 🕐 **Cualquier sesión** — no solo el chat actual, sino también cualquier sesión histórica por ID o palabra clave
+- 🚀 **Sin servidor que gestionar** — puramente estático, se despliega en GitHub Pages, Vercel, Netlify o Cloudflare Pages gratis
+- 🔀 **Revisa antes de publicar** — cada exportación crea un PR para que puedas revisar el contenido antes de fusionar
+- 🔒 **Comparte de forma privada** — el enlace directo funciona, pero los chats no aparecen en el índice público por defecto
+- 🛡️ **Seguro para compartir** — la redacción asistida por IA reemplaza los datos sensibles con `[REDACTED]` antes de exportar
+- 🧠 **Fidelidad total** — las llamadas a herramientas y los rastros de pensamiento se preservan en la línea de tiempo, no se eliminan
 
 ## ⚡ Inicio Rápido
 
